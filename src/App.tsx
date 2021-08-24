@@ -1,10 +1,10 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import AddBooking from "./components/AddBooking";
 import Bookings from "./components/Bookings";
 import LandingPage from "./components/LandingPage";
 import { GlobalStyle } from "./components/styles/global";
+import Booking from "./components/Booking";
 
 function App() {
   return (
@@ -17,10 +17,9 @@ function App() {
             <LandingPage />
           </Route>
 
-          <Route path="/create">
-            <AddBooking />
+          <Route path="/booking">
+            <Booking />
           </Route>
-
           <Route path="/bookings">
             <Bookings />
           </Route>

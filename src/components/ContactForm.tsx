@@ -1,16 +1,20 @@
-import axios from "axios";
 import { useState } from "react";
 
-const AddBooking = () => {
+interface IContactFormProps {
+  addContactInfo(
+    firstname: string,
+    lastname: string,
+    email: string,
+    phoneNumber: number
+  ): void;
+}
+
+const ContactForm = (props: IContactFormProps) => {
   const [input, setInput] = useState({
-    Booking: {
-      ContactInfo: {
-        firstname: "",
-        lastname: "",
-        email: "",
-        phoneNumber: "",
-      },
-    },
+    firstname: "",
+    lastname: "",
+    email: "",
+    phoneNumber: 0,
   });
 
   const handleChange = (e: any) => {
@@ -26,14 +30,12 @@ const AddBooking = () => {
 
   const handleClick = (e: any) => {
     e.preventDefault();
-    const newBooking = {
-      firstname: input.Booking.ContactInfo.firstname,
-      lastname: input.Booking.ContactInfo.lastname,
-      email: input.Booking.ContactInfo.email,
-      phoneNumber: input.Booking.ContactInfo.phoneNumber,
-    };
-    axios.post("http://localhost:3001/create", newBooking);
-    console.log(newBooking);
+    props.addContactInfo(
+      input.firstname,
+      input.lastname,
+      input.email,
+      input.phoneNumber
+    );
   };
 
   return (
@@ -43,28 +45,28 @@ const AddBooking = () => {
           type="text"
           name="firstname"
           placeholder="Förnamn"
-          value={input.Booking.ContactInfo.firstname}
+          value={input.firstname}
           onChange={handleChange}
         />
         <input
           type="text"
           name="lastname"
           placeholder="Efernamn"
-          value={input.Booking.ContactInfo.lastname}
+          value={input.lastname}
           onChange={handleChange}
         />
         <input
           type="email"
           name="email"
           placeholder="Email"
-          value={input.Booking.ContactInfo.email}
+          value={input.email}
           onChange={handleChange}
         />
         <input
-          type="tel"
-          name="phonenumber"
+          type="number"
+          name="phoneNumber"
           placeholder="TeleNr"
-          value={input.Booking.ContactInfo.phoneNumber}
+          value={input.phoneNumber}
           onChange={handleChange}
         />
         <button onClick={handleClick}>Book a table</button>
@@ -73,4 +75,4 @@ const AddBooking = () => {
   );
 };
 
-export default AddBooking;
+export default ContactForm;

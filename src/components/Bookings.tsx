@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
 
+interface IBookings {
+  ContactInfo: {
+    firstname: string;
+    lastname: string;
+    email: string;
+    phoneNumber: number;
+  };
+}
+
 const Bookings = () => {
-  const [bookings, setBookings] = useState([
-    {
-      Booking: {
-        ContactInfo: {
-          firstname: "",
-          lastname: "",
-          email: "",
-          phoneNumber: "",
-        },
-      },
-    },
-  ]);
+  const [bookings, setBookings] = useState<IBookings[]>([]);
 
   useEffect(() => {
     fetch("/bookings")
@@ -30,10 +28,10 @@ const Bookings = () => {
       <h1>Bookings page</h1>
       {bookings.map((booking) => (
         <div>
-          <p>{booking.Booking.ContactInfo.firstname}</p>
-          <p>{booking.Booking.ContactInfo.lastname}</p>
-          <p>{booking.Booking.ContactInfo.email}</p>
-          <p>{booking.Booking.ContactInfo.phoneNumber}</p>
+          <p>{booking.ContactInfo.firstname}</p>
+          <p>{booking.ContactInfo.lastname}</p>
+          <p>{booking.ContactInfo.email}</p>
+          <p>{booking.ContactInfo.phoneNumber}</p>
         </div>
       ))}
     </>
