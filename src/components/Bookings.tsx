@@ -3,8 +3,14 @@ import { useEffect, useState } from "react";
 const Bookings = () => {
   const [bookings, setBookings] = useState([
     {
-      firstname: "",
-      lastname: "",
+      Booking: {
+        ContactInfo: {
+          firstname: "",
+          lastname: "",
+          email: "",
+          phoneNumber: "",
+        },
+      },
     },
   ]);
 
@@ -16,15 +22,18 @@ const Bookings = () => {
         }
       })
       .then((response) => setBookings(response));
-  });
+  }, []);
+  console.log(bookings);
 
   return (
     <>
       <h1>Bookings page</h1>
       {bookings.map((booking) => (
         <div>
-          <p>{booking.firstname}</p>
-          <p>{booking.lastname}</p>
+          <p>{booking.Booking.ContactInfo.firstname}</p>
+          <p>{booking.Booking.ContactInfo.lastname}</p>
+          <p>{booking.Booking.ContactInfo.email}</p>
+          <p>{booking.Booking.ContactInfo.phoneNumber}</p>
         </div>
       ))}
     </>
