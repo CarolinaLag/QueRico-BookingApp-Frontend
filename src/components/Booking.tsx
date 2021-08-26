@@ -6,7 +6,7 @@ const Booking = () => {
     firstname: string,
     lastname: string,
     email: string,
-    phoneNumber: number
+    phoneNumber: string
   ): void => {
     let contactBooking = {
       firstname: firstname,

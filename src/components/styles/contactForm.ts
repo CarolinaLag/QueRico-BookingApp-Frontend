@@ -23,6 +23,10 @@ export const ContactFormInputsWrapper = styled.div`
     border: none;
     padding: 20px;
   }
+
+  small {
+    color: red;
+  }
 `;
 
 export const ContactFormButtonWrapper = styled.div`

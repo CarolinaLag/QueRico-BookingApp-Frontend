@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -15,7 +16,7 @@ interface IContactFormProps {
     firstname: string,
     lastname: string,
     email: string,
-    phoneNumber: number
+    phoneNumber: string
   ): void;
 }
 
@@ -24,7 +25,7 @@ const ContactForm = (props: IContactFormProps) => {
     firstname: "",
     lastname: "",
     email: "",
-    phoneNumber: 0,
+    phoneNumber: "",
     checkbox: false,
   });
 
@@ -32,33 +33,75 @@ const ContactForm = (props: IContactFormProps) => {
     firstname: "",
     lastname: "",
     email: "",
-    phoneNumber: 0,
+    phoneNumber: "",
     // checkbox: false,
   });
 
+  const firstUpdate = useRef(true);
+
   useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
     validation();
   }, [input]);
 
   const validation = () => {
+    let errorMessages = {
+      firstname: "",
+      lastname: "",
+      email: "",
+      phoneNumber: "",
+    };
     if (input.firstname === "") {
-      setError({ ...error, firstname: "Förnamn saknas" });
+      errorMessages.firstname = "Förnamn saknas";
     } else {
-      setError({ ...error, firstname: "" });
+      if (input.firstname.length >= 20 || input.firstname.length <= 2) {
+        errorMessages.firstname =
+          "Förnamn måste vara minst 2 och max 20 tecken";
+      } else {
+        errorMessages.firstname = "";
+      }
     }
     if (input.lastname === "") {
-      setError({ ...error, lastname: "Efternamn saknas" });
+      errorMessages.lastname = "Efternamn saknas";
     } else {
-      setError({ ...error, lastname: "" });
+      if (input.lastname.length >= 20 || input.lastname.length <= 2) {
+        errorMessages.lastname =
+          "Efternamn måste vara minst 2 och max 20 tecken";
+      } else {
+        errorMessages.lastname = "";
+      }
     }
     if (input.email === "") {
-      setError({ ...error, email: "Email saknas" });
+      errorMessages.email = "Email saknas";
     } else {
-      setError({ ...error, email: "" });
+      if (!/\S+@\S+\.\S+/.test(input.email)) {
+        errorMessages.email = "Email har ogiltigt format";
+      } else {
+        errorMessages.email = "";
+      }
     }
-    // } else if (!/\S+@\S+\.\S+/.test(input.email)) {
-    //   error.email = "Email is invalid";
-    // }
+    if (input.phoneNumber === "") {
+      errorMessages.phoneNumber = "Telefonnummer saknas";
+    } else {
+      if (
+        /^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/.test(
+          input.phoneNumber
+        )
+      ) {
+        //Regex för 7-10 siffror (tillåter inte ex sju siffror av samma siffra) men längre även tillåtet, tar bort spaces and dashes
+        errorMessages.phoneNumber = "Telefonnummer har ogiltigt format";
+      } else {
+        if (input.phoneNumber.length >= 20) {
+          errorMessages.phoneNumber = "Telefonummer måste vara 20 tecken";
+        } else {
+          errorMessages.phoneNumber = "";
+        }
+      }
+    }
+    setError(errorMessages);
   };
 
   const handleChange = (e: any) => {
@@ -66,6 +109,7 @@ const ContactForm = (props: IContactFormProps) => {
     const target = e.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
+
     setInput((prevInput) => {
       return {
         ...prevInput,
@@ -101,47 +145,59 @@ const ContactForm = (props: IContactFormProps) => {
             <input
               type="text"
               name="firstname"
+              required
+              minLength={2}
+              maxLength={20}
               placeholder="Förnamn"
               value={input.firstname}
               onChange={handleChange}
             />
-            {error.firstname && <p>{error.firstname}</p>}
+            {error.firstname && <small>{error.firstname}</small>}
             <input
               type="text"
               name="lastname"
+              maxLength={20}
               placeholder="Efernamn"
               value={input.lastname}
               onChange={handleChange}
             />
-            {error.lastname && <p>{error.lastname}</p>}
+            {error.lastname && <small>{error.lastname}</small>}
             <input
               type="email"
               name="email"
-              placeholder="Email"
+              maxLength={25}
+              placeholder="querico@email.com"
               value={input.email}
               onChange={handleChange}
             />
-            {error.email && <p>{error.email}</p>}
+            {error.email && <small>{error.email}</small>}
             <input
-              type="number"
+              type="text"
               name="phoneNumber"
-              placeholder="070-7245678"
-              pattern="[0-9]{3}-[0-9]{3}[0-9]{4}"
-              required
+              placeholder="0707245678"
+              maxLength={20}
+              //pattern="[0-9]{3}-[0-9]{3}[0-9]{4}"
               value={input.phoneNumber}
               onChange={handleChange}
             />
-            <small>Format: 070-7245678</small>
+            {error.phoneNumber && <small>{error.phoneNumber}</small>}
             <GdprWrapper>
               <input
                 type="checkbox"
                 checked={input.checkbox}
                 name="checkbox"
                 onChange={handleChange}
-                //checked={true}
-                //onChange={(e) => handleCheck(e)}
               />
-              <p>Jag godkänner gdpr</p>
+              <p>
+                Jag godkänner Gdpr:s
+                <a
+                  href="https://www.imy.se/verksamhet/dataskydd/det-har-galler-enligt-gdpr/introduktion-till-gdpr/dataskyddsforordningen-i-fulltext/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  villkor
+                </a>
+              </p>
             </GdprWrapper>
             <ContactFormButtonWrapper>
               <Link to={"/"}>Tillbaka</Link>
