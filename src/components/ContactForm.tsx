@@ -37,6 +37,8 @@ const ContactForm = (props: IContactFormProps) => {
     // checkbox: false,
   });
 
+  //const [validationDone, setValidationDone] = useState(false);
+
   const firstUpdate = useRef(true);
 
   useEffect(() => {
@@ -45,6 +47,7 @@ const ContactForm = (props: IContactFormProps) => {
       return;
     }
     validation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input]);
 
   const validation = () => {
@@ -204,10 +207,10 @@ const ContactForm = (props: IContactFormProps) => {
 
               <Button
                 disabled={
-                  !input.firstname ||
-                  !input.lastname ||
-                  !input.email ||
-                  !input.phoneNumber ||
+                  error.firstname.length > 0 ||
+                  error.lastname.length > 0 ||
+                  error.email.length > 0 ||
+                  error.phoneNumber.length > 0 ||
                   input.checkbox === false
                 }
                 onClick={handleClick}
