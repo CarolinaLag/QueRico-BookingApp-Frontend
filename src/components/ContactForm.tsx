@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { ChangeEvent, useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -34,10 +34,7 @@ const ContactForm = (props: IContactFormProps) => {
     lastname: "",
     email: "",
     phoneNumber: "",
-    // checkbox: false,
   });
-
-  //const [validationDone, setValidationDone] = useState(false);
 
   const firstUpdate = useRef(true);
 
@@ -94,7 +91,6 @@ const ContactForm = (props: IContactFormProps) => {
           input.phoneNumber
         )
       ) {
-        //Regex för 7-10 siffror (tillåter inte ex sju siffror av samma siffra) men längre även tillåtet, tar bort spaces and dashes
         errorMessages.phoneNumber = "Telefonnummer har ogiltigt format";
       } else {
         if (input.phoneNumber.length >= 20) {
@@ -107,7 +103,7 @@ const ContactForm = (props: IContactFormProps) => {
     setError(errorMessages);
   };
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     //const { name, value } = e.target;
     const target = e.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
@@ -120,9 +116,8 @@ const ContactForm = (props: IContactFormProps) => {
       };
     });
   };
-  console.log(error);
-  console.log(input);
-  const handleClick = (e: any) => {
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     props.addContactInfo(
       input.firstname,
@@ -130,6 +125,13 @@ const ContactForm = (props: IContactFormProps) => {
       input.email,
       input.phoneNumber
     );
+    setInput({
+      firstname: "",
+      lastname: "",
+      email: "",
+      phoneNumber: "",
+      checkbox: false,
+    });
   };
 
   return (
