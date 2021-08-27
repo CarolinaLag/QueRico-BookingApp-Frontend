@@ -5,7 +5,7 @@ interface IBookings {
     firstname: string;
     lastname: string;
     email: string;
-    phoneNumber: number;
+    phoneNumber: string;
   };
 }
 
