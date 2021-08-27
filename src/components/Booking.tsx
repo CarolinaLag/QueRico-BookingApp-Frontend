@@ -58,10 +58,13 @@ const Booking = () => {
     phoneNumber: string
   ): void => {
     let contactBooking = {
+      date: booking.date,
+      guests: booking.guests,
+      timeslot: booking.timeslot,
       firstname: firstname,
       lastname: lastname,
       email: email,
-      phoneNumber: phoneNumber,
+      phonenumber: phoneNumber,
     };
     console.log(contactBooking);
     axios.post("http://localhost:3001/create", contactBooking);
