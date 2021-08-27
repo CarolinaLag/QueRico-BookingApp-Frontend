@@ -6,7 +6,7 @@ import ContactForm from "./ContactForm";
 
 const Booking = () => {
   const [booking, setBooking] = useState({
-    date: moment().add(1, "days").format("DDMMYYYY"),
+    date: moment().format("DDMMYYYY"),
     guests: 0,
     timeslot: "",
     firstname: "",
@@ -14,10 +14,30 @@ const Booking = () => {
     email: "",
     phonenumber: 0,
   });
+  const [bookingDate, setBookingDate] = useState(moment().toDate());
   const [showTimeSlotOne, setShowTimeSlotOne] = useState(false);
   const [showTimeSlotTwo, setShowTimeSlotTwo] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
   const [message, setMessage] = useState("Välj antal gäster.");
+
+  useEffect(() => {
+    const currentTime = moment().hours();
+    if(currentTime > 14) {
+
+      setBookingDate(moment().add(1, "days").toDate());
+
+      const newBooking = {
+        date: moment().add(1, "days").format("DDMMYYYY"),
+        guests: booking.guests,
+        timeslot: booking.timeslot,
+        firstname: booking.firstname,
+        lastname: booking.lastname,
+        email: booking.email,
+        phonenumber: booking.phonenumber,
+      };
+      setBooking(newBooking);
+    }
+  },[]);
 
   useEffect(() => {
     if (booking.guests > 0 && booking.timeslot === "") {
@@ -122,6 +142,7 @@ const Booking = () => {
           showTimeSlotOne={showTimeSlotOne}
           showTimeSlotTwo={showTimeSlotTwo}
           message={message}
+          bookingDate={bookingDate}
         />
       )}
     </>
