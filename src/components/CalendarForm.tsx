@@ -4,11 +4,12 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
 interface ICalendarFormProps {
-  handleDateChange(date: Date): void;
+  handleDateChange(date: string): void;
   handleAmountChange(amount: number): void;
   handleTimeslotChange(timeslot: string): void;
   showTimeSlotOne: boolean;
   showTimeSlotTwo: boolean;
+  message: string;
 }
 
 const CalendarForm = (props: ICalendarFormProps) => {
@@ -17,10 +18,16 @@ const CalendarForm = (props: ICalendarFormProps) => {
       <form>
         <div>
           <Calendar
+            activeStartDate={moment().add(1, "days").toDate()}
+            defaultValue={moment().add(1, "days").toDate()}
             minDate={new Date()}
             maxDate={moment().add(2, "months").toDate()}
             showWeekNumbers={true}
-            onChange={(date: Date) => props.handleDateChange(date)}
+            onChange={(date: Date) => {
+              props.handleDateChange(
+                moment(date).format("DDMMYYYY").toString()
+              );
+            }}
           />
         </div>
         <div>
@@ -78,6 +85,7 @@ const CalendarForm = (props: ICalendarFormProps) => {
           ) : null}
         </div>
       </form>
+      <p>{props.message}</p>
     </>
   );
 };

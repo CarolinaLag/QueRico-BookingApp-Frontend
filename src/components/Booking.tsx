@@ -6,28 +6,47 @@ import ContactForm from "./ContactForm";
 
 const Booking = () => {
   const [booking, setBooking] = useState({
-    date: moment().toDate(),
-    amount: 0,
+    date: moment().add(1, "days").format("DDMMYYYY"),
+    guests: 0,
     timeslot: "",
     firstname: "",
     lastname: "",
     email: "",
-    phoneNumber: 0,
+    phonenumber: 0,
   });
   const [showTimeSlotOne, setShowTimeSlotOne] = useState(false);
   const [showTimeSlotTwo, setShowTimeSlotTwo] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
+  const [message, setMessage] = useState("Välj antal gäster.");
 
   useEffect(() => {
-    if (booking.amount > 0) {
-      // const searchCriteria = {
-      //   date: booking.date,
-      //   amount: booking.amount,
-      // };
-      // axios.post("http://localhost:3001/checktables", searchCriteria)
-      // .then(response => );
-      setShowTimeSlotOne(true);
-      setShowTimeSlotTwo(true);
+    if (booking.guests > 0 && booking.timeslot === "") {
+      axios
+        .get<any>(
+          `http://localhost:3001/checktables/${booking.date}/${booking.guests}`
+        )
+        .then((response) => {
+          if (
+            response.data.tablesAtFive === false &&
+            response.data.tablesAtSeven === false
+          ) {
+            setMessage("Det finns tyvärr inga bord lediga bord.");
+            setShowTimeSlotOne(false);
+            setShowTimeSlotTwo(false);
+            return;
+          } else {
+            setMessage("");
+          }
+          if (response.data.tablesAtFive === true) setShowTimeSlotOne(true);
+
+          if (response.data.tablesAtSeven === true) setShowTimeSlotTwo(true);
+
+          if (
+            response.data.tablesAtFive === true ||
+            response.data.tablesAtSeven === true
+          )
+            setMessage("Välj en tid.");
+        });
     }
     if (booking.timeslot !== "") setShowContactForm(true);
   }, [booking]);
@@ -48,15 +67,15 @@ const Booking = () => {
     axios.post("http://localhost:3001/create", contactBooking);
   };
 
-  const handleDateChange = (date: Date) => {
+  const handleDateChange = (date: string) => {
     const newBooking = {
       date: date,
-      amount: booking.amount,
+      guests: booking.guests,
       timeslot: booking.timeslot,
       firstname: booking.firstname,
       lastname: booking.lastname,
       email: booking.email,
-      phoneNumber: booking.phoneNumber,
+      phonenumber: booking.phonenumber,
     };
     setBooking(newBooking);
   };
@@ -64,12 +83,12 @@ const Booking = () => {
   const handleAmountChange = (amount: number) => {
     const newBooking = {
       date: booking.date,
-      amount: amount,
+      guests: amount,
       timeslot: booking.timeslot,
       firstname: booking.firstname,
       lastname: booking.lastname,
       email: booking.email,
-      phoneNumber: booking.phoneNumber,
+      phonenumber: booking.phonenumber,
     };
     setBooking(newBooking);
   };
@@ -77,12 +96,12 @@ const Booking = () => {
   const handleTimeslotChange = (timeslot: string) => {
     const newBooking = {
       date: booking.date,
-      amount: booking.amount,
+      guests: booking.guests,
       timeslot: timeslot,
       firstname: booking.firstname,
       lastname: booking.lastname,
       email: booking.email,
-      phoneNumber: booking.phoneNumber,
+      phonenumber: booking.phonenumber,
     };
     setBooking(newBooking);
   };
@@ -99,6 +118,7 @@ const Booking = () => {
           handleTimeslotChange={handleTimeslotChange}
           showTimeSlotOne={showTimeSlotOne}
           showTimeSlotTwo={showTimeSlotTwo}
+          message={message}
         />
       )}
     </>
