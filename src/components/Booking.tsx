@@ -1,6 +1,7 @@
 import axios from "axios";
 import moment from "moment";
 import { useEffect, useState } from "react";
+import BookingConfirmation from "./BookingConfirmation";
 import CalendarForm from "./CalendarForm";
 import ContactForm from "./ContactForm";
 
@@ -17,6 +18,8 @@ const Booking = () => {
   const [showTimeSlotOne, setShowTimeSlotOne] = useState(false);
   const [showTimeSlotTwo, setShowTimeSlotTwo] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
+  const [showCalenderForm, setShowCalenderForm] = useState(true);
+  const [showConfirmation, setConfirmation] = useState(false);
   const [message, setMessage] = useState("Välj antal gäster.");
 
   useEffect(() => {
@@ -48,7 +51,10 @@ const Booking = () => {
             setMessage("Välj en tid.");
         });
     }
-    if (booking.timeslot !== "") setShowContactForm(true);
+    if (booking.timeslot !== "") {
+      setShowContactForm(true);
+      setShowCalenderForm(false);
+    }
   }, [booking]);
 
   const createContactBooking = (
@@ -109,12 +115,28 @@ const Booking = () => {
     setBooking(newBooking);
   };
 
+  const addShowContactForm = () => {
+    setShowContactForm(false);
+    setShowCalenderForm(true);
+  };
+
+  const addShowConfirmation = () => {
+    setConfirmation(true);
+    setShowContactForm(false);
+  };
+
   return (
     <>
       <h1>Boka bord</h1>
       {showContactForm ? (
-        <ContactForm addContactInfo={createContactBooking} />
-      ) : (
+        <ContactForm
+          addShowContactForm={addShowContactForm}
+          addContactInfo={createContactBooking}
+          addShowConfirmation={addShowConfirmation}
+        />
+      ) : null}
+
+      {showCalenderForm ? (
         <CalendarForm
           handleDateChange={handleDateChange}
           handleAmountChange={handleAmountChange}
@@ -123,7 +145,9 @@ const Booking = () => {
           showTimeSlotTwo={showTimeSlotTwo}
           message={message}
         />
-      )}
+      ) : null}
+
+      {showConfirmation ? <BookingConfirmation /> : null}
     </>
   );
 };

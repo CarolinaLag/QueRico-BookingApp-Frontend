@@ -1,7 +1,7 @@
 import { ChangeEvent, useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+
 import {
   ContactFormButtonWrapper,
   ContactFormContainer,
@@ -18,6 +18,8 @@ interface IContactFormProps {
     email: string,
     phoneNumber: string
   ): void;
+  addShowContactForm(): void;
+  addShowConfirmation(): void;
 }
 
 const ContactForm = (props: IContactFormProps) => {
@@ -132,6 +134,7 @@ const ContactForm = (props: IContactFormProps) => {
       phoneNumber: "",
       checkbox: false,
     });
+    props.addShowConfirmation();
   };
 
   return (
@@ -205,8 +208,9 @@ const ContactForm = (props: IContactFormProps) => {
               </p>
             </GdprWrapper>
             <ContactFormButtonWrapper>
-              <Link to={"/"}>Tillbaka</Link>
-
+              <button type="button" onClick={() => props.addShowContactForm()}>
+                Tillbaka
+              </button>
               <Button
                 disabled={
                   error.firstname.length > 0 ||
