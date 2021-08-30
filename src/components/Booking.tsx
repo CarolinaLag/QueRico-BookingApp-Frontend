@@ -49,8 +49,8 @@ const Booking = () => {
         )
         .then((response) => {
           if (
-            response.data.tablesAtFive === false &&
-            response.data.tablesAtSeven === false
+            response.data.tablesAvailableAtFive === false &&
+            response.data.tablesAvailableAtSeven === false
           ) {
             setMessage("Det finns tyvärr inga bord lediga bord.");
             setShowTimeSlotOne(false);
@@ -59,13 +59,15 @@ const Booking = () => {
           } else {
             setMessage("");
           }
-          if (response.data.tablesAtFive === true) setShowTimeSlotOne(true);
+          if (response.data.tablesAvailableAtFive === true)
+            setShowTimeSlotOne(true);
 
-          if (response.data.tablesAtSeven === true) setShowTimeSlotTwo(true);
+          if (response.data.tablesAvailableAtSeven === true)
+            setShowTimeSlotTwo(true);
 
           if (
-            response.data.tablesAtFive === true ||
-            response.data.tablesAtSeven === true
+            response.data.tablesAvailableAtFive === true ||
+            response.data.tablesAvailableAtSeven === true
           )
             setMessage("Välj en tid.");
         });
