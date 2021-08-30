@@ -173,7 +173,7 @@ const ContactForm = (props: IContactFormProps) => {
             <input
               type="email"
               name="email"
-              maxLength={25}
+              maxLength={40}
               placeholder="querico@email.com"
               value={input.email}
               onChange={handleChange}
