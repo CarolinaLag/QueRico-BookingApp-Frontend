@@ -11,30 +11,34 @@ interface ICalendarFormProps {
   showTimeSlotOne: boolean;
   showTimeSlotTwo: boolean;
   message: string;
+  bookingDate: Date;
 }
 
 const CalendarForm = (props: ICalendarFormProps) => {
   return (
     <>
+<<<<<<< HEAD
       <Header>
         <HeadingWrapper>
           <h1>Boka bord</h1>
         </HeadingWrapper>
       </Header>
+=======
+    {props.bookingDate.toDateString()}
+>>>>>>> a0f1a65666d21b1b2b95735282cdf6ba90da0b7c
       <form>
         <div>
-          <Calendar
-            activeStartDate={moment().add(1, "days").toDate()}
-            defaultValue={moment().add(1, "days").toDate()}
-            minDate={new Date()}
-            maxDate={moment().add(2, "months").toDate()}
-            showWeekNumbers={true}
-            onChange={(date: Date) => {
-              props.handleDateChange(
-                moment(date).format("DDMMYYYY").toString()
-              );
-            }}
-          />
+        <Calendar
+        minDate={props.bookingDate}
+        maxDate={moment().add(2, "months").toDate()}
+        showWeekNumbers={true}
+        value={props.bookingDate}
+        onChange={(date: Date) => {
+          props.handleDateChange(
+            moment(date).format("DDMMYYYY").toString()
+          );
+        }}
+      />
         </div>
         <div>
           <select
