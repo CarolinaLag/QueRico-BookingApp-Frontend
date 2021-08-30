@@ -25,8 +25,7 @@ const Booking = () => {
 
   useEffect(() => {
     const currentTime = moment().hours();
-    if(currentTime > 14) {
-
+    if (currentTime > 14) {
       setBookingDate(moment().add(1, "days").toDate());
 
       const newBooking = {
@@ -40,7 +39,7 @@ const Booking = () => {
       };
       setBooking(newBooking);
     }
-  },[]);
+  }, []);
 
   useEffect(() => {
     if (booking.guests > 0 && booking.timeslot === "") {
@@ -147,7 +146,6 @@ const Booking = () => {
 
   return (
     <>
-      <h1>Boka bord</h1>
       {showContactForm ? (
         <ContactForm
           addShowContactForm={addShowContactForm}
