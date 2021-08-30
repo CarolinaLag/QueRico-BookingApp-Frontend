@@ -6,6 +6,7 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Playfair Display', serif;
   }
 `;
 
@@ -45,22 +46,4 @@ export const Button = styled.button`
     font-weight: bold;
     cursor: auto;
   }
-`;
-
-export const ButtonDisabled = styled.button`
-  background-color: rgb(182, 182, 182) !important ;
-  opacity: 0.7 !important;
-  color: black;
-  font-weight: bold;
-  cursor: auto;
-  color: black;
-  border: none;
-  border-radius: 5px;
-  border: none;
-  padding: 5px;
-  background-color: #eebc1d;
-  margin: 0.25px;
-  width: 100px;
-  height: 40px;
-  font-family: "Roboto", sans-serif;
 `;

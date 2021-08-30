@@ -35,14 +35,12 @@ export const ContactFormButtonWrapper = styled.div`
   align-items: center;
   padding: 10px;
 
-  a {
+  button {
     color: black;
     border: none;
     border-radius: 5px;
     border: none;
     cursor: pointer;
-    padding-left: 25px;
-    padding-top: 12px;
     background-color: #eebc1d;
     margin: 0.25px;
     width: 100px;
