@@ -5,8 +5,8 @@ export const AdminBookingsWrapper = styled.div`
   background: url(${AdminBG}) no-repeat center center fixed;
   background-size: cover;
   color: white;
+  min-height: 100vh;
   font-weight: bold;
-  height: 100vh;
   display: flex;
   justify-content: center;
   flex-direction: column;

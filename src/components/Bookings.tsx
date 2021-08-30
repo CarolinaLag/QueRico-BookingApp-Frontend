@@ -1,7 +1,9 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { AdminBookingsWrapper } from "./styles/adminBookings";
 
 interface IBookings {
+  _id: any;
   ContactInfo: {
     firstname: string;
     lastname: string;
@@ -21,8 +23,13 @@ const Bookings = () => {
         }
       })
       .then((response) => setBookings(response));
-  }, []);
+  }, [bookings]);
   console.log(bookings);
+
+  const deleteBooking = (bookingId: IBookings) => {
+    axios.get<any>(`http://localhost:3001/delete/${bookingId}`);
+    console.log(bookingId);
+  };
 
   return (
     <>
@@ -34,6 +41,14 @@ const Bookings = () => {
             <p>{booking.ContactInfo.lastname}</p>
             <p>{booking.ContactInfo.email}</p>
             <p>{booking.ContactInfo.phoneNumber}</p>
+            <button
+              type="button"
+              onClick={() => {
+                deleteBooking(booking._id);
+              }}
+            >
+              Radera
+            </button>
           </div>
         ))}
       </AdminBookingsWrapper>

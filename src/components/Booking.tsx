@@ -45,6 +45,7 @@ const Booking = () => {
       };
       setReservationState(newBooking);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -71,12 +72,20 @@ const Booking = () => {
           } else {
             setShowTimeSlotOne(false);
           }
+<<<<<<< HEAD
 
           if (response.data.tablesAvailableAtSeven === true) {
             setShowTimeSlotTwo(true);
           } else {
             setShowTimeSlotTwo(false);
           }
+=======
+          if (response.data.tablesAvailableAtFive === true)
+            setShowTimeSlotOne(true);
+
+          if (response.data.tablesAvailableAtSeven === true)
+            setShowTimeSlotTwo(true);
+>>>>>>> 9eed0b058b211177ba0eb4d9620758959a5a3395
 
           if (
             response.data.tablesAvailableAtFive === true ||
