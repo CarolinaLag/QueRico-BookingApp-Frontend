@@ -1,12 +1,18 @@
 import axios from "axios";
 import moment from "moment";
 import { useEffect, useState } from "react";
+import Reservation from "../models/Reservation";
 import BookingConfirmation from "./BookingConfirmation";
 import CalendarForm from "./CalendarForm";
 import ContactForm from "./ContactForm";
 
+interface IReservationResponse {
+  tablesAvailableAtFive: boolean;
+  tablesAvailableAtSeven: boolean;
+}
+
 const Booking = () => {
-  const [booking, setBooking] = useState({
+  const [reservationState, setReservationState] = useState<Reservation>({
     date: moment().format("DDMMYYYY"),
     guests: 0,
     timeslot: "",
@@ -21,60 +27,69 @@ const Booking = () => {
   const [showContactForm, setShowContactForm] = useState(false);
   const [showCalenderForm, setShowCalenderForm] = useState(true);
   const [showConfirmation, setConfirmation] = useState(false);
-  const [message, setMessage] = useState("Välj antal gäster.");
+  const [calendarMessage, setCalendarMessage] = useState("Välj antal gäster.");
 
   useEffect(() => {
     const currentTime = moment().hours();
     if (currentTime > 14) {
       setBookingDate(moment().add(1, "days").toDate());
 
-      const newBooking = {
+      const newBooking: Reservation = {
         date: moment().add(1, "days").format("DDMMYYYY"),
-        guests: booking.guests,
-        timeslot: booking.timeslot,
-        firstname: booking.firstname,
-        lastname: booking.lastname,
-        email: booking.email,
-        phonenumber: booking.phonenumber,
+        guests: reservationState.guests,
+        timeslot: reservationState.timeslot,
+        firstname: reservationState.firstname,
+        lastname: reservationState.lastname,
+        email: reservationState.email,
+        phonenumber: reservationState.phonenumber,
       };
-      setBooking(newBooking);
+      setReservationState(newBooking);
     }
   }, []);
 
   useEffect(() => {
-    if (booking.guests > 0 && booking.timeslot === "") {
+    if (reservationState.guests > 0 && reservationState.timeslot === "") {
       axios
-        .get<any>(
-          `http://localhost:3001/checktables/${booking.date}/${booking.guests}`
+        .get<IReservationResponse>(
+          `http://localhost:3001/checktables/${reservationState.date}/${reservationState.guests}`
         )
         .then((response) => {
           if (
-            response.data.tablesAtFive === false &&
-            response.data.tablesAtSeven === false
+            response.data.tablesAvailableAtFive === false &&
+            response.data.tablesAvailableAtSeven === false
           ) {
-            setMessage("Det finns tyvärr inga bord lediga bord.");
+            setCalendarMessage("Det finns tyvärr inga bord lediga bord.");
             setShowTimeSlotOne(false);
             setShowTimeSlotTwo(false);
             return;
           } else {
-            setMessage("");
+            setCalendarMessage("");
           }
-          if (response.data.tablesAtFive === true) setShowTimeSlotOne(true);
 
-          if (response.data.tablesAtSeven === true) setShowTimeSlotTwo(true);
+          if (response.data.tablesAvailableAtFive === true) {
+            setShowTimeSlotOne(true);
+          } else {
+            setShowTimeSlotOne(false);
+          }
+
+          if (response.data.tablesAvailableAtSeven === true) {
+            setShowTimeSlotTwo(true);
+          } else {
+            setShowTimeSlotTwo(false);
+          }
 
           if (
-            response.data.tablesAtFive === true ||
-            response.data.tablesAtSeven === true
+            response.data.tablesAvailableAtFive === true ||
+            response.data.tablesAvailableAtSeven === true
           )
-            setMessage("Välj en tid.");
+            setCalendarMessage("Välj en tid.");
         });
     }
-    if (booking.timeslot !== "") {
+    if (reservationState.timeslot !== "") {
       setShowContactForm(true);
       setShowCalenderForm(false);
     }
-  }, [booking]);
+  }, [reservationState]);
 
   const createContactBooking = (
     firstname: string,
@@ -82,56 +97,56 @@ const Booking = () => {
     email: string,
     phoneNumber: string
   ): void => {
-    let contactBooking = {
-      date: booking.date,
-      guests: booking.guests,
-      timeslot: booking.timeslot,
+    const contactBooking: Reservation = {
+      date: reservationState.date,
+      guests: reservationState.guests,
+      timeslot: reservationState.timeslot,
       firstname: firstname,
       lastname: lastname,
       email: email,
-      phonenumber: phoneNumber,
+      phonenumber: parseInt(phoneNumber),
     };
     console.log(contactBooking);
     axios.post("http://localhost:3001/create", contactBooking);
   };
 
   const handleDateChange = (date: string) => {
-    const newBooking = {
+    const newBooking: Reservation = {
       date: date,
-      guests: booking.guests,
-      timeslot: booking.timeslot,
-      firstname: booking.firstname,
-      lastname: booking.lastname,
-      email: booking.email,
-      phonenumber: booking.phonenumber,
+      guests: reservationState.guests,
+      timeslot: reservationState.timeslot,
+      firstname: reservationState.firstname,
+      lastname: reservationState.lastname,
+      email: reservationState.email,
+      phonenumber: reservationState.phonenumber,
     };
-    setBooking(newBooking);
+    setReservationState(newBooking);
   };
 
   const handleAmountChange = (amount: number) => {
-    const newBooking = {
-      date: booking.date,
+    const newBooking: Reservation = {
+      date: reservationState.date,
       guests: amount,
-      timeslot: booking.timeslot,
-      firstname: booking.firstname,
-      lastname: booking.lastname,
-      email: booking.email,
-      phonenumber: booking.phonenumber,
+      timeslot: reservationState.timeslot,
+      firstname: reservationState.firstname,
+      lastname: reservationState.lastname,
+      email: reservationState.email,
+      phonenumber: reservationState.phonenumber,
     };
-    setBooking(newBooking);
+    setReservationState(newBooking);
   };
 
   const handleTimeslotChange = (timeslot: string) => {
-    const newBooking = {
-      date: booking.date,
-      guests: booking.guests,
+    const newBooking: Reservation = {
+      date: reservationState.date,
+      guests: reservationState.guests,
       timeslot: timeslot,
-      firstname: booking.firstname,
-      lastname: booking.lastname,
-      email: booking.email,
-      phonenumber: booking.phonenumber,
+      firstname: reservationState.firstname,
+      lastname: reservationState.lastname,
+      email: reservationState.email,
+      phonenumber: reservationState.phonenumber,
     };
-    setBooking(newBooking);
+    setReservationState(newBooking);
   };
 
   const addShowContactForm = () => {
@@ -161,7 +176,7 @@ const Booking = () => {
           handleTimeslotChange={handleTimeslotChange}
           showTimeSlotOne={showTimeSlotOne}
           showTimeSlotTwo={showTimeSlotTwo}
-          message={message}
+          message={calendarMessage}
           bookingDate={bookingDate}
         />
       ) : null}
