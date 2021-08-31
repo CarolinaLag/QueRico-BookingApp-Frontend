@@ -63,9 +63,7 @@ const Booking = () => {
             setShowTimeSlotOne(false);
             setShowTimeSlotTwo(false);
             return;
-          } else {
-            setCalendarMessage("");
-          }
+          } 
 
           if (response.data.tablesAvailableAtFive === true) {
             setShowTimeSlotOne(true);

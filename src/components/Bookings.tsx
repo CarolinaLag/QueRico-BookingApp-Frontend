@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import EditForm from "./EditForm";
 import { AdminBookingsWrapper } from "./styles/adminBookings";
 
 interface IBookings {
@@ -12,8 +13,37 @@ interface IBookings {
   };
 }
 
+interface IReservation {
+  _id: string;
+  amountOfGuests: number;
+amountOfTables: number;
+timeSlot: string;
+date: string;
+ContactInfo: {
+  firstname: string;
+  lastname: string;
+  email: string;
+  phoneNumber: string;
+},
+}
+
 const Bookings = () => {
   const [bookings, setBookings] = useState<IBookings[]>([]);
+  const [showEditForm, setShowEditForm] = useState(true);
+
+const dummyReservation: IReservation = {
+  _id: "dk98y5498hsofs8",
+  amountOfGuests: 2,
+  amountOfTables: 1,
+timeSlot: "19:00",
+date: "02/09/2021",
+ContactInfo: {
+  firstname: "Sophie",
+  lastname: "Åkesson",
+  email: "sophie.akesson@gmail.com",
+  phoneNumber: "9074530457",
+}
+}
 
   useEffect(() => {
     fetch("/bookings")
@@ -31,6 +61,22 @@ const Bookings = () => {
       setBookings(res.data);
     });
   };
+
+  const handleAmountChange = (guests: number) => {
+    console.log(guests);
+  }
+
+  const handleDateChange = (date: string) => {
+    console.log(date);
+  }
+
+  const handleTimeslotChange = (timeslot: string) => {
+    console.log(timeslot);
+  }
+
+  const handleChange = () => {
+    console.log("Hej");
+  }
 
   return (
     <>
@@ -52,6 +98,7 @@ const Bookings = () => {
             </button>
           </div>
         ))}
+        {showEditForm ? <EditForm reservation={dummyReservation} handleAmountChange={handleAmountChange} handleDateChange={handleDateChange} handleTimeslotChange={handleTimeslotChange} handleChange={handleChange}  /> : null}
       </AdminBookingsWrapper>
     </>
   );
