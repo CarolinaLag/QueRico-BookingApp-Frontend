@@ -23,12 +23,13 @@ const Bookings = () => {
         }
       })
       .then((response) => setBookings(response));
-  }, [bookings]);
+  }, []);
   console.log(bookings);
 
   const deleteBooking = (bookingId: IBookings) => {
-    axios.get<any>(`http://localhost:3001/delete/${bookingId}`);
-    console.log(bookingId);
+    axios.get<any>(`http://localhost:3001/delete/${bookingId}`).then((res) => {
+      setBookings(res.data);
+    });
   };
 
   return (
