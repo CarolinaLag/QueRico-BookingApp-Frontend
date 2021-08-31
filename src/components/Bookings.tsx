@@ -37,7 +37,7 @@ const Bookings = () => {
       <AdminBookingsWrapper>
         <h1>Admin Översikt Bokningar</h1>
         {bookings.map((booking) => (
-          <div>
+          <div key={booking._id}>
             <p>{booking.ContactInfo.firstname}</p>
             <p>{booking.ContactInfo.lastname}</p>
             <p>{booking.ContactInfo.email}</p>
