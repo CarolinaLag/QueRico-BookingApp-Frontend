@@ -2,15 +2,15 @@ import { AdminBookingsWrapper } from "../styles/adminBookings";
 
 interface IReservation {
   _id: string;
-  amountOfGuests: Number;
-  amountOfTables: Number;
-  timeSlot: String;
-  date: String;
+  amountOfGuests: number;
+  amountOfTables: number;
+  timeSlot: string;
+  date: string;
   ContactInfo: {
-    firstname: String;
-    lastname: String;
-    email: String;
-    phoneNumber: Number;
+    firstname: string;
+    lastname: string;
+    email: string;
+    phoneNumber: number;
   };
 }
 
@@ -31,7 +31,7 @@ const Bookings = (props: IReservationListProps) => {
             <p>{reservation.ContactInfo.email}</p>
             <p>{reservation.ContactInfo.phoneNumber}</p>
             <button
-              type="button"
+              type='button'
               onClick={() => {
                 props.deleteBooking(reservation._id);
               }}
