@@ -1,4 +1,4 @@
-import { AdminBookingsWrapper } from "./styles/adminBookings";
+import { AdminBookingsWrapper } from "../styles/adminBookings";
 
 interface IReservation {
   _id: string;
