@@ -5,15 +5,15 @@ import axios from "axios";
 
 interface IReservation {
   _id: string;
-  amountOfGuests: Number;
-  amountOfTables: Number;
-  timeSlot: String;
-  date: String;
+  amountOfGuests: number;
+  amountOfTables: number;
+  timeSlot: string;
+  date: string;
   ContactInfo: {
-    firstname: String;
-    lastname: String;
-    email: String;
-    phoneNumber: Number;
+    firstname: string;
+    lastname: string;
+    email: string;
+    phoneNumber: number;
   };
 }
 
