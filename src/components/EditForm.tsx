@@ -1,5 +1,5 @@
 import moment from "moment";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect } from "react";
 import Calendar from "react-calendar";
 import {
   ContactFormButtonWrapper,
@@ -19,7 +19,7 @@ interface IReservation {
     firstname: string;
     lastname: string;
     email: string;
-    phoneNumber: string;
+    phoneNumber: number;
   };
 }
 
@@ -32,6 +32,10 @@ interface IReservationProps {
 }
 
 const EditForm = (props: IReservationProps) => {
+  // useEffect(() => {
+  //   console.log(1, props.reservation);
+  // }, [props.reservation]);
+
   return (
     <>
       <ContactFormInfoWrapper>
@@ -42,20 +46,21 @@ const EditForm = (props: IReservationProps) => {
           <ContactFormInputsWrapper>
             <div>
               <Calendar
-                minDate={new Date(props.reservation.date)}
+                minDate={new Date()}
                 maxDate={moment().add(2, "months").toDate()}
                 showWeekNumbers={true}
                 value={new Date(props.reservation.date)}
                 onChange={(date: Date) => {
                   props.handleDateChange(
                     props.reservation._id,
-                    moment(date).format("DDMMYYYY").toString()
+                    moment(date).format("YYYY-MM-DD").toString()
                   );
                 }}
               />
               <div>
                 <select
                   name='amount'
+                  value={props.reservation.amountOfGuests}
                   onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                     props.handleAmountChange(
                       props.reservation._id,
@@ -87,6 +92,7 @@ const EditForm = (props: IReservationProps) => {
 
                 <select
                   name='timeslot'
+                  value={props.reservation.timeSlot}
                   onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                     props.handleTimeslotChange(
                       props.reservation._id,
@@ -95,23 +101,9 @@ const EditForm = (props: IReservationProps) => {
                   }
                 >
                   <option value=''>Tid</option>
-                  <option value='17:00'>2 personer</option>
-                  <option value='19:00'>3 personer</option>
+                  <option value='17:00'>17:00</option>
+                  <option value='19:00'>19:00</option>
                 </select>
-
-                <button
-                  name='timeslot'
-                  value='19:00'
-                  onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-                    props.handleTimeslotChange(
-                      props.reservation._id,
-                      e.currentTarget.value
-                    )
-                  }
-                  type='button'
-                >
-                  19:00
-                </button>
               </div>
             </div>
             <input
@@ -169,7 +161,7 @@ const EditForm = (props: IReservationProps) => {
                 }
                 onClick={handleClick}
               > */}
-                Boka bord
+                Spara
               </Button>
             </ContactFormButtonWrapper>
           </ContactFormInputsWrapper>
