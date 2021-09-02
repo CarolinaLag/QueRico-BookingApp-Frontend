@@ -7,6 +7,7 @@ import Booking from "./components/Booking";
 import Navbar from "./components/Navbar";
 import TapasMenu from "./components/TapasMenu";
 import ContactUs from "./components/ContactUs";
+import AdminPage from "./components/AdminPage";
 import Bookings from "./components/Bookings";
 
 function App() {
@@ -16,23 +17,26 @@ function App() {
         <GlobalStyle />
         <Navbar />
         <Switch>
-          <Route path="/" exact>
+          <Route path='/' exact>
             <LandingPage />
           </Route>
 
-          <Route path="/booking">
+          <Route path='/booking'>
             <Booking />
           </Route>
 
-          <Route path="/meny">
+          <Route path='/meny'>
             <TapasMenu />
           </Route>
 
-          <Route path="/kontakt">
+          <Route path='/kontakt'>
             <ContactUs />
           </Route>
 
-          <Route path="/bookings">
+          <Route path='/admin'>
+            <AdminPage />
+          </Route>
+          <Route path='/bookings'>
             <Bookings />
           </Route>
         </Switch>
