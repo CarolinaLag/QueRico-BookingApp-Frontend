@@ -24,6 +24,25 @@ export const Header = styled.div`
   height: 400px;
 `;
 
+export const LinkStyle = styled.a`
+  color: black;
+  border: none;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  padding-top: 10px;
+  padding-left: 22px;
+  background-color: #eebc1d;
+  text-decoration: none;
+  margin: 0.25px;
+  width: 100px;
+  height: 40px;
+  font-family: "Roboto", sans-serif;
+  :hover {
+    background: #f5d72e;
+  }
+`;
+
 export const Button = styled.button`
   color: black;
   border: none;

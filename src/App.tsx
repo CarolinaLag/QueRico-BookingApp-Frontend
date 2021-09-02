@@ -10,6 +10,8 @@ import ContactUs from "./components/ContactUs";
 
 import AdminPage from "./components/AdminPage";
 
+import CancelReservation from "./components/CancelReservation";
+
 function App() {
   return (
     <>
@@ -35,6 +37,10 @@ function App() {
 
           <Route path="/admin">
             <AdminPage />
+          </Route>
+
+          <Route path="/cancelConfirmation/:id">
+            <CancelReservation />
           </Route>
         </Switch>
       </Router>
