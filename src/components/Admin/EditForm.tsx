@@ -1,13 +1,13 @@
 import moment from "moment";
-import { ChangeEvent, useEffect } from "react";
+import { ChangeEvent } from "react";
 import Calendar from "react-calendar";
 import {
   ContactFormButtonWrapper,
   ContactFormContainer,
   ContactFormInfoWrapper,
   ContactFormInputsWrapper,
-} from "./styles/contactForm";
-import { Button } from "./styles/global";
+} from "../styles/contactForm";
+import { Button } from "../styles/global";
 
 interface IReservation {
   _id: string;
@@ -68,7 +68,6 @@ const EditForm = (props: IReservationProps) => {
                     )
                   }
                 >
-                  <option value=''>Antal</option>
                   <option value='2'>2 personer</option>
                   <option value='3'>3 personer</option>
                   <option value='4'>4 personer</option>
@@ -100,7 +99,6 @@ const EditForm = (props: IReservationProps) => {
                     )
                   }
                 >
-                  <option value=''>Tid</option>
                   <option value='17:00'>17:00</option>
                   <option value='19:00'>19:00</option>
                 </select>

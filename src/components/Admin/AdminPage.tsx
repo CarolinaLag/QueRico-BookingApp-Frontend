@@ -3,7 +3,8 @@ import axios from "axios";
 import ReservationList from "./ReservationList";
 import moment from "moment";
 import AddReservation from "./AddReservation";
-import EditForm from "../EditForm";
+import EditForm from "./EditForm";
+import { AdminBookingsWrapper } from "../styles/adminBookings";
 
 interface IReservationResponse {
   tablesAvailableAtFive: boolean;
@@ -213,31 +214,33 @@ const AdminPage = () => {
 
   return (
     <>
-      <AddReservation
-        handleDateChange={handleDateChange}
-        handleAmountChange={handleAmountChange}
-        handleTimeslotChange={handleTimeslotChange}
-        showTimeSlotOne={showTimeSlotOne}
-        showTimeSlotTwo={showTimeSlotTwo}
-        message={calendarMessage}
-        bookingDate={bookingDate}
-        //addShowContactForm={addShowContactForm}
-        addContactInfo={createContactBooking}
-        // addShowConfirmation={addShowConfirmation}
-      />
-      <ReservationList
-        reservations={reservations}
-        deleteBooking={deleteBooking}
-      ></ReservationList>
-      {reservations[0] === undefined ? null : (
-        <EditForm
-          handleAmountChange={handleAmountChangeEdit}
-          handleDateChange={handleDateChangeEdit}
-          handleTimeslotChange={handleTimeslotChangeEdit}
-          handleChange={handleChange}
-          reservation={reservations[3]}
+      <AdminBookingsWrapper>
+        <AddReservation
+          handleDateChange={handleDateChange}
+          handleAmountChange={handleAmountChange}
+          handleTimeslotChange={handleTimeslotChange}
+          showTimeSlotOne={showTimeSlotOne}
+          showTimeSlotTwo={showTimeSlotTwo}
+          message={calendarMessage}
+          bookingDate={bookingDate}
+          //addShowContactForm={addShowContactForm}
+          addContactInfo={createContactBooking}
+          // addShowConfirmation={addShowConfirmation}
         />
-      )}
+        <ReservationList
+          reservations={reservations}
+          deleteBooking={deleteBooking}
+        ></ReservationList>
+        {reservations[0] === undefined ? null : (
+          <EditForm
+            handleAmountChange={handleAmountChangeEdit}
+            handleDateChange={handleDateChangeEdit}
+            handleTimeslotChange={handleTimeslotChangeEdit}
+            handleChange={handleChange}
+            reservation={reservations[3]}
+          />
+        )}
+      </AdminBookingsWrapper>
     </>
   );
 };

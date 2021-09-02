@@ -22,7 +22,6 @@ const CalendarForm = (props: ICalendarFormProps) => {
           <h1>Boka bord</h1>
         </HeadingWrapper>
       </Header>
-      {props.bookingDate.toDateString()}
       <form>
         <div>
           <Calendar
