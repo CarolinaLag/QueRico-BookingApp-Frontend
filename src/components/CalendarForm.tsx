@@ -32,7 +32,7 @@ const CalendarForm = (props: ICalendarFormProps) => {
             value={props.bookingDate}
             onChange={(date: Date) => {
               props.handleDateChange(
-                moment(date).format("DDMMYYYY").toString()
+                moment(date).format("DD-MM-YYYY").toString()
               );
             }}
           />
