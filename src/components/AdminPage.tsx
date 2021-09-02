@@ -1,7 +1,8 @@
-import axios from "axios";
+import ReservationList from "./ReservationList";
+
 import { useEffect, useState } from "react";
+import axios from "axios";
 import EditForm from "./EditForm";
-import { AdminBookingsWrapper } from "./styles/adminBookings";
 
 interface IReservation {
   _id: string;
@@ -13,7 +14,7 @@ interface IReservation {
     firstname: string;
     lastname: string;
     email: string;
-    phoneNumber: string;
+    phoneNumber: number;
   };
 }
 
@@ -29,7 +30,7 @@ const AdminPage = () => {
       firstname: "Sophie",
       lastname: "Åkesson",
       email: "sophie.akesson@gmail.com",
-      phoneNumber: "9074530457",
+      phoneNumber: 9074530457,
     },
   };
 
@@ -39,11 +40,17 @@ const AdminPage = () => {
     });
   }, []);
 
-  useEffect(() => {
-    console.log(dummyReservation.date);
-    console.log(new Date(dummyReservation.date));
-    // console.log(new Date("02092021"));
-  }, [dummyReservation.date]);
+  const deleteBooking = (id: string) => {
+    axios.delete<any>(`http://localhost:3001/delete/${id}`).then((res) => {
+      setReservations(res.data);
+    });
+  };
+
+  // useEffect(() => {
+  //   console.log(dummyReservation.date);
+  //   console.log(new Date(dummyReservation.date));
+  //   // console.log(new Date("02092021"));
+  // }, [dummyReservation.date]);
 
   const handleAmountChange = (id: string, guests: number) => {
     console.log(guests);
@@ -63,15 +70,17 @@ const AdminPage = () => {
 
   return (
     <>
-      <AdminBookingsWrapper>
-        <EditForm
-          handleAmountChange={handleAmountChange}
-          handleDateChange={handleDateChange}
-          handleTimeslotChange={handleTimeslotChange}
-          handleChange={handleChange}
-          reservation={dummyReservation}
-        />
-      </AdminBookingsWrapper>
+      <ReservationList
+        reservations={reservations}
+        deleteBooking={deleteBooking}
+      ></ReservationList>
+      <EditForm
+        handleAmountChange={handleAmountChange}
+        handleDateChange={handleDateChange}
+        handleTimeslotChange={handleTimeslotChange}
+        handleChange={handleChange}
+        reservation={dummyReservation}
+      />
     </>
   );
 };

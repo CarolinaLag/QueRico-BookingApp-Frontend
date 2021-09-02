@@ -8,7 +8,7 @@ import Navbar from "./components/Navbar";
 import TapasMenu from "./components/TapasMenu";
 import ContactUs from "./components/ContactUs";
 import AdminPage from "./components/AdminPage";
-import Bookings from "./components/Bookings";
+import CancelReservation from "./components/CancelReservation";
 
 function App() {
   return (
@@ -36,8 +36,9 @@ function App() {
           <Route path='/admin'>
             <AdminPage />
           </Route>
-          <Route path='/bookings'>
-            <Bookings />
+
+          <Route path='/cancelConfirmation/:id'>
+            <CancelReservation />
           </Route>
         </Switch>
       </Router>
