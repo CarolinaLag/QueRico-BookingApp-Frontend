@@ -7,7 +7,8 @@ import Booking from "./components/Booking";
 import Navbar from "./components/Navbar";
 import TapasMenu from "./components/TapasMenu";
 import ContactUs from "./components/ContactUs";
-import Bookings from "./components/Bookings";
+
+import AdminPage from "./components/AdminPage";
 
 function App() {
   return (
@@ -32,8 +33,8 @@ function App() {
             <ContactUs />
           </Route>
 
-          <Route path="/bookings">
-            <Bookings />
+          <Route path="/admin">
+            <AdminPage />
           </Route>
         </Switch>
       </Router>
