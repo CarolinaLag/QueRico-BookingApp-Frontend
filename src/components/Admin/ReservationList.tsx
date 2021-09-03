@@ -1,5 +1,6 @@
 import ReservationItem from "./ReservationItem";
-import { AdminBookingsWrapper } from "./styles/adminBookings";
+
+import { AdminBookingsWrapper } from "../styles/adminBookings";
 
 interface IReservation {
   _id: string;

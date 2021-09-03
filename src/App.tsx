@@ -7,8 +7,9 @@ import Booking from "./components/Booking";
 import Navbar from "./components/Navbar";
 import TapasMenu from "./components/TapasMenu";
 import ContactUs from "./components/ContactUs";
-import AdminPage from "./components/AdminPage";
+
 import CancelReservation from "./components/CancelReservation";
+import AdminPage from "./components/Admin/AdminPage";
 
 function App() {
   return (
