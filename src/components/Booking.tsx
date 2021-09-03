@@ -13,7 +13,7 @@ interface IReservationResponse {
 
 const Booking = () => {
   const [reservationState, setReservationState] = useState<Reservation>({
-    date: moment().format("DD-MM-YYYY"),
+    date: moment().format("YYYY-MM-DD"),
     guests: 0,
     timeslot: "",
     firstname: "",
@@ -35,7 +35,7 @@ const Booking = () => {
       setBookingDate(moment().add(1, "days").toDate());
 
       const newBooking: Reservation = {
-        date: moment().add(1, "days").format("DD-MM-YYYY"),
+        date: moment().add(1, "days").format("YYYY-MM-DD"),
         guests: reservationState.guests,
         timeslot: reservationState.timeslot,
         firstname: reservationState.firstname,
@@ -63,8 +63,6 @@ const Booking = () => {
             setShowTimeSlotOne(false);
             setShowTimeSlotTwo(false);
             return;
-          } else {
-            setCalendarMessage("");
           }
 
           if (response.data.tablesAvailableAtFive === true) {
