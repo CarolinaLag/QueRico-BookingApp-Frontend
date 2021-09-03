@@ -10,6 +10,7 @@ import ContactUs from "./components/ContactUs";
 
 import CancelReservation from "./components/CancelReservation";
 import AdminPage from "./components/Admin/AdminPage";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
   return (
@@ -40,6 +41,10 @@ function App() {
 
           <Route path="/cancelConfirmation/:id">
             <CancelReservation />
+          </Route>
+
+          <Route path="*">
+            <PageNotFound />
           </Route>
         </Switch>
       </Router>
