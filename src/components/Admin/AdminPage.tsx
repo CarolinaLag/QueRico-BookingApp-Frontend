@@ -36,6 +36,11 @@ interface IAddReservation {
 }
 
 const AdminPage = () => {
+  const [showReservationDetails, setShowReservationDetails] = useState(false);
+  const showDetailsPage = () => {
+    setShowReservationDetails(true);
+  };
+
   const [reservations, setReservations] = useState<IReservation[]>([]);
   useEffect(() => {
     axios
@@ -230,6 +235,7 @@ const AdminPage = () => {
         <ReservationList
           reservations={reservations}
           deleteBooking={deleteBooking}
+          showDetailsPage={showDetailsPage}
         ></ReservationList>
         {reservations[0] === undefined ? null : (
           <EditForm

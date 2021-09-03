@@ -1,3 +1,7 @@
+import ReservationItem from "./ReservationItem";
+
+import { AdminBookingsWrapper } from "../styles/adminBookings";
+
 interface IReservation {
   _id: string;
   amountOfGuests: number;
@@ -15,28 +19,34 @@ interface IReservation {
 interface IReservationListProps {
   reservations: IReservation[];
   deleteBooking(id: string): void;
+  showDetailsPage: () => void;
 }
 
 const Bookings = (props: IReservationListProps) => {
+  let reservationItems = props.reservations.map((reservation: IReservation) => {
+    return (
+      <ReservationItem
+        key={reservation._id}
+        reservation={reservation}
+        showDetailsPage={props.showDetailsPage}
+      />
+    );
+  });
   return (
     <>
-      <h1>Admin Översikt Bokningar</h1>
-      {props.reservations.map((reservation: IReservation) => (
-        <div key={reservation._id}>
-          <p>{reservation.ContactInfo.firstname}</p>
-          <p>{reservation.ContactInfo.lastname}</p>
-          <p>{reservation.ContactInfo.email}</p>
-          <p>{reservation.ContactInfo.phoneNumber}</p>
-          <button
-            type='button'
-            onClick={() => {
-              props.deleteBooking(reservation._id);
-            }}
-          >
-            Radera
-          </button>
-        </div>
-      ))}
+      <AdminBookingsWrapper>
+        <h1>Admin Översikt Bokningar</h1>
+        {reservationItems}
+
+        {/*  <button
+              type='button'
+              onClick={() => {
+                props.deleteBooking(reservation._id);
+              }}
+            >
+              Radera
+            </button> */}
+      </AdminBookingsWrapper>
     </>
   );
 };
