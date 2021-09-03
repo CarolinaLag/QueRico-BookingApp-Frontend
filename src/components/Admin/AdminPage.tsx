@@ -3,6 +3,8 @@ import axios from "axios";
 import ReservationList from "./ReservationList";
 import moment from "moment";
 import AddReservation from "./AddReservation";
+import EditForm from "./EditForm";
+import { AdminBookingsWrapper } from "../styles/adminBookings";
 
 interface IReservationResponse {
   tablesAvailableAtFive: boolean;
@@ -34,15 +36,21 @@ interface IAddReservation {
 }
 
 const AdminPage = () => {
+  const [showReservationDetails, setShowReservationDetails] = useState(false);
+  const showDetailsPage = () => {
+    setShowReservationDetails(true);
+  };
+
   const [reservations, setReservations] = useState<IReservation[]>([]);
   useEffect(() => {
-    fetch("http://localhost:3001/bookings")
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
+    axios
+      .get<IReservation[]>("http://localhost:3001/bookings")
+      .then((response) => {
+        if (response.status === 200) {
+          setReservations(response.data);
+          console.log(response.data[3]);
         }
-      })
-      .then((response) => setReservations(response));
+      });
   }, []);
 
   const [addReservation, setAddReservation] = useState<IAddReservation>({
@@ -68,7 +76,7 @@ const AdminPage = () => {
       setBookingDate(moment().add(1, "days").toDate());
 
       const newAdminBooking: IAddReservation = {
-        date: moment().add(1, "days").format("DDMMYYYY"),
+        date: moment().add(1, "days").format("YYYY-MM-DD"),
         guests: addReservation.guests,
         timeslot: addReservation.timeslot,
         firstname: addReservation.firstname,
@@ -192,24 +200,53 @@ const AdminPage = () => {
       setReservations(res.data);
     });
   };
+
+  const handleAmountChangeEdit = (id: string, guests: number) => {
+    console.log(guests);
+  };
+
+  const handleDateChangeEdit = (id: string, date: string) => {
+    console.log(date);
+  };
+
+  const handleTimeslotChangeEdit = (id: string, timeslot: string) => {
+    console.log(timeslot);
+  };
+
+  const handleChange = () => {
+    console.log("Hej");
+  };
+
   return (
     <>
-      <AddReservation
-        handleDateChange={handleDateChange}
-        handleAmountChange={handleAmountChange}
-        handleTimeslotChange={handleTimeslotChange}
-        showTimeSlotOne={showTimeSlotOne}
-        showTimeSlotTwo={showTimeSlotTwo}
-        message={calendarMessage}
-        bookingDate={bookingDate}
-        //addShowContactForm={addShowContactForm}
-        addContactInfo={createContactBooking}
-        // addShowConfirmation={addShowConfirmation}
-      />
-      <ReservationList
-        reservations={reservations}
-        deleteBooking={deleteBooking}
-      ></ReservationList>
+      <AdminBookingsWrapper>
+        <AddReservation
+          handleDateChange={handleDateChange}
+          handleAmountChange={handleAmountChange}
+          handleTimeslotChange={handleTimeslotChange}
+          showTimeSlotOne={showTimeSlotOne}
+          showTimeSlotTwo={showTimeSlotTwo}
+          message={calendarMessage}
+          bookingDate={bookingDate}
+          //addShowContactForm={addShowContactForm}
+          addContactInfo={createContactBooking}
+          // addShowConfirmation={addShowConfirmation}
+        />
+        <ReservationList
+          reservations={reservations}
+          deleteBooking={deleteBooking}
+          showDetailsPage={showDetailsPage}
+        ></ReservationList>
+        {reservations[0] === undefined ? null : (
+          <EditForm
+            handleAmountChange={handleAmountChangeEdit}
+            handleDateChange={handleDateChangeEdit}
+            handleTimeslotChange={handleTimeslotChangeEdit}
+            handleChange={handleChange}
+            reservation={reservations[3]}
+          />
+        )}
+      </AdminBookingsWrapper>
     </>
   );
 };
