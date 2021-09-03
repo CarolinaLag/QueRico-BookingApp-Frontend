@@ -196,7 +196,7 @@ const AdminPage = () => {
   };
 
   const deleteBooking = (id: string) => {
-    axios.delete<any>(`http://localhost:3001/delete/${id}`).then((res) => {
+    axios.delete<any>(`http://localhost:3001/deleteAdmin/${id}`).then((res) => {
       setReservations(res.data);
     });
   };
