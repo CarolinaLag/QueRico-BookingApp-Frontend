@@ -18,6 +18,12 @@ interface IReservation {
 }
 
 const AdminPage = () => {
+  const [showReservationDetails, setShowReservationDetails] = useState(false);
+
+  const showDetailsPage = () => {
+    setShowReservationDetails(true);
+  };
+
   const [reservations, setReservations] = useState<IReservation[]>([]);
   useEffect(() => {
     fetch("http://localhost:3001/bookings")
@@ -37,6 +43,7 @@ const AdminPage = () => {
   return (
     <>
       <ReservationList
+        showDetailsPage={showDetailsPage}
         reservations={reservations}
         deleteBooking={deleteBooking}
       ></ReservationList>
