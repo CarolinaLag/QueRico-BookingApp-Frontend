@@ -48,7 +48,6 @@ const AdminPage = () => {
       .then((response) => {
         if (response.status === 200) {
           setReservations(response.data);
-          console.log(response.data[3]);
         }
       });
   }, []);
@@ -201,21 +200,9 @@ const AdminPage = () => {
     });
   };
 
-  const handleAmountChangeEdit = (id: string, guests: number) => {
-    console.log(guests);
-  };
-
-  const handleDateChangeEdit = (id: string, date: string) => {
-    console.log(date);
-  };
-
-  const handleTimeslotChangeEdit = (id: string, timeslot: string) => {
-    console.log(timeslot);
-  };
-
-  const handleChange = () => {
-    console.log("Hej");
-  };
+  const updateReservation = (reservation: IReservation) => {
+    console.log(reservation);
+  }
 
   return (
     <>
@@ -239,11 +226,8 @@ const AdminPage = () => {
         ></ReservationList>
         {reservations[0] === undefined ? null : (
           <EditForm
-            handleAmountChange={handleAmountChangeEdit}
-            handleDateChange={handleDateChangeEdit}
-            handleTimeslotChange={handleTimeslotChangeEdit}
-            handleChange={handleChange}
             reservation={reservations[3]}
+            updateReservation={updateReservation}
           />
         )}
       </AdminBookingsWrapper>

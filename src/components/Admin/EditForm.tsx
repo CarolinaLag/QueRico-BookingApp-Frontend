@@ -1,5 +1,5 @@
 import moment from "moment";
-import { ChangeEvent } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import Calendar from "react-calendar";
 import {
   ContactFormButtonWrapper,
@@ -25,21 +25,124 @@ interface IReservation {
 
 interface IReservationProps {
   reservation: IReservation;
-  handleDateChange(id: string, date: string): void;
-  handleAmountChange(id: string, amount: number): void;
-  handleTimeslotChange(id: string, timeslot: string): void;
-  handleChange(): void;
+  updateReservation(reservation: IReservation): void;
 }
 
 const EditForm = (props: IReservationProps) => {
-  // useEffect(() => {
-  //   console.log(1, props.reservation);
-  // }, [props.reservation]);
+  const editedObject: IReservation = props.reservation;
+  const [inputs, setInputs] = useState({
+    firstname: editedObject.ContactInfo.firstname,
+    lastname: editedObject.ContactInfo.lastname,
+    email: editedObject.ContactInfo.email,
+    phoneNumber: editedObject.ContactInfo.phoneNumber.toString(),
+  });
+  const [error, setError] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    phoneNumber: "",
+  });
+
+  const handleDateChange = (date: string) => {
+    editedObject.date = date;
+  }
+
+  const handleAmountChange = (guests: number) => {
+    editedObject.amountOfGuests = guests;
+  }
+
+  const handleTimeslotChange = (timeslot: string) => {
+    editedObject.timeSlot = timeslot;
+  }
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    let name = e.target.name;
+    let value = e.target.value;
+    setInputs({...inputs, [name]: value});
+  }
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    editedObject.ContactInfo.firstname = inputs.firstname;
+    editedObject.ContactInfo.lastname = inputs.lastname;
+    editedObject.ContactInfo.email = inputs.email;
+    editedObject.ContactInfo.phoneNumber = parseInt(inputs.phoneNumber);
+    props.updateReservation(editedObject);
+  }
+
+  const firstUpdate = useRef(true);
+
+  useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
+    validate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputs]);
+
+  const validate = () => {
+    let errorMessages = {
+      firstname: "",
+      lastname: "",
+      email: "",
+      phoneNumber: "",
+    };
+
+    if (inputs.firstname === "") {
+      errorMessages.firstname = "Förnamn saknas";
+    } else {
+      if (inputs.firstname.length >= 20 || inputs.firstname.length <= 2) {
+        errorMessages.firstname =
+          "Förnamn måste vara minst 2 och max 20 tecken";
+      } else {
+        errorMessages.firstname = "";
+      }
+    }
+    if (inputs.lastname === "") {
+      errorMessages.lastname = "Efternamn saknas";
+    } else {
+      if (inputs.lastname.length >= 20 || inputs.lastname.length <= 2) {
+        errorMessages.lastname =
+          "Efternamn måste vara minst 2 och max 20 tecken";
+      } else {
+        errorMessages.lastname = "";
+      }
+    }
+    if (inputs.email === "") {
+      errorMessages.email = "Email saknas";
+    } else {
+      if (!/\S+@\S+\.\S+/.test(inputs.email)) {
+        errorMessages.email = "Email har ogiltigt format";
+      } else {
+        errorMessages.email = "";
+      }
+    }
+    if (inputs.phoneNumber === "") {
+      errorMessages.phoneNumber = "Telefonnummer saknas";
+    } else {
+      // if (
+      //   /^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/.test(
+      //     inputs.phoneNumber
+      //   ))
+      if (!/^[0-9]*$/.test(inputs.phoneNumber)) 
+       {
+        errorMessages.phoneNumber = "Telefonnummer har ogiltigt format";
+      } else {
+        if (inputs.phoneNumber.length >= 20) {
+          errorMessages.phoneNumber = "Telefonummer måste vara 20 tecken";
+        } else {
+          errorMessages.phoneNumber = "";
+        }
+      }
+    }
+    setError(errorMessages);
+  }
 
   return (
     <>
       <ContactFormInfoWrapper>
-        <h2>Kontaktinformation</h2>
+        <h2>Bokningsredigering</h2>
       </ContactFormInfoWrapper>
       <ContactFormContainer>
         <form>
@@ -51,8 +154,7 @@ const EditForm = (props: IReservationProps) => {
                 showWeekNumbers={true}
                 value={new Date(props.reservation.date)}
                 onChange={(date: Date) => {
-                  props.handleDateChange(
-                    props.reservation._id,
+                  handleDateChange(
                     moment(date).format("YYYY-MM-DD").toString()
                   );
                 }}
@@ -62,8 +164,7 @@ const EditForm = (props: IReservationProps) => {
                   name='amount'
                   value={props.reservation.amountOfGuests}
                   onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                    props.handleAmountChange(
-                      props.reservation._id,
+                    handleAmountChange(
                       parseInt(e.target.value)
                     )
                   }
@@ -93,8 +194,7 @@ const EditForm = (props: IReservationProps) => {
                   name='timeslot'
                   value={props.reservation.timeSlot}
                   onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                    props.handleTimeslotChange(
-                      props.reservation._id,
+                    handleTimeslotChange(
                       e.target.value
                     )
                   }
@@ -111,54 +211,48 @@ const EditForm = (props: IReservationProps) => {
               minLength={2}
               maxLength={20}
               placeholder='Förnamn'
-              value={props.reservation.ContactInfo.firstname}
-              onChange={props.handleChange}
+              value={inputs.firstname}
+              onChange={handleInputChange}
             />
-            {/* {error.firstname && <small>{error.firstname}</small>} */}
+            {error.firstname && <small>{error.firstname}</small>}
             <input
               type='text'
               name='lastname'
               maxLength={20}
               placeholder='Efernamn'
-              value={props.reservation.ContactInfo.lastname}
-              onChange={props.handleChange}
+              value={inputs.lastname}
+              onChange={handleInputChange}
             />
-            {/* {error.lastname && <small>{error.lastname}</small>} */}
+            {error.lastname && <small>{error.lastname}</small>}
             <input
               type='email'
               name='email'
               maxLength={40}
               placeholder='querico@email.com'
-              value={props.reservation.ContactInfo.email}
-              onChange={props.handleChange}
+              value={inputs.email}
+              onChange={handleInputChange}
             />
-            {/* {error.email && <small>{error.email}</small>} */}
+            {error.email && <small>{error.email}</small>}
             <input
               type='text'
               name='phoneNumber'
               placeholder='0707245678'
               maxLength={20}
               //pattern="[0-9]{3}-[0-9]{3}[0-9]{4}"
-              value={props.reservation.ContactInfo.phoneNumber}
-              onChange={props.handleChange}
+              value={inputs.phoneNumber}
+              onChange={handleInputChange}
             />
-            {/* {error.phoneNumber && <small>{error.phoneNumber}</small>} */}
+            {error.phoneNumber && <small>{error.phoneNumber}</small>}
             <ContactFormButtonWrapper>
               <button>
                 {/* <button type="button" onClick={() => props.addShowContactForm()}> */}
                 Tillbaka
               </button>
-              <Button>
-                {/* <Button
-                disabled={
+              <Button disabled={
                   error.firstname.length > 0 ||
                   error.lastname.length > 0 ||
                   error.email.length > 0 ||
-                  error.phoneNumber.length > 0 ||
-                  input.checkbox === false
-                }
-                onClick={handleClick}
-              > */}
+                  error.phoneNumber.length > 0} onClick={handleClick}>
                 Spara
               </Button>
             </ContactFormButtonWrapper>
