@@ -23,3 +23,10 @@ export const ContactUsWrapper = styled.div`
     }
   }
 `;
+
+export const ContactUsSection = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
