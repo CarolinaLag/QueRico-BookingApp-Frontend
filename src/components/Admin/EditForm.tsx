@@ -26,6 +26,7 @@ interface IReservation {
 interface IReservationProps {
   reservation: IReservation;
   updateReservation(reservation: IReservation): void;
+  reservationEditMessage: string;
 }
 
 const EditForm = (props: IReservationProps) => {
@@ -45,21 +46,21 @@ const EditForm = (props: IReservationProps) => {
 
   const handleDateChange = (date: string) => {
     editedObject.date = date;
-  }
+  };
 
   const handleAmountChange = (guests: number) => {
     editedObject.amountOfGuests = guests;
-  }
+  };
 
   const handleTimeslotChange = (timeslot: string) => {
     editedObject.timeSlot = timeslot;
-  }
+  };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     let name = e.target.name;
     let value = e.target.value;
-    setInputs({...inputs, [name]: value});
-  }
+    setInputs({ ...inputs, [name]: value });
+  };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -68,7 +69,7 @@ const EditForm = (props: IReservationProps) => {
     editedObject.ContactInfo.email = inputs.email;
     editedObject.ContactInfo.phoneNumber = parseInt(inputs.phoneNumber);
     props.updateReservation(editedObject);
-  }
+  };
 
   const firstUpdate = useRef(true);
 
@@ -121,12 +122,7 @@ const EditForm = (props: IReservationProps) => {
     if (inputs.phoneNumber === "") {
       errorMessages.phoneNumber = "Telefonnummer saknas";
     } else {
-      // if (
-      //   /^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/.test(
-      //     inputs.phoneNumber
-      //   ))
-      if (!/^[0-9]*$/.test(inputs.phoneNumber)) 
-       {
+      if (!/^[0-9]*$/.test(inputs.phoneNumber)) {
         errorMessages.phoneNumber = "Telefonnummer har ogiltigt format";
       } else {
         if (inputs.phoneNumber.length >= 20) {
@@ -137,7 +133,7 @@ const EditForm = (props: IReservationProps) => {
       }
     }
     setError(errorMessages);
-  }
+  };
 
   return (
     <>
@@ -161,98 +157,98 @@ const EditForm = (props: IReservationProps) => {
               />
               <div>
                 <select
-                  name='amount'
+                  name="amount"
                   value={props.reservation.amountOfGuests}
                   onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                    handleAmountChange(
-                      parseInt(e.target.value)
-                    )
+                    handleAmountChange(parseInt(e.target.value))
                   }
                 >
-                  <option value='2'>2 personer</option>
-                  <option value='3'>3 personer</option>
-                  <option value='4'>4 personer</option>
-                  <option value='5'>5 personer</option>
-                  <option value='6'>6 personer</option>
-                  <option value='7'>7 personer</option>
-                  <option value='8'>8 personer</option>
-                  <option value='9'>9 personer</option>
-                  <option value='10'>10 personer</option>
-                  <option value='11'>11 personer</option>
-                  <option value='12'>12 personer</option>
-                  <option value='13'>13 personer</option>
-                  <option value='14'>14 personer</option>
-                  <option value='15'>15 personer</option>
-                  <option value='16'>16 personer</option>
-                  <option value='17'>17 personer</option>
-                  <option value='18'>18 personer</option>
-                  <option value='19'>19 personer</option>
-                  <option value='20'>20 personer</option>
+                  <option value="2">2 personer</option>
+                  <option value="3">3 personer</option>
+                  <option value="4">4 personer</option>
+                  <option value="5">5 personer</option>
+                  <option value="6">6 personer</option>
+                  <option value="7">7 personer</option>
+                  <option value="8">8 personer</option>
+                  <option value="9">9 personer</option>
+                  <option value="10">10 personer</option>
+                  <option value="11">11 personer</option>
+                  <option value="12">12 personer</option>
+                  <option value="13">13 personer</option>
+                  <option value="14">14 personer</option>
+                  <option value="15">15 personer</option>
+                  <option value="16">16 personer</option>
+                  <option value="17">17 personer</option>
+                  <option value="18">18 personer</option>
+                  <option value="19">19 personer</option>
+                  <option value="20">20 personer</option>
                 </select>
 
                 <select
-                  name='timeslot'
+                  name="timeslot"
                   value={props.reservation.timeSlot}
                   onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                    handleTimeslotChange(
-                      e.target.value
-                    )
+                    handleTimeslotChange(e.target.value)
                   }
                 >
-                  <option value='17:00'>17:00</option>
-                  <option value='19:00'>19:00</option>
+                  <option value="17:00">17:00</option>
+                  <option value="19:00">19:00</option>
                 </select>
               </div>
             </div>
             <input
-              type='text'
-              name='firstname'
+              type="text"
+              name="firstname"
               required
               minLength={2}
               maxLength={20}
-              placeholder='Förnamn'
+              placeholder="Förnamn"
               value={inputs.firstname}
               onChange={handleInputChange}
             />
             {error.firstname && <small>{error.firstname}</small>}
             <input
-              type='text'
-              name='lastname'
+              type="text"
+              name="lastname"
               maxLength={20}
-              placeholder='Efernamn'
+              placeholder="Efernamn"
               value={inputs.lastname}
               onChange={handleInputChange}
             />
             {error.lastname && <small>{error.lastname}</small>}
             <input
-              type='email'
-              name='email'
+              type="email"
+              name="email"
               maxLength={40}
-              placeholder='querico@email.com'
+              placeholder="querico@email.com"
               value={inputs.email}
               onChange={handleInputChange}
             />
             {error.email && <small>{error.email}</small>}
             <input
-              type='text'
-              name='phoneNumber'
-              placeholder='0707245678'
+              type="text"
+              name="phoneNumber"
+              placeholder="0707245678"
               maxLength={20}
-              //pattern="[0-9]{3}-[0-9]{3}[0-9]{4}"
               value={inputs.phoneNumber}
               onChange={handleInputChange}
             />
             {error.phoneNumber && <small>{error.phoneNumber}</small>}
+            <small>{props.reservationEditMessage}</small>
             <ContactFormButtonWrapper>
               <button>
                 {/* <button type="button" onClick={() => props.addShowContactForm()}> */}
                 Tillbaka
               </button>
-              <Button disabled={
+              <Button
+                disabled={
                   error.firstname.length > 0 ||
                   error.lastname.length > 0 ||
                   error.email.length > 0 ||
-                  error.phoneNumber.length > 0} onClick={handleClick}>
+                  error.phoneNumber.length > 0
+                }
+                onClick={handleClick}
+              >
                 Spara
               </Button>
             </ContactFormButtonWrapper>
