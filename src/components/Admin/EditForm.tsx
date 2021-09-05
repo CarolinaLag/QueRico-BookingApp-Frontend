@@ -30,13 +30,10 @@ interface IReservationProps {
 }
 
 const EditForm = (props: IReservationProps) => {
-  const editedObject: IReservation = props.reservation;
-  const [inputs, setInputs] = useState({
-    firstname: editedObject.ContactInfo.firstname,
-    lastname: editedObject.ContactInfo.lastname,
-    email: editedObject.ContactInfo.email,
-    phoneNumber: editedObject.ContactInfo.phoneNumber.toString(),
-  });
+  const [editedObject, setEditedObject] = useState<IReservation>(
+    props.reservation
+  );
+
   const [error, setError] = useState({
     firstname: "",
     lastname: "",
@@ -44,30 +41,40 @@ const EditForm = (props: IReservationProps) => {
     phoneNumber: "",
   });
 
+  console.log(editedObject.amountOfGuests);
+  console.log(editedObject.timeSlot);
+
   const handleDateChange = (date: string) => {
-    editedObject.date = date;
+    let tempReservation = editedObject;
+    tempReservation.date = date;
+    setEditedObject(tempReservation);
   };
 
-  const handleAmountChange = (guests: number) => {
-    editedObject.amountOfGuests = guests;
-  };
+  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    let name = e.target.name;
+    let value;
 
-  const handleTimeslotChange = (timeslot: string) => {
-    editedObject.timeSlot = timeslot;
+    if (name === "amountOfGuests") value = parseInt(e.target.value);
+    else value = e.target.value;
+
+    setEditedObject({ ...editedObject, [name]: value });
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     let name = e.target.name;
-    let value = e.target.value;
-    setInputs({ ...inputs, [name]: value });
+    let value;
+
+    if (name === "phoneNumber") value = parseInt(e.target.value);
+    else value = e.target.value;
+
+    setEditedObject({
+      ...editedObject,
+      ContactInfo: { ...editedObject.ContactInfo, [name]: value },
+    });
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    editedObject.ContactInfo.firstname = inputs.firstname;
-    editedObject.ContactInfo.lastname = inputs.lastname;
-    editedObject.ContactInfo.email = inputs.email;
-    editedObject.ContactInfo.phoneNumber = parseInt(inputs.phoneNumber);
     props.updateReservation(editedObject);
   };
 
@@ -80,7 +87,7 @@ const EditForm = (props: IReservationProps) => {
     }
     validate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputs]);
+  }, [editedObject]);
 
   const validate = () => {
     let errorMessages = {
@@ -90,42 +97,48 @@ const EditForm = (props: IReservationProps) => {
       phoneNumber: "",
     };
 
-    if (inputs.firstname === "") {
+    if (editedObject.ContactInfo.firstname === "") {
       errorMessages.firstname = "Förnamn saknas";
     } else {
-      if (inputs.firstname.length >= 20 || inputs.firstname.length <= 2) {
+      if (
+        editedObject.ContactInfo.firstname.length >= 20 ||
+        editedObject.ContactInfo.firstname.length <= 2
+      ) {
         errorMessages.firstname =
           "Förnamn måste vara minst 2 och max 20 tecken";
       } else {
         errorMessages.firstname = "";
       }
     }
-    if (inputs.lastname === "") {
+    if (editedObject.ContactInfo.lastname === "") {
       errorMessages.lastname = "Efternamn saknas";
     } else {
-      if (inputs.lastname.length >= 20 || inputs.lastname.length <= 2) {
+      if (
+        editedObject.ContactInfo.lastname.length >= 20 ||
+        editedObject.ContactInfo.lastname.length <= 2
+      ) {
         errorMessages.lastname =
           "Efternamn måste vara minst 2 och max 20 tecken";
       } else {
         errorMessages.lastname = "";
       }
     }
-    if (inputs.email === "") {
+    if (editedObject.ContactInfo.email === "") {
       errorMessages.email = "Email saknas";
     } else {
-      if (!/\S+@\S+\.\S+/.test(inputs.email)) {
+      if (!/\S+@\S+\.\S+/.test(editedObject.ContactInfo.email)) {
         errorMessages.email = "Email har ogiltigt format";
       } else {
         errorMessages.email = "";
       }
     }
-    if (inputs.phoneNumber === "") {
+    if (editedObject.ContactInfo.phoneNumber.toString() === "") {
       errorMessages.phoneNumber = "Telefonnummer saknas";
     } else {
-      if (!/^[0-9]*$/.test(inputs.phoneNumber)) {
+      if (!/^[0-9]*$/.test(editedObject.ContactInfo.phoneNumber.toString())) {
         errorMessages.phoneNumber = "Telefonnummer har ogiltigt format";
       } else {
-        if (inputs.phoneNumber.length >= 20) {
+        if (editedObject.ContactInfo.phoneNumber.toString().length >= 20) {
           errorMessages.phoneNumber = "Telefonummer måste vara 20 tecken";
         } else {
           errorMessages.phoneNumber = "";
@@ -148,7 +161,7 @@ const EditForm = (props: IReservationProps) => {
                 minDate={new Date()}
                 maxDate={moment().add(2, "months").toDate()}
                 showWeekNumbers={true}
-                value={new Date(props.reservation.date)}
+                value={new Date(editedObject.date)}
                 onChange={(date: Date) => {
                   handleDateChange(
                     moment(date).format("YYYY-MM-DD").toString()
@@ -157,11 +170,9 @@ const EditForm = (props: IReservationProps) => {
               />
               <div>
                 <select
-                  name="amount"
-                  value={props.reservation.amountOfGuests}
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                    handleAmountChange(parseInt(e.target.value))
-                  }
+                  name="amountOfGuests"
+                  value={editedObject.amountOfGuests}
+                  onChange={handleSelectChange}
                 >
                   <option value="2">2 personer</option>
                   <option value="3">3 personer</option>
@@ -185,11 +196,9 @@ const EditForm = (props: IReservationProps) => {
                 </select>
 
                 <select
-                  name="timeslot"
-                  value={props.reservation.timeSlot}
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                    handleTimeslotChange(e.target.value)
-                  }
+                  name="timeSlot"
+                  value={editedObject.timeSlot}
+                  onChange={handleSelectChange}
                 >
                   <option value="17:00">17:00</option>
                   <option value="19:00">19:00</option>
@@ -203,7 +212,7 @@ const EditForm = (props: IReservationProps) => {
               minLength={2}
               maxLength={20}
               placeholder="Förnamn"
-              value={inputs.firstname}
+              value={editedObject.ContactInfo.firstname}
               onChange={handleInputChange}
             />
             {error.firstname && <small>{error.firstname}</small>}
@@ -212,7 +221,7 @@ const EditForm = (props: IReservationProps) => {
               name="lastname"
               maxLength={20}
               placeholder="Efernamn"
-              value={inputs.lastname}
+              value={editedObject.ContactInfo.lastname}
               onChange={handleInputChange}
             />
             {error.lastname && <small>{error.lastname}</small>}
@@ -221,7 +230,7 @@ const EditForm = (props: IReservationProps) => {
               name="email"
               maxLength={40}
               placeholder="querico@email.com"
-              value={inputs.email}
+              value={editedObject.ContactInfo.email}
               onChange={handleInputChange}
             />
             {error.email && <small>{error.email}</small>}
@@ -230,7 +239,7 @@ const EditForm = (props: IReservationProps) => {
               name="phoneNumber"
               placeholder="0707245678"
               maxLength={20}
-              value={inputs.phoneNumber}
+              value={editedObject.ContactInfo.phoneNumber.toString()}
               onChange={handleInputChange}
             />
             {error.phoneNumber && <small>{error.phoneNumber}</small>}
