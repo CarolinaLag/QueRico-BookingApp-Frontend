@@ -8,12 +8,16 @@ import {
   ContactFormInputsWrapper,
   GdprWrapper,
 } from "../styles/contactForm";
-import { Button, Header, HeadingWrapper } from "../styles/global";
+import { Button } from "../styles/global";
 
 interface IAddReservationProps {
+  showReservationListPage(): void;
+  showReservationCalendarPage(): void;
+  showContactFormPage(): void;
   handleDateChange(date: string): void;
   handleAmountChange(amount: number): void;
   handleTimeslotChange(timeslot: string): void;
+
   showTimeSlotOne: boolean;
   showTimeSlotTwo: boolean;
   message: string;
@@ -139,11 +143,20 @@ const AddReservation = (props: IAddReservationProps) => {
       phoneNumber: "",
       checkbox: false,
     });
-    //props.addShowConfirmation();
+  };
+
+  const goBackToReservationListButton = () => {
+    props.showReservationCalendarPage();
+    props.showReservationListPage();
+  };
+  const goBackToCalendarFormButton = () => {
+    props.showReservationCalendarPage();
+    props.showContactFormPage();
   };
 
   return (
     <>
+      <Button onClick={goBackToReservationListButton}>Tillbaka</Button>
       <form>
         <div>
           <Calendar
@@ -291,6 +304,7 @@ const AddReservation = (props: IAddReservationProps) => {
               >
                 Boka bord
               </Button>
+              <Button onClick={goBackToCalendarFormButton}>Tillbaka</Button>
             </ContactFormButtonWrapper>
           </ContactFormInputsWrapper>
         </form>
