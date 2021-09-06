@@ -38,17 +38,23 @@ const AdminPage = () => {
   const showDetailsPage = () => {
     setShowReservationDetails(true);
   };
+  const [selectedDate, setSelectedDate] = useState<string>(
+    moment().format("YYYY-MM-DD").toString()
+  );
+
+  const handleCalendarChange = (date: Date) => {
+    setSelectedDate(moment(date).format("YYYY-MM-DD").toString());
+  };
 
   const [reservations, setReservations] = useState<IReservation[]>([]);
   useEffect(() => {
-    fetch("http://localhost:3001/bookings")
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .then((response) => setReservations(response));
-  }, []);
+    console.log(selectedDate);
+    axios
+      .get<IReservation[]>(
+        `http://localhost:3001/bookingsByDate/${selectedDate}`
+      )
+      .then((response) => setReservations(response.data));
+  }, [selectedDate]);
 
   const [addReservation, setAddReservation] = useState<IAddReservation>({
     date: moment().format("DD-MM-YYYY"),
@@ -215,6 +221,8 @@ const AdminPage = () => {
         reservations={reservations}
         deleteBooking={deleteBooking}
         showDetailsPage={showDetailsPage}
+        handleCalendarChange={handleCalendarChange}
+        selectedDate={selectedDate}
       ></ReservationList>
     </>
   );

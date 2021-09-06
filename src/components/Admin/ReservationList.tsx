@@ -1,6 +1,8 @@
 import ReservationItem from "./ReservationItem";
 
 import { AdminBookingsWrapper } from "../styles/adminBookings";
+import Calendar from "react-calendar";
+import moment from "moment";
 
 interface IReservation {
   _id: string;
@@ -20,6 +22,8 @@ interface IReservationListProps {
   reservations: IReservation[];
   deleteBooking(id: string): void;
   showDetailsPage: () => void;
+  handleCalendarChange: (date: Date) => void;
+  selectedDate: string;
 }
 
 const Bookings = (props: IReservationListProps) => {
@@ -36,6 +40,14 @@ const Bookings = (props: IReservationListProps) => {
     <>
       <AdminBookingsWrapper>
         <h1>Admin Översikt Bokningar</h1>
+
+        <Calendar
+          minDate={moment().toDate()}
+          maxDate={moment().add(2, "months").toDate()}
+          showWeekNumbers={true}
+          value={new Date(props.selectedDate)}
+          onChange={props.handleCalendarChange}
+        />
         {reservationItems}
 
         {/*  <button
