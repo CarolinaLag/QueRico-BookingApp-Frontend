@@ -231,8 +231,8 @@ const AdminPage = () => {
     console.log(timeslot);
 
     setAddReservation(newAdminBooking);
-    setShowCalendarForm(false);
-    setShowContactForm(true);
+    showContactFormPage();
+    showReservationCalendarPage();
   };
 
   const deleteBooking = (id: string) => {
@@ -262,27 +262,33 @@ const AdminPage = () => {
   return (
     <>
       <AddAdminReservationButtonContainer>
-          <AddAdminReservationButton>+</AddAdminReservationButton>
-        </AddAdminReservationButtonContainer>
+        <AddAdminReservationButton
+          onClick={() => {
+            showReservationListPage();
+            showReservationCalendarPage();
+          }}
+        >
+          Lägg till bokning
+        </AddAdminReservationButton>
+      </AddAdminReservationButtonContainer>
       <AdminBookingsWrapper>
+        <AddReservation
+          handleDateChange={handleDateChange}
+          handleAmountChange={handleAmountChange}
+          handleTimeslotChange={handleTimeslotChange}
+          showTimeSlotOne={showTimeSlotOne}
+          showTimeSlotTwo={showTimeSlotTwo}
+          message={calendarMessage}
+          bookingDate={bookingDate}
+          addContactInfo={createContactBooking}
+          showReservationListPage={showReservationListPage}
+          showReservationCalendarPage={showReservationCalendarPage}
+          showContactFormPage={showContactFormPage}
+          showContactForm={showContactForm}
+          showCalendarForm={showCalendarForm}
+          // addShowConfirmation={addShowConfirmation}
+        />
 
-        {showCalendarForm ? (
-            
-          <AddReservation
-            handleDateChange={handleDateChange}
-            handleAmountChange={handleAmountChange}
-            handleTimeslotChange={handleTimeslotChange}
-            showTimeSlotOne={showTimeSlotOne}
-            showTimeSlotTwo={showTimeSlotTwo}
-            message={calendarMessage}
-            bookingDate={bookingDate}
-            addContactInfo={createContactBooking}
-            showReservationListPage={showReservationListPage}
-            showReservationCalendarPage={showReservationCalendarPage}
-            showContactFormPage={showContactFormPage}
-            // addShowConfirmation={addShowConfirmation}
-          />
-        ) : null}
         {showReservationList ? (
           <ReservationList
             reservations={reservations}
