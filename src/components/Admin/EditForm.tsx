@@ -27,6 +27,8 @@ interface IReservationProps {
   reservation: IReservation;
   updateReservation(reservation: IReservation): void;
   reservationEditMessage: string;
+  showDetailsPage(): void;
+  showEditPage(): void;
 }
 
 const EditForm = (props: IReservationProps) => {
@@ -145,6 +147,11 @@ const EditForm = (props: IReservationProps) => {
     setError(errorMessages);
   };
 
+  const goBackButton = () => {
+    props.showEditPage();
+    props.showDetailsPage();
+  };
+
   return (
     <>
       <ContactFormInfoWrapper>
@@ -242,10 +249,10 @@ const EditForm = (props: IReservationProps) => {
             {error.phoneNumber && <small>{error.phoneNumber}</small>}
             <small>{props.reservationEditMessage}</small>
             <ContactFormButtonWrapper>
-              <button>
-                {/* <button type="button" onClick={() => props.addShowContactForm()}> */}
+              <Button type="button" onClick={() => goBackButton()}>
                 Tillbaka
-              </button>
+              </Button>
+
               <Button
                 disabled={
                   error.firstname.length > 0 ||
