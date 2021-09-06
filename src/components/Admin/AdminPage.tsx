@@ -84,10 +84,10 @@ const AdminPage = () => {
     if (currentTime > 14) {
       setBookingDate(moment().add(1, "days").toDate());
 
-      const newAdminBooking: IAddReservation = addReservation;
-      newAdminBooking.date = moment().add(1, "days").format("YYYY-MM-DD");
-
-      setAddReservation(newAdminBooking);
+      setAddReservation({
+        ...addReservation,
+        date: moment().add(1, "days").format("YYYY-MM-DD"),
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -211,24 +211,16 @@ const AdminPage = () => {
   };
 
   const handleDateChange = (date: string) => {
-    const newAdminBooking: IAddReservation = addReservation;
-    newAdminBooking.date = date;
-
-    setAddReservation(newAdminBooking);
+    setAddReservation({ ...addReservation, date: date });
   };
 
   const handleAmountChange = (amount: number) => {
-    const newAdminBooking: IAddReservation = addReservation;
-    newAdminBooking.guests = amount;
-
-    setAddReservation(newAdminBooking);
+    setAddReservation({ ...addReservation, guests: amount });
   };
 
   const handleTimeslotChange = (timeslot: string) => {
-    const newAdminBooking: IAddReservation = addReservation;
-    newAdminBooking.timeslot = timeslot;
+    setAddReservation({ ...addReservation, timeslot: timeslot });
 
-    setAddReservation(newAdminBooking);
     showContactFormPage();
     showReservationCalendarPage();
   };
