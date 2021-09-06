@@ -45,10 +45,34 @@ interface IEditResponse {
 }
 
 const AdminPage = () => {
+  const [showReservationList, setShowReservationList] = useState(true);
   const [showReservationDetails, setShowReservationDetails] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [showCalendarForm, setShowCalendarForm] = useState(false);
+  const [showTimeSlotOne, setShowTimeSlotOne] = useState(false);
+  const [showTimeSlotTwo, setShowTimeSlotTwo] = useState(false);
+  const [showContactForm, setShowContactForm] = useState(false);
+
   const showDetailsPage = () => {
-    setShowReservationDetails(true);
+    setShowReservationDetails(!showReservationDetails);
   };
+
+  const showEditPage = () => {
+    setShowEditForm(!showEditForm);
+  };
+
+  const showReservationCalendarPage = () => {
+    setShowCalendarForm(!showCalendarForm);
+  };
+
+  const showContactFormPage = () => {
+    setShowContactForm(!showContactForm);
+  };
+
+  const showReservationListPage = () => {
+    setShowReservationList(!showReservationList);
+  };
+
   const [selectedDate, setSelectedDate] = useState<string>(
     moment().format("YYYY-MM-DD").toString()
   );
@@ -76,11 +100,9 @@ const AdminPage = () => {
     phonenumber: 0,
   });
   const [bookingDate, setBookingDate] = useState(moment().toDate());
-  const [showTimeSlotOne, setShowTimeSlotOne] = useState(false);
-  const [showTimeSlotTwo, setShowTimeSlotTwo] = useState(false);
+
   const [calendarMessage, setCalendarMessage] = useState("Välj antal gäster.");
   const [reservationEditMessage, setReservationEditMessage] = useState("");
-  const [showEditForm, setShowEditForm] = useState(true);
 
   useEffect(() => {
     const currentTime = moment().hours();
@@ -166,6 +188,8 @@ const AdminPage = () => {
         newReservations.push(res.data);
         setReservations(newReservations);
       });
+    setShowContactForm(false);
+    setShowReservationList(true);
   };
 
   const handleDateChange = (date: string) => {
@@ -205,7 +229,10 @@ const AdminPage = () => {
       phonenumber: addReservation.phonenumber,
     };
     console.log(timeslot);
+
     setAddReservation(newAdminBooking);
+    setShowCalendarForm(false);
+    setShowContactForm(true);
   };
 
   const deleteBooking = (id: string) => {
@@ -214,6 +241,8 @@ const AdminPage = () => {
       .then((res) => {
         setReservations(res.data);
       });
+    setShowEditForm(false);
+    setShowReservationList(true);
   };
 
   const updateReservation = (reservation: IReservation) => {
@@ -232,35 +261,45 @@ const AdminPage = () => {
 
   return (
     <>
-      <AdminBookingsWrapper>
-        <AddAdminReservationButtonContainer>
+      <AddAdminReservationButtonContainer>
           <AddAdminReservationButton>+</AddAdminReservationButton>
         </AddAdminReservationButtonContainer>
-        <AddReservation
-          handleDateChange={handleDateChange}
-          handleAmountChange={handleAmountChange}
-          handleTimeslotChange={handleTimeslotChange}
-          showTimeSlotOne={showTimeSlotOne}
-          showTimeSlotTwo={showTimeSlotTwo}
-          message={calendarMessage}
-          bookingDate={bookingDate}
-          //addShowContactForm={addShowContactForm}
-          addContactInfo={createContactBooking}
-          // addShowConfirmation={addShowConfirmation}
-        />
-        <ReservationList
-          reservations={reservations}
-          deleteBooking={deleteBooking}
-          showDetailsPage={showDetailsPage}
-          handleCalendarChange={handleCalendarChange}
-          selectedDate={selectedDate}
-        ></ReservationList>
+      <AdminBookingsWrapper>
+
+        {showCalendarForm ? (
+            
+          <AddReservation
+            handleDateChange={handleDateChange}
+            handleAmountChange={handleAmountChange}
+            handleTimeslotChange={handleTimeslotChange}
+            showTimeSlotOne={showTimeSlotOne}
+            showTimeSlotTwo={showTimeSlotTwo}
+            message={calendarMessage}
+            bookingDate={bookingDate}
+            addContactInfo={createContactBooking}
+            showReservationListPage={showReservationListPage}
+            showReservationCalendarPage={showReservationCalendarPage}
+            showContactFormPage={showContactFormPage}
+            // addShowConfirmation={addShowConfirmation}
+          />
+        ) : null}
+        {showReservationList ? (
+          <ReservationList
+            reservations={reservations}
+            deleteBooking={deleteBooking}
+            showDetailsPage={showDetailsPage}
+            handleCalendarChange={handleCalendarChange}
+            selectedDate={selectedDate}
+          ></ReservationList>
+        ) : null}
 
         {reservations[0] && showEditForm ? (
           <EditForm
             reservation={reservations[0]}
             updateReservation={updateReservation}
             reservationEditMessage={reservationEditMessage}
+            showEditPage={showEditPage}
+            showDetailsPage={showDetailsPage}
           />
         ) : null}
       </AdminBookingsWrapper>
