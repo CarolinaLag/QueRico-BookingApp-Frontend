@@ -11,7 +11,7 @@ export const MenuLink = styled.a`
   text-decoration: none;
   color: white;
   border-bottom: 1px solid white;
-  transition: all 0.3s ease-in;
+  transition: color 0.2s;
   font-size: 0.9rem;
   &:hover {
     color: #670101;

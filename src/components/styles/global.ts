@@ -8,6 +8,9 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-family: 'Playfair Display', serif;
   }
+  body {
+    overflow-x:hidden;
+  }
 `;
 
 export const HeadingWrapper = styled.div`

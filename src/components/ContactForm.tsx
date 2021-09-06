@@ -195,8 +195,9 @@ const ContactForm = (props: IContactFormProps) => {
                 checked={input.checkbox}
                 name="checkbox"
                 onChange={handleChange}
+                id="checkbox"
               />
-              <p>
+              <label htmlFor="checkbox">
                 Jag godkänner Gdpr:s
                 <a
                   href="https://www.imy.se/verksamhet/dataskydd/det-har-galler-enligt-gdpr/introduktion-till-gdpr/dataskyddsforordningen-i-fulltext/"
@@ -205,7 +206,17 @@ const ContactForm = (props: IContactFormProps) => {
                 >
                   villkor
                 </a>
-              </p>
+              </label>
+              {/* <p>
+                Jag godkänner Gdpr:s
+                <a
+                  href="https://www.imy.se/verksamhet/dataskydd/det-har-galler-enligt-gdpr/introduktion-till-gdpr/dataskyddsforordningen-i-fulltext/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  villkor
+                </a>
+              </p> */}
             </GdprWrapper>
             <ContactFormButtonWrapper>
               <button type="button" onClick={() => props.addShowContactForm()}>
@@ -219,6 +230,7 @@ const ContactForm = (props: IContactFormProps) => {
                   error.phoneNumber.length > 0 ||
                   input.checkbox === false
                 }
+                data-testid="button"
                 onClick={handleClick}
               >
                 Boka bord
