@@ -5,6 +5,7 @@ import moment from "moment";
 import AddReservation from "./AddReservation";
 import EditForm from "./EditForm";
 import { AdminBookingsWrapper } from "../styles/adminBookings";
+import DetailsPage from "./DetailsPage";
 
 interface IReservationResponse {
   tablesAvailableAtFive: boolean;
@@ -42,17 +43,9 @@ interface IEditResponse {
 
 const AdminPage = () => {
   const [showReservationDetails, setShowReservationDetails] = useState(false);
-  const showDetailsPage = () => {
-    setShowReservationDetails(true);
-  };
   const [selectedDate, setSelectedDate] = useState<string>(
     moment().format("YYYY-MM-DD").toString()
   );
-
-  const handleCalendarChange = (date: Date) => {
-    setSelectedDate(moment(date).format("YYYY-MM-DD").toString());
-  };
-
   const [reservations, setReservations] = useState<IReservation[]>([]);
   useEffect(() => {
     axios
@@ -61,7 +54,6 @@ const AdminPage = () => {
       )
       .then((response) => setReservations(response.data));
   }, [selectedDate]);
-
   const [addReservation, setAddReservation] = useState<IAddReservation>({
     date: moment().format("YYYY-MM-DD"),
     guests: 0,
@@ -139,6 +131,32 @@ const AdminPage = () => {
     }
   }, [addReservation]);
 
+  const deleteBooking = (id: string) => {
+    axios
+      .delete<IReservation[]>(`http://localhost:3001/deleteAdmin/${id}`)
+      .then((res) => {
+        setReservations(res.data);
+      });
+  };
+
+  const updateReservation = (reservation: IReservation) => {
+    axios
+      .put<IEditResponse>(`http://localhost:3001/edit/`, reservation)
+      .then((response) => {
+        if (response.status === 200 && response.data.tableAvailable === true) {
+          setReservations(response.data.reservations);
+          setReservationEditMessage("");
+          setShowEditForm(false);
+        } else {
+          setReservationEditMessage("Det finns inga bord lediga.");
+        }
+      });
+  };
+
+  const handleCalendarChange = (date: Date) => {
+    setSelectedDate(moment(date).format("YYYY-MM-DD").toString());
+  };
+
   const createContactBooking = (
     firstname: string,
     lastname: string,
@@ -204,26 +222,8 @@ const AdminPage = () => {
     setAddReservation(newAdminBooking);
   };
 
-  const deleteBooking = (id: string) => {
-    axios
-      .delete<IReservation[]>(`http://localhost:3001/deleteAdmin/${id}`)
-      .then((res) => {
-        setReservations(res.data);
-      });
-  };
-
-  const updateReservation = (reservation: IReservation) => {
-    axios
-      .put<IEditResponse>(`http://localhost:3001/edit/`, reservation)
-      .then((response) => {
-        if (response.status === 200 && response.data.tableAvailable === true) {
-          setReservations(response.data.reservations);
-          setReservationEditMessage("");
-          setShowEditForm(false);
-        } else {
-          setReservationEditMessage("Det finns inga bord lediga.");
-        }
-      });
+  const showDetailsPage = () => {
+    setShowReservationDetails(!showReservationDetails);
   };
 
   return (
@@ -248,6 +248,13 @@ const AdminPage = () => {
           handleCalendarChange={handleCalendarChange}
           selectedDate={selectedDate}
         ></ReservationList>
+
+        {reservations[0] && showReservationDetails ? (
+          <DetailsPage
+            showDetailsPage={showDetailsPage}
+            reservation={reservations[0]}
+          />
+        ) : null}
 
         {reservations[0] && showEditForm ? (
           <EditForm
