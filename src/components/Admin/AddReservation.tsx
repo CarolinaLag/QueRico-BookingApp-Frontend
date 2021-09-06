@@ -273,24 +273,7 @@ const AddReservation = (props: IAddReservationProps) => {
               onChange={handleChange}
             />
             {error.phoneNumber && <small>{error.phoneNumber}</small>}
-            <GdprWrapper>
-              <input
-                type="checkbox"
-                checked={input.checkbox}
-                name="checkbox"
-                onChange={handleChange}
-              />
-              <p>
-                Jag godkänner Gdpr:s
-                <a
-                  href="https://www.imy.se/verksamhet/dataskydd/det-har-galler-enligt-gdpr/introduktion-till-gdpr/dataskyddsforordningen-i-fulltext/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  villkor
-                </a>
-              </p>
-            </GdprWrapper>
+
             <ContactFormButtonWrapper>
               <Button
                 disabled={
