@@ -4,7 +4,11 @@ import ReservationList from "./ReservationList";
 import moment from "moment";
 import AddReservation from "./AddReservation";
 import EditForm from "./EditForm";
-import { AdminBookingsWrapper } from "../styles/adminBookings";
+import {
+  AddAdminReservationButton,
+  AddAdminReservationButtonContainer,
+  AdminBookingsWrapper,
+} from "../styles/adminBookings";
 
 interface IReservationResponse {
   tablesAvailableAtFive: boolean;
@@ -229,6 +233,9 @@ const AdminPage = () => {
   return (
     <>
       <AdminBookingsWrapper>
+        <AddAdminReservationButtonContainer>
+          <AddAdminReservationButton>+</AddAdminReservationButton>
+        </AddAdminReservationButtonContainer>
         <AddReservation
           handleDateChange={handleDateChange}
           handleAmountChange={handleAmountChange}
