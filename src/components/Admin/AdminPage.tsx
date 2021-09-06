@@ -200,6 +200,7 @@ const AdminPage = () => {
       email: addReservation.email,
       phonenumber: addReservation.phonenumber,
     };
+    console.log(timeslot);
     setAddReservation(newAdminBooking);
   };
 
