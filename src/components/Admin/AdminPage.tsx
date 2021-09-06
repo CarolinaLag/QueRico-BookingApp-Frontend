@@ -3,6 +3,8 @@ import axios from "axios";
 import ReservationList from "./ReservationList";
 import moment from "moment";
 import AddReservation from "./AddReservation";
+import EditForm from "./EditForm";
+import { AdminBookingsWrapper } from "../styles/adminBookings";
 
 interface IReservationResponse {
   tablesAvailableAtFive: boolean;
@@ -33,6 +35,11 @@ interface IAddReservation {
   phonenumber: number;
 }
 
+interface IEditResponse {
+  tableAvailable: boolean;
+  reservations: IReservation[];
+}
+
 const AdminPage = () => {
   const [showReservationDetails, setShowReservationDetails] = useState(false);
   const showDetailsPage = () => {
@@ -48,7 +55,6 @@ const AdminPage = () => {
 
   const [reservations, setReservations] = useState<IReservation[]>([]);
   useEffect(() => {
-    console.log(selectedDate);
     axios
       .get<IReservation[]>(
         `http://localhost:3001/bookingsByDate/${selectedDate}`
@@ -57,7 +63,7 @@ const AdminPage = () => {
   }, [selectedDate]);
 
   const [addReservation, setAddReservation] = useState<IAddReservation>({
-    date: moment().format("DD-MM-YYYY"),
+    date: moment().format("YYYY-MM-DD"),
     guests: 0,
     timeslot: "",
     firstname: "",
@@ -68,10 +74,9 @@ const AdminPage = () => {
   const [bookingDate, setBookingDate] = useState(moment().toDate());
   const [showTimeSlotOne, setShowTimeSlotOne] = useState(false);
   const [showTimeSlotTwo, setShowTimeSlotTwo] = useState(false);
-  // const [showContactForm, setShowContactForm] = useState(false);
-  // const [showCalenderForm, setShowCalenderForm] = useState(true);
-  // const [showConfirmation, setConfirmation] = useState(false);
   const [calendarMessage, setCalendarMessage] = useState("Välj antal gäster.");
+  const [reservationEditMessage, setReservationEditMessage] = useState("");
+  const [showEditForm, setShowEditForm] = useState(true);
 
   useEffect(() => {
     const currentTime = moment().hours();
@@ -79,7 +84,7 @@ const AdminPage = () => {
       setBookingDate(moment().add(1, "days").toDate());
 
       const newAdminBooking: IAddReservation = {
-        date: moment().add(1, "days").format("DDMMYYYY"),
+        date: moment().add(1, "days").format("YYYY-MM-DD"),
         guests: addReservation.guests,
         timeslot: addReservation.timeslot,
         firstname: addReservation.firstname,
@@ -149,7 +154,7 @@ const AdminPage = () => {
       email: email,
       phonenumber: parseInt(phoneNumber),
     };
-    // console.log(contactAdminBooking);
+
     axios
       .post("http://localhost:3001/create", contactAdminBooking)
       .then((res) => {
@@ -199,31 +204,58 @@ const AdminPage = () => {
   };
 
   const deleteBooking = (id: string) => {
-    axios.delete<any>(`http://localhost:3001/delete/${id}`).then((res) => {
-      setReservations(res.data);
-    });
+    axios
+      .delete<IReservation[]>(`http://localhost:3001/deleteAdmin/${id}`)
+      .then((res) => {
+        setReservations(res.data);
+      });
   };
+
+  const updateReservation = (reservation: IReservation) => {
+    axios
+      .put<IEditResponse>(`http://localhost:3001/edit/`, reservation)
+      .then((response) => {
+        if (response.status === 200 && response.data.tableAvailable === true) {
+          setReservations(response.data.reservations);
+          setReservationEditMessage("");
+          setShowEditForm(false);
+        } else {
+          setReservationEditMessage("Det finns inga bord lediga.");
+        }
+      });
+  };
+
   return (
     <>
-      <AddReservation
-        handleDateChange={handleDateChange}
-        handleAmountChange={handleAmountChange}
-        handleTimeslotChange={handleTimeslotChange}
-        showTimeSlotOne={showTimeSlotOne}
-        showTimeSlotTwo={showTimeSlotTwo}
-        message={calendarMessage}
-        bookingDate={bookingDate}
-        //addShowContactForm={addShowContactForm}
-        addContactInfo={createContactBooking}
-        // addShowConfirmation={addShowConfirmation}
-      />
-      <ReservationList
-        reservations={reservations}
-        deleteBooking={deleteBooking}
-        showDetailsPage={showDetailsPage}
-        handleCalendarChange={handleCalendarChange}
-        selectedDate={selectedDate}
-      ></ReservationList>
+      <AdminBookingsWrapper>
+        <AddReservation
+          handleDateChange={handleDateChange}
+          handleAmountChange={handleAmountChange}
+          handleTimeslotChange={handleTimeslotChange}
+          showTimeSlotOne={showTimeSlotOne}
+          showTimeSlotTwo={showTimeSlotTwo}
+          message={calendarMessage}
+          bookingDate={bookingDate}
+          //addShowContactForm={addShowContactForm}
+          addContactInfo={createContactBooking}
+          // addShowConfirmation={addShowConfirmation}
+        />
+        <ReservationList
+          reservations={reservations}
+          deleteBooking={deleteBooking}
+          showDetailsPage={showDetailsPage}
+          handleCalendarChange={handleCalendarChange}
+          selectedDate={selectedDate}
+        ></ReservationList>
+
+        {reservations[0] && showEditForm ? (
+          <EditForm
+            reservation={reservations[0]}
+            updateReservation={updateReservation}
+            reservationEditMessage={reservationEditMessage}
+          />
+        ) : null}
+      </AdminBookingsWrapper>
     </>
   );
 };

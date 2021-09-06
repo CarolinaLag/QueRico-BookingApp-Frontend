@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BookingConfirmationWrapper } from "./styles/bookingConfirmation";
 import { Header, HeadingWrapper, LinkStyle } from "./styles/global";
+import Loader from "react-loader-spinner";
 
 interface IParams {
   id: string;
@@ -11,16 +12,21 @@ interface IParams {
 const CancelReservation = () => {
   let { id } = useParams<IParams>();
 
-  const [cancelMessage, setCancelMessage] = useState("Laddar...");
+  //const [cancelMessage, setCancelMessage] = useState("Laddar...");
+  //const [showLoader, setShowLoader] = useState(false);
+  // const [message, setMessage] = useState("");
+
+  const [cancelReservationResponse, setCancelReservationResponse] = useState({
+    loading: false,
+    message: "",
+  });
 
   useEffect(() => {
     axios.delete<any>(`http://localhost:3001/delete/${id}`).then((res) => {
       console.log(res);
-      if (res.status === 200) {
-        setCancelMessage("Din reservation är nu avbokad!");
-      } else {
-        setCancelMessage("Oj, något gick fel, försök igen");
-      }
+      setCancelReservationResponse({ loading: true, message: res.data });
+      //setMessage(res.data);
+      //setShowLoader(true);
     });
   }, [id]);
 
@@ -32,7 +38,12 @@ const CancelReservation = () => {
         </HeadingWrapper>
       </Header>
       <BookingConfirmationWrapper>
-        <h1>{cancelMessage}</h1>
+        {cancelReservationResponse.loading ? (
+          <h2>{cancelReservationResponse.message}</h2>
+        ) : (
+          <Loader type={"Circles"} color="#00BFFF" height={80} width={80} />
+        )}
+
         <LinkStyle href="/">Tillbaka</LinkStyle>
       </BookingConfirmationWrapper>
     </>

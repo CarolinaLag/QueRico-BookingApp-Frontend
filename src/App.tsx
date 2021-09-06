@@ -10,6 +10,7 @@ import ContactUs from "./components/ContactUs";
 
 import CancelReservation from "./components/CancelReservation";
 import AdminPage from "./components/Admin/AdminPage";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
   return (
@@ -18,28 +19,32 @@ function App() {
         <GlobalStyle />
         <Navbar />
         <Switch>
-          <Route path="/" exact>
+          <Route path='/' exact>
             <LandingPage />
           </Route>
 
-          <Route path="/booking">
+          <Route path='/booking'>
             <Booking />
           </Route>
 
-          <Route path="/meny">
+          <Route path='/meny'>
             <TapasMenu />
           </Route>
 
-          <Route path="/kontakt">
+          <Route path='/kontakt'>
             <ContactUs />
           </Route>
 
-          <Route path="/admin">
+          <Route path='/admin'>
             <AdminPage />
           </Route>
 
-          <Route path="/cancelConfirmation/:id">
+          <Route path='/cancelConfirmation/:id'>
             <CancelReservation />
+          </Route>
+
+          <Route path="*">
+            <PageNotFound />
           </Route>
         </Switch>
       </Router>
