@@ -29,6 +29,7 @@ interface IReservationProps {
   reservationEditMessage: string;
   showDetailsPage(): void;
   showEditPage(): void;
+  showReservationListPage(): void;
 }
 
 const EditForm = (props: IReservationProps) => {
@@ -75,6 +76,7 @@ const EditForm = (props: IReservationProps) => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     props.updateReservation(editedObject);
+    props.showReservationListPage();
   };
 
   const firstUpdate = useRef(true);
@@ -249,7 +251,7 @@ const EditForm = (props: IReservationProps) => {
             {error.phoneNumber && <small>{error.phoneNumber}</small>}
             <small>{props.reservationEditMessage}</small>
             <ContactFormButtonWrapper>
-              <Button type="button" onClick={() => goBackButton()}>
+              <Button type='button' onClick={() => goBackButton()}>
                 Tillbaka
               </Button>
 

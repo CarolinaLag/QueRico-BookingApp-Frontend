@@ -11,11 +11,6 @@ import {
 } from "../styles/adminBookings";
 import DetailsPage from "./DetailsPage";
 
-interface IReservationResponse {
-  tablesAvailableAtFive: boolean;
-  tablesAvailableAtSeven: boolean;
-}
-
 interface IReservation {
   _id: string;
   amountOfGuests: number;
@@ -40,6 +35,11 @@ interface IAddReservation {
   phonenumber: number;
 }
 
+interface IReservationResponse {
+  tablesAvailableAtFive: boolean;
+  tablesAvailableAtSeven: boolean;
+}
+
 interface IEditResponse {
   tableAvailable: boolean;
   reservations: IReservation[];
@@ -57,6 +57,7 @@ const AdminPage = () => {
     moment().format("YYYY-MM-DD").toString()
   );
   const [reservations, setReservations] = useState<IReservation[]>([]);
+  const [reservation, setReservation] = useState<IReservation>();
   const [addReservation, setAddReservation] = useState<IAddReservation>({
     date: moment().format("YYYY-MM-DD"),
     guests: 0,
@@ -83,15 +84,9 @@ const AdminPage = () => {
     if (currentTime > 14) {
       setBookingDate(moment().add(1, "days").toDate());
 
-      const newAdminBooking: IAddReservation = {
-        date: moment().add(1, "days").format("YYYY-MM-DD"),
-        guests: addReservation.guests,
-        timeslot: addReservation.timeslot,
-        firstname: addReservation.firstname,
-        lastname: addReservation.lastname,
-        email: addReservation.email,
-        phonenumber: addReservation.phonenumber,
-      };
+      const newAdminBooking: IAddReservation = addReservation;
+      newAdminBooking.date = moment().add(1, "days").format("YYYY-MM-DD");
+
       setAddReservation(newAdminBooking);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -169,23 +164,19 @@ const AdminPage = () => {
     email: string,
     phoneNumber: string
   ): void => {
-    const contactAdminBooking: IAddReservation = {
-      date: addReservation.date,
-      guests: addReservation.guests,
-      timeslot: addReservation.timeslot,
-      firstname: firstname,
-      lastname: lastname,
-      email: email,
-      phonenumber: parseInt(phoneNumber),
-    };
+    const newAdminBooking: IAddReservation = addReservation;
+    newAdminBooking.firstname = firstname;
+    newAdminBooking.lastname = lastname;
+    newAdminBooking.email = email;
+    newAdminBooking.phonenumber = parseInt(phoneNumber);
 
-    axios
-      .post("http://localhost:3001/create", contactAdminBooking)
-      .then((res) => {
-        const newReservations = [...reservations];
-        newReservations.push(res.data);
-        setReservations(newReservations);
-      });
+    setAddReservation(newAdminBooking);
+
+    axios.post("http://localhost:3001/create", addReservation).then((res) => {
+      const newReservations = [...reservations];
+      newReservations.push(res.data);
+      setReservations(newReservations);
+    });
     setShowContactForm(false);
     setShowReservationList(true);
   };
@@ -214,43 +205,28 @@ const AdminPage = () => {
     setShowReservationList(!showReservationList);
   };
 
+  const setDetailedReservation = (reservation: IReservation) => {
+    setReservation(reservation);
+    showDetailsPage();
+  };
+
   const handleDateChange = (date: string) => {
-    const newAdminBooking: IAddReservation = {
-      date: date,
-      guests: addReservation.guests,
-      timeslot: addReservation.timeslot,
-      firstname: addReservation.firstname,
-      lastname: addReservation.lastname,
-      email: addReservation.email,
-      phonenumber: addReservation.phonenumber,
-    };
+    const newAdminBooking: IAddReservation = addReservation;
+    newAdminBooking.date = date;
+
     setAddReservation(newAdminBooking);
   };
 
   const handleAmountChange = (amount: number) => {
-    const newAdminBooking: IAddReservation = {
-      date: addReservation.date,
-      guests: amount,
-      timeslot: addReservation.timeslot,
-      firstname: addReservation.firstname,
-      lastname: addReservation.lastname,
-      email: addReservation.email,
-      phonenumber: addReservation.phonenumber,
-    };
+    const newAdminBooking: IAddReservation = addReservation;
+    newAdminBooking.guests = amount;
+
     setAddReservation(newAdminBooking);
   };
 
   const handleTimeslotChange = (timeslot: string) => {
-    const newAdminBooking: IAddReservation = {
-      date: addReservation.date,
-      guests: addReservation.guests,
-      timeslot: timeslot,
-      firstname: addReservation.firstname,
-      lastname: addReservation.lastname,
-      email: addReservation.email,
-      phonenumber: addReservation.phonenumber,
-    };
-    console.log(timeslot);
+    const newAdminBooking: IAddReservation = addReservation;
+    newAdminBooking.timeslot = timeslot;
 
     setAddReservation(newAdminBooking);
     showContactFormPage();
@@ -284,7 +260,6 @@ const AdminPage = () => {
           showContactFormPage={showContactFormPage}
           showContactForm={showContactForm}
           showCalendarForm={showCalendarForm}
-          // addShowConfirmation={addShowConfirmation}
         />
 
         {showReservationList ? (
@@ -294,23 +269,29 @@ const AdminPage = () => {
             showDetailsPage={showDetailsPage}
             handleCalendarChange={handleCalendarChange}
             selectedDate={selectedDate}
+            setDetailedReservation={setDetailedReservation}
+            showReservationListPage={showReservationListPage}
           ></ReservationList>
         ) : null}
 
-        {reservations[0] && showReservationDetails ? (
+        {reservation && showReservationDetails ? (
           <DetailsPage
+            reservation={reservation}
             showDetailsPage={showDetailsPage}
-            reservation={reservations[0]}
+            showEditPage={showEditPage}
+            showReservationListPage={showReservationListPage}
+            deleteBooking={deleteBooking}
           />
         ) : null}
 
-        {reservations[0] && showEditForm ? (
+        {reservation && showEditForm ? (
           <EditForm
-            reservation={reservations[0]}
+            reservation={reservation}
             updateReservation={updateReservation}
             reservationEditMessage={reservationEditMessage}
             showEditPage={showEditPage}
             showDetailsPage={showDetailsPage}
+            showReservationListPage={showReservationListPage}
           />
         ) : null}
       </AdminBookingsWrapper>
