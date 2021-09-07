@@ -60,7 +60,7 @@ const AdminPage = () => {
 
   useEffect(() => {
     const currentTime = moment().hours();
-    if (currentTime > 14) {
+    if (currentTime > 13) {
       setBookingDate(moment().add(1, "days").format("YYYY-MM-DD"));
 
       setAddReservation({
@@ -265,6 +265,7 @@ const AdminPage = () => {
             showEditPage={showEditPage}
             showDetailsPage={showDetailsPage}
             showReservationListPage={showReservationListPage}
+            bookingDate={bookingDate}
           />
         ) : null}
       </AdminBookingsWrapper>
