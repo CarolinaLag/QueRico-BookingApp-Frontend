@@ -60,7 +60,7 @@ const AdminPage = () => {
 
   useEffect(() => {
     const currentTime = moment().hours();
-    if (currentTime > 13) {
+    if (currentTime > 14) {
       setBookingDate(moment().add(1, "days").format("YYYY-MM-DD"));
 
       setAddReservation({
