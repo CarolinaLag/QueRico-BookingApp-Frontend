@@ -18,7 +18,6 @@ interface IAddReservationProps {
   handleTimeslotChange(timeslot: string): void;
   showContactForm: boolean;
   showCalendarForm: boolean;
-
   showTimeSlotOne: boolean;
   showTimeSlotTwo: boolean;
   message: string;
