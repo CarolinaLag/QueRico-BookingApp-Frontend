@@ -265,6 +265,7 @@ const AdminPage = () => {
             showEditPage={showEditPage}
             showDetailsPage={showDetailsPage}
             showReservationListPage={showReservationListPage}
+            bookingDate={bookingDate}
           />
         ) : null}
       </AdminBookingsWrapper>

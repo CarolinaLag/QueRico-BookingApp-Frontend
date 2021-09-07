@@ -17,6 +17,7 @@ interface IReservationProps {
   showDetailsPage(): void;
   showEditPage(): void;
   showReservationListPage(): void;
+  bookingDate: string;
 }
 
 const EditForm = (props: IReservationProps) => {
@@ -32,9 +33,7 @@ const EditForm = (props: IReservationProps) => {
   });
 
   const handleDateChange = (date: string) => {
-    let tempReservation = editedObject;
-    tempReservation.date = date;
-    setEditedObject(tempReservation);
+    setEditedObject({ ...editedObject, date: date });
   };
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -156,9 +155,7 @@ const EditForm = (props: IReservationProps) => {
                 showWeekNumbers={true}
                 value={new Date(editedObject.date)}
                 onChange={(date: Date) => {
-                  handleDateChange(
-                    moment(date).format("YYYY-MM-DD").toString()
-                  );
+                  handleDateChange(moment(date).format("YYYY-MM-DD"));
                 }}
               />
               <div>
