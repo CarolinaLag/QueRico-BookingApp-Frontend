@@ -5,6 +5,7 @@ import "react-calendar/dist/Calendar.css";
 import { Header, HeadingWrapper } from "./styles/global";
 import "animate.css";
 import { AnimationOnScroll } from "react-animation-on-scroll";
+import { IAddReservation } from "../interface/interface";
 
 interface ICalendarFormProps {
   handleDateChange(date: string): void;
@@ -13,7 +14,8 @@ interface ICalendarFormProps {
   showTimeSlotOne: boolean;
   showTimeSlotTwo: boolean;
   message: string;
-  bookingDate: Date;
+  bookingDate: string;
+  reservation: IAddReservation;
 }
 
 const CalendarForm = (props: ICalendarFormProps) => {
@@ -29,10 +31,10 @@ const CalendarForm = (props: ICalendarFormProps) => {
         <form>
           <div>
             <Calendar
-              minDate={props.bookingDate}
+              minDate={new Date(props.bookingDate)}
               maxDate={moment().add(2, "months").toDate()}
               showWeekNumbers={true}
-              value={props.bookingDate}
+              value={new Date(props.reservation.date)}
               onChange={(date: Date) => {
                 props.handleDateChange(
                   moment(date).format("YYYY-MM-DD").toString()

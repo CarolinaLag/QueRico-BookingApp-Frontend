@@ -1,7 +1,7 @@
 import axios from "axios";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import Reservation from "../models/Reservation";
+import { IAddReservation, IReservation } from "../interface/interface";
 import BookingConfirmation from "./BookingConfirmation";
 import CalendarForm from "./CalendarForm";
 import ContactForm from "./ContactForm";
@@ -12,16 +12,16 @@ interface IReservationResponse {
 }
 
 const Booking = () => {
-  const [reservationState, setReservationState] = useState<Reservation>({
+  const [reservationState, setReservationState] = useState<IAddReservation>({
     date: moment().format("YYYY-MM-DD"),
-    guests: 0,
     timeslot: "",
+    guests: 0,
     firstname: "",
     lastname: "",
     email: "",
     phonenumber: 0,
   });
-  const [bookingDate, setBookingDate] = useState(moment().toDate());
+  const [bookingDate, setBookingDate] = useState(moment().format("YYYY-MM-DD"));
   const [showTimeSlotOne, setShowTimeSlotOne] = useState(false);
   const [showTimeSlotTwo, setShowTimeSlotTwo] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
@@ -32,18 +32,12 @@ const Booking = () => {
   useEffect(() => {
     const currentTime = moment().hours();
     if (currentTime > 14) {
-      setBookingDate(moment().add(1, "days").toDate());
+      setBookingDate(moment().add(1, "days").format("YYYY-MM-DD"));
 
-      const newBooking: Reservation = {
+      setReservationState({
+        ...reservationState,
         date: moment().add(1, "days").format("YYYY-MM-DD"),
-        guests: reservationState.guests,
-        timeslot: reservationState.timeslot,
-        firstname: reservationState.firstname,
-        lastname: reservationState.lastname,
-        email: reservationState.email,
-        phonenumber: reservationState.phonenumber,
-      };
-      setReservationState(newBooking);
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -96,7 +90,7 @@ const Booking = () => {
     email: string,
     phoneNumber: string
   ): void => {
-    const contactBooking: Reservation = {
+    const contactBooking: IAddReservation = {
       date: reservationState.date,
       guests: reservationState.guests,
       timeslot: reservationState.timeslot,
@@ -105,47 +99,19 @@ const Booking = () => {
       email: email,
       phonenumber: parseInt(phoneNumber),
     };
-    console.log(contactBooking);
-    axios.post("http://localhost:3001/create", contactBooking);
+    axios.post<IReservation[]>("http://localhost:3001/create", contactBooking);
   };
 
   const handleDateChange = (date: string) => {
-    const newBooking: Reservation = {
-      date: date,
-      guests: reservationState.guests,
-      timeslot: reservationState.timeslot,
-      firstname: reservationState.firstname,
-      lastname: reservationState.lastname,
-      email: reservationState.email,
-      phonenumber: reservationState.phonenumber,
-    };
-    setReservationState(newBooking);
+    setReservationState({ ...reservationState, date: date });
   };
 
   const handleAmountChange = (amount: number) => {
-    const newBooking: Reservation = {
-      date: reservationState.date,
-      guests: amount,
-      timeslot: reservationState.timeslot,
-      firstname: reservationState.firstname,
-      lastname: reservationState.lastname,
-      email: reservationState.email,
-      phonenumber: reservationState.phonenumber,
-    };
-    setReservationState(newBooking);
+    setReservationState({ ...reservationState, guests: amount });
   };
 
   const handleTimeslotChange = (timeslot: string) => {
-    const newBooking: Reservation = {
-      date: reservationState.date,
-      guests: reservationState.guests,
-      timeslot: timeslot,
-      firstname: reservationState.firstname,
-      lastname: reservationState.lastname,
-      email: reservationState.email,
-      phonenumber: reservationState.phonenumber,
-    };
-    setReservationState(newBooking);
+    setReservationState({ ...reservationState, timeslot: timeslot });
   };
 
   const addShowContactForm = () => {
@@ -177,6 +143,7 @@ const Booking = () => {
           showTimeSlotTwo={showTimeSlotTwo}
           message={calendarMessage}
           bookingDate={bookingDate}
+          reservation={reservationState}
         />
       ) : null}
 
