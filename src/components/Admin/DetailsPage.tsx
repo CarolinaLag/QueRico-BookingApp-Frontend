@@ -2,20 +2,7 @@ import { AdminBookingsWrapper } from "../styles/adminBookings";
 import { Button } from "../styles/global";
 import Modal from "react-modal";
 import { useState } from "react";
-
-interface IReservation {
-  _id: string;
-  amountOfGuests: number;
-  amountOfTables: number;
-  timeSlot: string;
-  date: string;
-  ContactInfo: {
-    firstname: string;
-    lastname: string;
-    email: string;
-    phoneNumber: number;
-  };
-}
+import { IReservation } from "../../interface/interface";
 
 interface IDetailsPageProps {
   reservation: IReservation;
@@ -57,7 +44,7 @@ const DetailsPage = (props: IDetailsPageProps) => {
       <AdminBookingsWrapper>
         <h2>Bokningsdetaljer</h2>
         <div>
-          <Button type='button' onClick={openModal}>
+          <Button type="button" onClick={openModal}>
             Radera
           </Button>
           <Modal
@@ -78,7 +65,7 @@ const DetailsPage = (props: IDetailsPageProps) => {
                 props.showDetailsPage();
                 props.showReservationListPage();
               }}
-              type='button'
+              type="button"
             >
               Ja
             </button>
@@ -109,7 +96,7 @@ const DetailsPage = (props: IDetailsPageProps) => {
             <strong>Tid:</strong> {props.reservation.timeSlot}
           </p>
           <Button
-            type='button'
+            type="button"
             onClick={() => {
               props.showDetailsPage();
               props.showReservationListPage();
@@ -118,7 +105,7 @@ const DetailsPage = (props: IDetailsPageProps) => {
             Tillbaka
           </Button>
           <Button
-            type='button'
+            type="button"
             onClick={() => {
               props.showDetailsPage();
               props.showEditPage();

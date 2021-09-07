@@ -1,6 +1,7 @@
 import moment from "moment";
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import Calendar from "react-calendar";
+import { IReservation } from "../../interface/interface";
 import {
   ContactFormButtonWrapper,
   ContactFormContainer,
@@ -8,20 +9,6 @@ import {
   ContactFormInputsWrapper,
 } from "../styles/contactForm";
 import { Button } from "../styles/global";
-
-interface IReservation {
-  _id: string;
-  amountOfGuests: number;
-  amountOfTables: number;
-  timeSlot: string;
-  date: string;
-  ContactInfo: {
-    firstname: string;
-    lastname: string;
-    email: string;
-    phoneNumber: number;
-  };
-}
 
 interface IReservationProps {
   reservation: IReservation;
@@ -176,74 +163,74 @@ const EditForm = (props: IReservationProps) => {
               />
               <div>
                 <select
-                  name='amountOfGuests'
+                  name="amountOfGuests"
                   value={editedObject.amountOfGuests}
                   onChange={handleSelectChange}
                 >
-                  <option value='2'>2 personer</option>
-                  <option value='3'>3 personer</option>
-                  <option value='4'>4 personer</option>
-                  <option value='5'>5 personer</option>
-                  <option value='6'>6 personer</option>
-                  <option value='7'>7 personer</option>
-                  <option value='8'>8 personer</option>
-                  <option value='9'>9 personer</option>
-                  <option value='10'>10 personer</option>
-                  <option value='11'>11 personer</option>
-                  <option value='12'>12 personer</option>
-                  <option value='13'>13 personer</option>
-                  <option value='14'>14 personer</option>
-                  <option value='15'>15 personer</option>
-                  <option value='16'>16 personer</option>
-                  <option value='17'>17 personer</option>
-                  <option value='18'>18 personer</option>
-                  <option value='19'>19 personer</option>
-                  <option value='20'>20 personer</option>
+                  <option value="2">2 personer</option>
+                  <option value="3">3 personer</option>
+                  <option value="4">4 personer</option>
+                  <option value="5">5 personer</option>
+                  <option value="6">6 personer</option>
+                  <option value="7">7 personer</option>
+                  <option value="8">8 personer</option>
+                  <option value="9">9 personer</option>
+                  <option value="10">10 personer</option>
+                  <option value="11">11 personer</option>
+                  <option value="12">12 personer</option>
+                  <option value="13">13 personer</option>
+                  <option value="14">14 personer</option>
+                  <option value="15">15 personer</option>
+                  <option value="16">16 personer</option>
+                  <option value="17">17 personer</option>
+                  <option value="18">18 personer</option>
+                  <option value="19">19 personer</option>
+                  <option value="20">20 personer</option>
                 </select>
 
                 <select
-                  name='timeSlot'
+                  name="timeSlot"
                   value={editedObject.timeSlot}
                   onChange={handleSelectChange}
                 >
-                  <option value='17:00'>17:00</option>
-                  <option value='19:00'>19:00</option>
+                  <option value="17:00">17:00</option>
+                  <option value="19:00">19:00</option>
                 </select>
               </div>
             </div>
             <input
-              type='text'
-              name='firstname'
+              type="text"
+              name="firstname"
               required
               minLength={2}
               maxLength={20}
-              placeholder='Förnamn'
+              placeholder="Förnamn"
               value={editedObject.ContactInfo.firstname}
               onChange={handleInputChange}
             />
             {error.firstname && <small>{error.firstname}</small>}
             <input
-              type='text'
-              name='lastname'
+              type="text"
+              name="lastname"
               maxLength={20}
-              placeholder='Efernamn'
+              placeholder="Efernamn"
               value={editedObject.ContactInfo.lastname}
               onChange={handleInputChange}
             />
             {error.lastname && <small>{error.lastname}</small>}
             <input
-              type='email'
-              name='email'
+              type="email"
+              name="email"
               maxLength={40}
-              placeholder='querico@email.com'
+              placeholder="querico@email.com"
               value={editedObject.ContactInfo.email}
               onChange={handleInputChange}
             />
             {error.email && <small>{error.email}</small>}
             <input
-              type='text'
-              name='phoneNumber'
-              placeholder='0707245678'
+              type="text"
+              name="phoneNumber"
+              placeholder="0707245678"
               maxLength={20}
               value={editedObject.ContactInfo.phoneNumber.toString()}
               onChange={handleInputChange}
@@ -251,7 +238,7 @@ const EditForm = (props: IReservationProps) => {
             {error.phoneNumber && <small>{error.phoneNumber}</small>}
             <small>{props.reservationEditMessage}</small>
             <ContactFormButtonWrapper>
-              <Button type='button' onClick={() => goBackButton()}>
+              <Button type="button" onClick={() => goBackButton()}>
                 Tillbaka
               </Button>
 

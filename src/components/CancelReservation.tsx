@@ -12,10 +12,6 @@ interface IParams {
 const CancelReservation = () => {
   let { id } = useParams<IParams>();
 
-  //const [cancelMessage, setCancelMessage] = useState("Laddar...");
-  //const [showLoader, setShowLoader] = useState(false);
-  // const [message, setMessage] = useState("");
-
   const [cancelReservationResponse, setCancelReservationResponse] = useState({
     loading: false,
     message: "",
@@ -25,8 +21,6 @@ const CancelReservation = () => {
     axios.delete<any>(`http://localhost:3001/delete/${id}`).then((res) => {
       console.log(res);
       setCancelReservationResponse({ loading: true, message: res.data });
-      //setMessage(res.data);
-      //setShowLoader(true);
     });
   }, [id]);
 
