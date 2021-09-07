@@ -11,6 +11,9 @@ export const GlobalStyle = createGlobalStyle`
   body {
     overflow-x:hidden;
   }
+  html {
+    scroll-behavior: smooth;
+  }
 `;
 
 export const HeadingWrapper = styled.div`
@@ -43,6 +46,25 @@ export const LinkStyle = styled.a`
   font-family: "Roboto", sans-serif;
   :hover {
     background: #f5d72e;
+  }
+`;
+
+export const RedButton = styled.button`
+  background: #670101;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  margin: 10px;
+  width: 100px;
+  height: 40px;
+  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+  :hover {
+    background: white;
+    color: #670101;
   }
 `;
 
