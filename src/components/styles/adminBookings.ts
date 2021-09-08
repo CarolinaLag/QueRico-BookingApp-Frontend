@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import AdminBG from "../../assets/plates.jpg";
+import styled from 'styled-components';
+import AdminBG from '../../assets/plates.jpg';
 
 export const AdminBookingsWrapper = styled.div`
   background: url(${AdminBG}) no-repeat center center fixed;
@@ -47,7 +47,7 @@ export const AddAdminReservationButton = styled.button`
   height: 40px;
   font-weight: bold;
   font-size: 15px;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   :hover {
     background: #f5d72e;
   }
@@ -65,7 +65,7 @@ export const BlackWhiteButton = styled.button`
   width: 100px;
   height: 40px;
   font-weight: bold;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   :hover {
     background: white;
     color: black;
@@ -139,4 +139,12 @@ export const AdminEditSelectSection = styled.div`
   justify-content: center;
   flex-direction: row;
   align-items: center;
+`;
+
+export const ModalButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px;
+  }
 `;

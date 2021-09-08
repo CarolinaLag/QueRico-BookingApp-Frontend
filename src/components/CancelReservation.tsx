@@ -1,9 +1,9 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { BookingConfirmationWrapper } from "./styles/bookingConfirmation";
-import { Header, LinkStyle } from "./styles/global";
-import Loader from "react-loader-spinner";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { BookingConfirmationWrapper } from './styles/bookingConfirmation';
+import { Header, LinkStyle } from './styles/global';
+import Loader from 'react-loader-spinner';
 
 interface IParams {
   id: string;
@@ -14,7 +14,7 @@ const CancelReservation = () => {
 
   const [cancelReservationResponse, setCancelReservationResponse] = useState({
     loading: false,
-    message: "",
+    message: '',
   });
 
   useEffect(() => {
@@ -33,10 +33,13 @@ const CancelReservation = () => {
         {cancelReservationResponse.loading ? (
           <h2>{cancelReservationResponse.message}</h2>
         ) : (
-          <Loader type={"Circles"} color='#00BFFF' height={80} width={80} />
+          <Loader type={'Circles'} color="#eebc1d" height={30} width={30} />
         )}
-
-        <LinkStyle href='/'>Tillbaka</LinkStyle>
+        {cancelReservationResponse.loading ? (
+          <LinkStyle style={{ marginTop: '20px' }} href="/">
+            Tillbaka
+          </LinkStyle>
+        ) : null}
       </BookingConfirmationWrapper>
     </>
   );

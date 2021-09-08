@@ -1,6 +1,6 @@
-import { TapasMenuHeader, TapasMenuWrapper } from "./styles/tapasMenu";
-import "animate.css";
-import { AnimationOnScroll } from "react-animation-on-scroll";
+import { TapasMenuHeader, TapasMenuWrapper } from './styles/tapasMenu';
+import 'animate.css';
+import { AnimationOnScroll } from 'react-animation-on-scroll';
 
 const TapasMenu = () => {
   return (

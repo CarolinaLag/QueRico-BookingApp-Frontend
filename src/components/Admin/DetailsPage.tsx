@@ -1,8 +1,8 @@
-import { AdminDetails } from "../styles/adminBookings";
-import { Button } from "../styles/global";
-import Modal from "react-modal";
-import { useState } from "react";
-import { IReservation } from "../../interface/interface";
+import { AdminDetails, ModalButtonWrapper } from '../styles/adminBookings';
+import { Button } from '../styles/global';
+import Modal from 'react-modal';
+import { useState } from 'react';
+import { IReservation } from '../../interface/interface';
 
 interface IDetailsPageProps {
   reservation: IReservation;
@@ -15,15 +15,15 @@ interface IDetailsPageProps {
 const DetailsPage = (props: IDetailsPageProps) => {
   const customStyles = {
     content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
     },
   };
-  let subtitle: any;
+  let subtitle: HTMLHeadingElement | null;
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => {
@@ -32,7 +32,7 @@ const DetailsPage = (props: IDetailsPageProps) => {
   };
 
   const afterOpenModal = () => {
-    subtitle.style.color = "#f00";
+    if (subtitle) subtitle.style.color = '#000';
   };
 
   const closeModal = () => {
@@ -52,23 +52,24 @@ const DetailsPage = (props: IDetailsPageProps) => {
             onAfterOpen={afterOpenModal}
             onRequestClose={closeModal}
             style={customStyles}
-            contentLabel={"Radera Modal"}
+            contentLabel={'Radera Modal'}
           >
-            <button onClick={closeModal}>Stäng</button>
             <h3 ref={(_subtitle) => (subtitle = _subtitle)}>
               Är du säker på att du vill radera?
             </h3>
-
-            <button
-              onClick={() => {
-                props.deleteBooking(props.reservation._id);
-                props.showDetailsPage();
-                props.showReservationListPage();
-              }}
-              type="button"
-            >
-              Ja
-            </button>
+            <ModalButtonWrapper>
+              <Button onClick={closeModal}>Stäng</Button>
+              <Button
+                onClick={() => {
+                  props.deleteBooking(props.reservation._id);
+                  props.showDetailsPage();
+                  props.showReservationListPage();
+                }}
+                type="button"
+              >
+                Ja
+              </Button>
+            </ModalButtonWrapper>
           </Modal>
           <p>
             <strong>Förnamn:</strong> {props.reservation.ContactInfo.firstname}
@@ -80,7 +81,7 @@ const DetailsPage = (props: IDetailsPageProps) => {
             <strong>Email:</strong> {props.reservation.ContactInfo.email}
           </p>
           <p>
-            <strong>Telefon:</strong>{" "}
+            <strong>Telefon:</strong>{' '}
             {props.reservation.ContactInfo.phoneNumber}
           </p>
           <p>
