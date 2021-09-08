@@ -37,7 +37,6 @@ export const ContactFormButtonWrapper = styled.div`
   align-items: center;
   padding: 10px;
 
-
   button {
     color: black;
     border: none;
@@ -54,7 +53,10 @@ export const ContactFormButtonWrapper = styled.div`
       background: #f5d72e;
     }
   }
+`;
 
+export const EditButtonsWrapper = styled(ContactFormButtonWrapper)`
+  width: auto;
 `;
 
 export const ContactFormInfoWrapper = styled.div`
@@ -65,7 +67,6 @@ export const ContactFormInfoWrapper = styled.div`
   color: white;
 
   padding: 5%;
-
 `;
 
 export const GdprWrapper = styled.div`

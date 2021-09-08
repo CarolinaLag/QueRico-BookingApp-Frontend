@@ -1,8 +1,6 @@
-
 import { ReservationItemStyle } from "../styles/adminBookings";
 import { Button } from "../styles/global";
 import { IReservation } from "../../interface/interface";
-
 
 interface IReservationProps {
   reservation: IReservation;
@@ -20,6 +18,7 @@ const ReservationItem = (props: IReservationProps) => {
         <p>{props.reservation.ContactInfo.email}</p>
         <p>{props.reservation.ContactInfo.phoneNumber}</p>
         <Button
+          data-testid="detailButton"
           onClick={() => {
             props.showDetailsPage();
             props.setDetailedReservation(props.reservation);
