@@ -42,7 +42,9 @@ const LandingPage = () => {
           <h1>Bienvenido a !Que Rico!</h1>
           <h2>Tapas på Kungsholmen</h2>
           <h4>Est. 2013</h4>
-          <Link to={"/booking"} target='_blank'>
+
+          <Link to={"/booking"}>
+
             <RedButton>Boka bord</RedButton>
           </Link>
         </AnimationOnScroll>

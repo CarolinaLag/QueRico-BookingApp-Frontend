@@ -1,4 +1,4 @@
-import { AdminBookingsWrapper } from "../styles/adminBookings";
+import { AdminDetails } from "../styles/adminBookings";
 import { Button } from "../styles/global";
 import Modal from "react-modal";
 import { useState } from "react";
@@ -41,7 +41,7 @@ const DetailsPage = (props: IDetailsPageProps) => {
 
   return (
     <>
-      <AdminBookingsWrapper>
+      <AdminDetails>
         <h2>Bokningsdetaljer</h2>
         <div>
           <Button type="button" onClick={openModal}>
@@ -114,7 +114,7 @@ const DetailsPage = (props: IDetailsPageProps) => {
             Ändra
           </Button>
         </div>
-      </AdminBookingsWrapper>
+      </AdminDetails>
     </>
   );
 };
