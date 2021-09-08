@@ -165,7 +165,7 @@ const ContactForm = (props: IContactFormProps) => {
               type="text"
               name="lastname"
               maxLength={20}
-              placeholder="Efernamn"
+              placeholder="Efternamn"
               value={input.lastname}
               onChange={handleChange}
             />
@@ -219,9 +219,9 @@ const ContactForm = (props: IContactFormProps) => {
               </p> */}
             </GdprWrapper>
             <ContactFormButtonWrapper>
-              <button type="button" onClick={() => props.addShowContactForm()}>
+              <Button type="button" onClick={() => props.addShowContactForm()}>
                 Tillbaka
-              </button>
+              </Button>
               <Button
                 disabled={
                   error.firstname.length > 0 ||

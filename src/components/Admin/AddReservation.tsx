@@ -246,7 +246,7 @@ const AddReservation = (props: IAddReservationProps) => {
                   type='text'
                   name='lastname'
                   maxLength={20}
-                  placeholder='Efernamn'
+                  placeholder='Efternamn'
                   value={input.lastname}
                   onChange={handleChange}
                 />
@@ -272,6 +272,7 @@ const AddReservation = (props: IAddReservationProps) => {
                 {error.phoneNumber && <small>{error.phoneNumber}</small>}
 
                 <ContactFormButtonWrapper>
+                  <Button onClick={goBackToCalendarFormButton}>Tillbaka</Button>
                   <Button
                     disabled={
                       error.firstname.length > 0 ||
@@ -283,7 +284,6 @@ const AddReservation = (props: IAddReservationProps) => {
                   >
                     Boka bord
                   </Button>
-                  <Button onClick={goBackToCalendarFormButton}>Tillbaka</Button>
                 </ContactFormButtonWrapper>
               </ContactFormInputsWrapper>
             </form>
