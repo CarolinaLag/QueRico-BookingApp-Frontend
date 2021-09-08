@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BookingConfirmationWrapper } from "./styles/bookingConfirmation";
-import { Header, HeadingWrapper, LinkStyle } from "./styles/global";
+import { Header, LinkStyle } from "./styles/global";
 import Loader from "react-loader-spinner";
 
 interface IParams {
@@ -27,18 +27,16 @@ const CancelReservation = () => {
   return (
     <>
       <Header>
-        <HeadingWrapper>
-          <h1>Avbokning</h1>
-        </HeadingWrapper>
+        <h1>Avbokning</h1>
       </Header>
       <BookingConfirmationWrapper>
         {cancelReservationResponse.loading ? (
           <h2>{cancelReservationResponse.message}</h2>
         ) : (
-          <Loader type={"Circles"} color="#00BFFF" height={80} width={80} />
+          <Loader type={"Circles"} color='#00BFFF' height={80} width={80} />
         )}
 
-        <LinkStyle href="/">Tillbaka</LinkStyle>
+        <LinkStyle href='/'>Tillbaka</LinkStyle>
       </BookingConfirmationWrapper>
     </>
   );

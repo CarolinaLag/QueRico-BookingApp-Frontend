@@ -36,6 +36,9 @@ export const ContactFormButtonWrapper = styled.div`
   justify-content: space-evenly;
   align-items: center;
   padding: 10px;
+  @media screen and (min-width: 1024px) {
+    width: 28vw;
+  }
 `;
 
 export const ContactFormInfoWrapper = styled.div`
@@ -43,6 +46,9 @@ export const ContactFormInfoWrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding: 5%;
+  @media screen and (min-width: 1024px) {
+    padding: 2%;
+  }
 `;
 
 export const GdprWrapper = styled.div`
@@ -53,5 +59,8 @@ export const GdprWrapper = styled.div`
   padding: 3% 0%;
   input {
     width: auto;
+  }
+  @media screen and (min-width: 1024px) {
+    width: 80%;
   }
 `;
