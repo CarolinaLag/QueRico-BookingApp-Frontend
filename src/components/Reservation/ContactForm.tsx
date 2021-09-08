@@ -7,8 +7,8 @@ import {
   ContactFormInfoWrapper,
   ContactFormInputsWrapper,
   GdprWrapper,
-} from "./styles/contactForm";
-import { Button, Header } from "./styles/global";
+} from "../styles/contactForm";
+import { Button, Header } from "../styles/global";
 
 interface IContactFormProps {
   addContactInfo(
@@ -143,38 +143,38 @@ const ContactForm = (props: IContactFormProps) => {
         <form>
           <ContactFormInputsWrapper>
             <input
-              type='text'
-              name='firstname'
+              type="text"
+              name="firstname"
               required
               minLength={2}
               maxLength={20}
-              placeholder='Förnamn'
+              placeholder="Förnamn"
               value={input.firstname}
               onChange={handleChange}
             />
             {error.firstname && <small>{error.firstname}</small>}
             <input
-              type='text'
-              name='lastname'
+              type="text"
+              name="lastname"
               maxLength={20}
-              placeholder='Efternamn'
+              placeholder="Efternamn"
               value={input.lastname}
               onChange={handleChange}
             />
             {error.lastname && <small>{error.lastname}</small>}
             <input
-              type='email'
-              name='email'
+              type="email"
+              name="email"
               maxLength={40}
-              placeholder='querico@email.com'
+              placeholder="querico@email.com"
               value={input.email}
               onChange={handleChange}
             />
             {error.email && <small>{error.email}</small>}
             <input
-              type='text'
-              name='phoneNumber'
-              placeholder='0707245678'
+              type="text"
+              name="phoneNumber"
+              placeholder="0707245678"
               maxLength={20}
               //pattern="[0-9]{3}-[0-9]{3}[0-9]{4}"
               value={input.phoneNumber}
@@ -183,18 +183,18 @@ const ContactForm = (props: IContactFormProps) => {
             {error.phoneNumber && <small>{error.phoneNumber}</small>}
             <GdprWrapper>
               <input
-                type='checkbox'
+                type="checkbox"
                 checked={input.checkbox}
-                name='checkbox'
+                name="checkbox"
                 onChange={handleChange}
-                id='checkbox'
+                id="checkbox"
               />
-              <label htmlFor='checkbox'>
+              <label htmlFor="checkbox">
                 Jag godkänner Gdpr:s
                 <a
-                  href='https://www.imy.se/verksamhet/dataskydd/det-har-galler-enligt-gdpr/introduktion-till-gdpr/dataskyddsforordningen-i-fulltext/'
-                  target='_blank'
-                  rel='noreferrer'
+                  href="https://www.imy.se/verksamhet/dataskydd/det-har-galler-enligt-gdpr/introduktion-till-gdpr/dataskyddsforordningen-i-fulltext/"
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   villkor
                 </a>
@@ -211,7 +211,7 @@ const ContactForm = (props: IContactFormProps) => {
               </p> */}
             </GdprWrapper>
             <ContactFormButtonWrapper>
-              <Button type='button' onClick={() => props.addShowContactForm()}>
+              <Button type="button" onClick={() => props.addShowContactForm()}>
                 Tillbaka
               </Button>
               <Button
@@ -222,7 +222,7 @@ const ContactForm = (props: IContactFormProps) => {
                   error.phoneNumber.length > 0 ||
                   input.checkbox === false
                 }
-                data-testid='button'
+                data-testid="button"
                 onClick={handleClick}
               >
                 Boka bord

@@ -11,7 +11,6 @@ export const ContactUsWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
   p {
     padding: 0.5em;
   }
@@ -29,4 +28,6 @@ export const ContactUsSection = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  text-align: center;
+  padding: 20px;
 `;
