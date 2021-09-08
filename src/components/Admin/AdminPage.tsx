@@ -10,30 +10,7 @@ import {
   AdminBookingsWrapper,
 } from "../styles/adminBookings";
 import DetailsPage from "./DetailsPage";
-
-interface IReservation {
-  _id: string;
-  amountOfGuests: number;
-  amountOfTables: number;
-  timeSlot: string;
-  date: string;
-  ContactInfo: {
-    firstname: string;
-    lastname: string;
-    email: string;
-    phoneNumber: number;
-  };
-}
-
-interface IAddReservation {
-  date: string;
-  timeslot: string;
-  guests: number;
-  firstname: string;
-  lastname: string;
-  email: string;
-  phonenumber: number;
-}
+import { IAddReservation, IReservation } from "../../interface/interface";
 
 interface IReservationResponse {
   tablesAvailableAtFive: boolean;
@@ -67,7 +44,9 @@ const AdminPage = () => {
     email: "",
     phonenumber: 0,
   });
-  const [bookingDate, setBookingDate] = useState(moment().toDate());
+  const [bookingDate, setBookingDate] = useState<string>(
+    moment().format("YYYY-MM-DD")
+  );
   const [calendarMessage, setCalendarMessage] = useState("Välj antal gäster.");
   const [reservationEditMessage, setReservationEditMessage] = useState("");
 
@@ -82,7 +61,7 @@ const AdminPage = () => {
   useEffect(() => {
     const currentTime = moment().hours();
     if (currentTime > 14) {
-      setBookingDate(moment().add(1, "days").toDate());
+      setBookingDate(moment().add(1, "days").format("YYYY-MM-DD"));
 
       setAddReservation({
         ...addReservation,
@@ -172,11 +151,12 @@ const AdminPage = () => {
 
     setAddReservation(newAdminBooking);
 
-    axios.post("http://localhost:3001/create", addReservation).then((res) => {
-      const newReservations = [...reservations];
-      newReservations.push(res.data);
-      setReservations(newReservations);
-    });
+    axios
+      .post<IReservation[]>("http://localhost:3001/create", addReservation)
+      .then((res) => {
+        setReservations(res.data);
+        setSelectedDate(res.data[0].date);
+      });
     setShowContactForm(false);
     setShowReservationList(true);
   };
@@ -246,6 +226,7 @@ const AdminPage = () => {
           showTimeSlotTwo={showTimeSlotTwo}
           message={calendarMessage}
           bookingDate={bookingDate}
+          addReservation={addReservation}
           addContactInfo={createContactBooking}
           showReservationListPage={showReservationListPage}
           showReservationCalendarPage={showReservationCalendarPage}
@@ -284,6 +265,7 @@ const AdminPage = () => {
             showEditPage={showEditPage}
             showDetailsPage={showDetailsPage}
             showReservationListPage={showReservationListPage}
+            bookingDate={bookingDate}
           />
         ) : null}
       </AdminBookingsWrapper>
