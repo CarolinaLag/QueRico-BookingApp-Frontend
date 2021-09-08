@@ -11,7 +11,7 @@ import {
 } from "../styles/adminBookings";
 import DetailsPage from "./DetailsPage";
 
-interface IReservation {
+export interface IReservation {
   _id: string;
   amountOfGuests: number;
   amountOfTables: number;

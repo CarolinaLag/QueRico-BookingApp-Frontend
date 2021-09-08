@@ -1,4 +1,4 @@
-import { AdminBookingsWrapper } from "../styles/adminBookings";
+import { AdminDetails } from "../styles/adminBookings";
 import { Button } from "../styles/global";
 import Modal from "react-modal";
 import { useState } from "react";
@@ -54,10 +54,10 @@ const DetailsPage = (props: IDetailsPageProps) => {
 
   return (
     <>
-      <AdminBookingsWrapper>
+      <AdminDetails>
         <h2>Bokningsdetaljer</h2>
         <div>
-          <Button type='button' onClick={openModal}>
+          <Button type="button" onClick={openModal}>
             Radera
           </Button>
           <Modal
@@ -78,7 +78,7 @@ const DetailsPage = (props: IDetailsPageProps) => {
                 props.showDetailsPage();
                 props.showReservationListPage();
               }}
-              type='button'
+              type="button"
             >
               Ja
             </button>
@@ -109,7 +109,7 @@ const DetailsPage = (props: IDetailsPageProps) => {
             <strong>Tid:</strong> {props.reservation.timeSlot}
           </p>
           <Button
-            type='button'
+            type="button"
             onClick={() => {
               props.showDetailsPage();
               props.showReservationListPage();
@@ -118,7 +118,7 @@ const DetailsPage = (props: IDetailsPageProps) => {
             Tillbaka
           </Button>
           <Button
-            type='button'
+            type="button"
             onClick={() => {
               props.showDetailsPage();
               props.showEditPage();
@@ -127,7 +127,7 @@ const DetailsPage = (props: IDetailsPageProps) => {
             Ändra
           </Button>
         </div>
-      </AdminBookingsWrapper>
+      </AdminDetails>
     </>
   );
 };

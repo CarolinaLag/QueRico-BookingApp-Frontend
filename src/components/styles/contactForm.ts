@@ -42,7 +42,6 @@ export const ContactFormButtonWrapper = styled.div`
     border: none;
     cursor: pointer;
     background-color: #eebc1d;
-    margin: 0.25px;
     width: 100px;
     height: 40px;
     text-decoration: none;
@@ -58,6 +57,7 @@ export const ContactFormInfoWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: white;
 `;
 
 export const GdprWrapper = styled.div`

@@ -20,6 +20,7 @@ export const HeadingWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: white;
 `;
 
 export const Header = styled.div`
@@ -76,7 +77,7 @@ export const Button = styled.button`
   cursor: pointer;
   padding: 5px;
   background-color: #eebc1d;
-  margin: 0.25px;
+  margin: 5px;
   width: 100px;
   height: 40px;
   font-family: "Roboto", sans-serif;
