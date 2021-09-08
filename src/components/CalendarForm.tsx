@@ -1,11 +1,11 @@
-import moment from "moment";
-import React, { ChangeEvent } from "react";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
-import { Header, HeadingWrapper } from "./styles/global";
-import "animate.css";
-import { AnimationOnScroll } from "react-animation-on-scroll";
-import { IAddReservation } from "../interface/interface";
+import moment from 'moment';
+import React, { ChangeEvent } from 'react';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import { Header, HeadingWrapper } from './styles/global';
+import 'animate.css';
+import { AnimationOnScroll } from 'react-animation-on-scroll';
+import { IAddReservation } from '../interface/interface';
 
 interface ICalendarFormProps {
   handleDateChange(date: string): void;
@@ -32,18 +32,19 @@ const CalendarForm = (props: ICalendarFormProps) => {
           <div>
             <Calendar
               minDate={new Date(props.bookingDate)}
-              maxDate={moment().add(2, "months").toDate()}
+              maxDate={moment().add(2, 'months').toDate()}
               showWeekNumbers={true}
               value={new Date(props.reservation.date)}
               onChange={(date: Date) => {
                 props.handleDateChange(
-                  moment(date).format("YYYY-MM-DD").toString()
+                  moment(date).format('YYYY-MM-DD').toString()
                 );
               }}
             />
           </div>
           <div>
             <select
+              data-testid="select"
               name="amount"
               onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                 props.handleAmountChange(parseInt(e.target.value))
