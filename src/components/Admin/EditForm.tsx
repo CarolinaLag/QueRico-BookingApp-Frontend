@@ -8,10 +8,10 @@ import {
   SelectGuestDropDown,
 } from "../styles/adminBookings";
 import {
-  ContactFormButtonWrapper,
   ContactFormContainer,
   ContactFormInfoWrapper,
   ContactFormInputsWrapper,
+  EditButtonsWrapper,
 } from "../styles/contactForm";
 import { Button } from "../styles/global";
 
@@ -164,7 +164,6 @@ const EditForm = (props: IReservationProps) => {
                 }}
               />
               <div>
-
                 <AdminEditSelectSection>
                   <SelectGuestDropDown
                     name="amountOfGuests"
@@ -245,7 +244,7 @@ const EditForm = (props: IReservationProps) => {
               <small>{props.reservationEditMessage}</small>
             </AdminEditContactForm>
 
-            <ContactFormButtonWrapper>
+            <EditButtonsWrapper>
               <Button type="button" onClick={() => goBackButton()}>
                 Tillbaka
               </Button>
@@ -261,7 +260,7 @@ const EditForm = (props: IReservationProps) => {
               >
                 Spara
               </Button>
-            </ContactFormButtonWrapper>
+            </EditButtonsWrapper>
           </ContactFormInputsWrapper>
         </form>
       </ContactFormContainer>

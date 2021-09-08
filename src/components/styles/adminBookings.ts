@@ -7,6 +7,7 @@ export const AdminBookingsWrapper = styled.div`
   min-height: 100vh;
   font-weight: bold;
   margin-bottom: 20px;
+  padding-bottom: 20px;
 `;
 
 export const CalenderWrapper = styled.div`

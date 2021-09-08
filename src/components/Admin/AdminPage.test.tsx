@@ -1,4 +1,4 @@
-import { render, waitFor, screen } from "@testing-library/react";
+import { render, waitFor, screen, getByText } from "@testing-library/react";
 import axios from "axios";
 import { IReservation } from "../../interface/interface";
 import AdminPage from "./AdminPage";
@@ -21,11 +21,11 @@ const mockData: IReservation[] = [
   },
 ];
 
-test("Reservations should have correct amount of reservations", async () => {
+test("Reservations should render on screeen", async () => {
   mockAxios.get.mockResolvedValue({ data: mockData });
-  render(<AdminPage />);
+  const { getByText } = render(<AdminPage />);
   await waitFor(() => {
-    const reservations = screen.getAllByRole("div");
-    expect(reservations.length).toBe(mockData.length);
+    const paragraph = getByText(/Carlos/i);
+    expect(paragraph).toBeInTheDocument();
   });
 });
