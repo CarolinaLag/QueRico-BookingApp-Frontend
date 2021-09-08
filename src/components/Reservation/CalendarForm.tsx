@@ -42,6 +42,7 @@ const CalendarForm = (props: ICalendarFormProps) => {
           </div>
           <div>
             <select
+              data-testid="select"
               name="amount"
               onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                 props.handleAmountChange(parseInt(e.target.value))
