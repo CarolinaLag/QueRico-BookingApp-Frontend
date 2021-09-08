@@ -12,6 +12,9 @@ import {
 import DetailsPage from "./DetailsPage";
 import { IAddReservation, IReservation } from "../../interface/interface";
 
+
+
+
 interface IReservationResponse {
   tablesAvailableAtFive: boolean;
   tablesAvailableAtSeven: boolean;
@@ -130,7 +133,8 @@ const AdminPage = () => {
         if (response.status === 200 && response.data.tableAvailable === true) {
           setReservations(response.data.reservations);
           setReservationEditMessage("");
-          setShowEditForm(false);
+          showEditPage();
+          showReservationListPage();
         } else {
           setReservationEditMessage("Det finns inga bord lediga.");
         }

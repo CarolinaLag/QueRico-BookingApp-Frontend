@@ -10,7 +10,6 @@ export const MenuLink = styled.a`
   text-align: center;
   text-decoration: none;
   color: white;
-  border-bottom: 1px solid white;
   transition: color 0.2s;
   font-size: 0.9rem;
   &:hover {
