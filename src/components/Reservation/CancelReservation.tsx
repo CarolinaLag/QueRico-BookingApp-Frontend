@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { BookingConfirmationWrapper } from "./styles/bookingConfirmation";
-import { Header, LinkStyle } from "./styles/global";
+import { BookingConfirmationWrapper } from "../styles/bookingConfirmation";
+import { Header, LinkStyle } from "../styles/global";
 import Loader from "react-loader-spinner";
 
 interface IParams {
@@ -18,8 +18,8 @@ const CancelReservation = () => {
   });
 
   useEffect(() => {
-    axios.delete<any>(`http://localhost:3001/delete/${id}`).then((res) => {
-      console.log(res);
+    axios.delete<string>(`http://localhost:3001/delete/${id}`).then((res) => {
+      console.log(res.data);
       setCancelReservationResponse({ loading: true, message: res.data });
     });
   }, [id]);
@@ -33,10 +33,10 @@ const CancelReservation = () => {
         {cancelReservationResponse.loading ? (
           <h2>{cancelReservationResponse.message}</h2>
         ) : (
-          <Loader type={"Circles"} color='#00BFFF' height={80} width={80} />
+          <Loader type={"Circles"} color="#00BFFF" height={80} width={80} />
         )}
 
-        <LinkStyle href='/'>Tillbaka</LinkStyle>
+        <LinkStyle href="/">Tillbaka</LinkStyle>
       </BookingConfirmationWrapper>
     </>
   );

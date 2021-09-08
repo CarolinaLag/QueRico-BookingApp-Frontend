@@ -38,7 +38,7 @@ export const LandingPageImageSection = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
+  padding-bottom: 20px;
   @media screen and (min-width: 1024px) {
     //display: flex;
     //flex-direction: column;
@@ -89,6 +89,7 @@ export const LandinPageTextReservation = styled.div`
   justify-content: center;
   align-items: center;
   padding: 20px;
+  padding-left: 40px;
   color: white;
   a {
     color: #eebc1d;
@@ -104,10 +105,13 @@ export const LandinPageTextReservation = styled.div`
 export const SpainImage = styled.img`
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  width: 400px;
+  width: 300px;
   height: 200px;
   padding: 10px;
   margin: 10px;
+  @media screen and (min-width: 1024px) {
+    width: 400px;
+  }
 `;
 
 export const OrangeDrinkImage = styled.img`
@@ -131,8 +135,11 @@ export const MeatballsImage = styled.img`
 export const TapasImage = styled.img`
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  width: 400px;
+  width: 300px;
   height: 200px;
   padding: 10px;
   margin: 10px;
+  @media screen and (min-width: 1024px) {
+    width: 400px;
+  }
 `;

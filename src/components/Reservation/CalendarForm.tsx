@@ -2,19 +2,16 @@ import moment from "moment";
 import React, { ChangeEvent } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { Button, Header } from "./styles/global";
+
+import { Button, Header } from "../styles/global";
 import "animate.css";
 import { AnimationOnScroll } from "react-animation-on-scroll";
-import { IAddReservation } from "../interface/interface";
-import {
-  CalendarSection,
-  CalenderWrapper,
-  SelectGuestDropDown,
-} from "./styles/adminBookings";
+import { IAddReservation } from "../../interface/interface";
+import { SelectGuestDropDown } from "../styles/adminBookings";
 import {
   BookingCalendarSection,
   BookingCalendarWrapper,
-} from "./styles/calendarForm";
+} from "../styles/calendarForm";
 
 interface ICalendarFormProps {
   handleDateChange(date: string): void;
@@ -55,6 +52,7 @@ const CalendarForm = (props: ICalendarFormProps) => {
 
             <div>
               <SelectGuestDropDown
+                data-testid='select'
                 name='amount'
                 onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                   props.handleAmountChange(parseInt(e.target.value))

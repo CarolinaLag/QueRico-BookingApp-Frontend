@@ -92,8 +92,8 @@ const EditForm = (props: IReservationProps) => {
       errorMessages.firstname = "Förnamn saknas";
     } else {
       if (
-        editedObject.ContactInfo.firstname.length >= 20 ||
-        editedObject.ContactInfo.firstname.length <= 2
+        editedObject.ContactInfo.firstname.length > 20 ||
+        editedObject.ContactInfo.firstname.length < 2
       ) {
         errorMessages.firstname =
           "Förnamn måste vara minst 2 och max 20 tecken";
@@ -105,8 +105,8 @@ const EditForm = (props: IReservationProps) => {
       errorMessages.lastname = "Efternamn saknas";
     } else {
       if (
-        editedObject.ContactInfo.lastname.length >= 20 ||
-        editedObject.ContactInfo.lastname.length <= 2
+        editedObject.ContactInfo.lastname.length > 20 ||
+        editedObject.ContactInfo.lastname.length < 2
       ) {
         errorMessages.lastname =
           "Efternamn måste vara minst 2 och max 20 tecken";
@@ -129,7 +129,7 @@ const EditForm = (props: IReservationProps) => {
       if (!/^[0-9]*$/.test(editedObject.ContactInfo.phoneNumber.toString())) {
         errorMessages.phoneNumber = "Telefonnummer har ogiltigt format";
       } else {
-        if (editedObject.ContactInfo.phoneNumber.toString().length >= 20) {
+        if (editedObject.ContactInfo.phoneNumber.toString().length > 20) {
           errorMessages.phoneNumber = "Telefonummer måste vara 20 tecken";
         } else {
           errorMessages.phoneNumber = "";
@@ -163,7 +163,6 @@ const EditForm = (props: IReservationProps) => {
                 }}
               />
               <div>
-
                 <AdminEditSelectSection>
                   <SelectGuestDropDown
                     name="amountOfGuests"
@@ -246,7 +245,6 @@ const EditForm = (props: IReservationProps) => {
 
             <EditButtonsWrapper>
               <Button type="button" onClick={() => goBackButton()}>
-
                 Tillbaka
               </Button>
 

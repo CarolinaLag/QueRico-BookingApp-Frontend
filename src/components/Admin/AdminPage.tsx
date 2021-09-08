@@ -30,6 +30,7 @@ const AdminPage = () => {
   const [showTimeSlotOne, setShowTimeSlotOne] = useState(false);
   const [showTimeSlotTwo, setShowTimeSlotTwo] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
+  const [toggleAddButton, setToggleAddButton] = useState(true);
   const [selectedDate, setSelectedDate] = useState<string>(
     moment().format("YYYY-MM-DD").toString()
   );
@@ -68,6 +69,7 @@ const AdminPage = () => {
         date: moment().add(1, "days").format("YYYY-MM-DD"),
       });
     }
+    console.log(toggleAddButton);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -213,9 +215,10 @@ const AdminPage = () => {
           onClick={() => {
             showReservationListPage();
             showReservationCalendarPage();
+            setToggleAddButton(!toggleAddButton);
           }}
         >
-          Lägg till bokning
+          {toggleAddButton ? "Lägg till bokning" : "Tillbaka"}
         </AddAdminReservationButton>
       </AddAdminReservationButtonContainer>
       <AdminBookingsWrapper>
