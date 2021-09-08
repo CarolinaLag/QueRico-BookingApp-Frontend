@@ -13,6 +13,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   html {
     scroll-behavior: smooth;
+
   }
 `;
 
@@ -23,12 +24,22 @@ export const HeadingWrapper = styled.div`
   color: white;
 `;
 
+
 export const Header = styled.div`
   background: url(${HeaderBG}) no-repeat center center fixed;
   background-size: cover;
   color: white;
   font-weight: bold;
-  height: 400px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h1 {
+    text-shadow: 2px 2px 4px #000000;
+  }
+  @media screen and (min-width: 1024px) {
+    height: 400px;
+  }
 `;
 
 export const LinkStyle = styled.a`
@@ -49,7 +60,6 @@ export const LinkStyle = styled.a`
     background: #f5d72e;
   }
 `;
-
 export const RedButton = styled.button`
   background: #670101;
   color: white;
@@ -68,7 +78,6 @@ export const RedButton = styled.button`
     color: #670101;
   }
 `;
-
 export const Button = styled.button`
   color: black;
   border: none;

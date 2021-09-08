@@ -67,7 +67,6 @@ const EditForm = (props: IReservationProps) => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     props.updateReservation(editedObject);
-    props.showReservationListPage();
   };
 
   const firstUpdate = useRef(true);
@@ -164,6 +163,7 @@ const EditForm = (props: IReservationProps) => {
                 }}
               />
               <div>
+
                 <AdminEditSelectSection>
                   <SelectGuestDropDown
                     name="amountOfGuests"
@@ -246,6 +246,7 @@ const EditForm = (props: IReservationProps) => {
 
             <EditButtonsWrapper>
               <Button type="button" onClick={() => goBackButton()}>
+
                 Tillbaka
               </Button>
 
