@@ -1,7 +1,11 @@
 import moment from "moment";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import Calendar from "react-calendar";
+
 import { CalendarSection, SelectGuestDropDown } from "../styles/adminBookings";
+
+import { IAddReservation } from "../../interface/interface";
+
 import {
   ContactFormButtonWrapper,
   ContactFormContainer,
@@ -19,10 +23,11 @@ interface IAddReservationProps {
   handleTimeslotChange(timeslot: string): void;
   showContactForm: boolean;
   showCalendarForm: boolean;
+  bookingDate: string;
   showTimeSlotOne: boolean;
   showTimeSlotTwo: boolean;
   message: string;
-  bookingDate: Date;
+  addReservation: IAddReservation;
   addContactInfo(
     firstname: string,
     lastname: string,
@@ -157,16 +162,15 @@ const AddReservation = (props: IAddReservationProps) => {
           <CalendarSection>
             <form>
               <Calendar
-                minDate={props.bookingDate}
+                minDate={new Date(props.bookingDate)}
                 maxDate={moment().add(2, "months").toDate()}
                 showWeekNumbers={true}
-                value={props.bookingDate}
+                value={new Date(props.addReservation.date)}
                 onChange={(date: Date) => {
-                  props.handleDateChange(
-                    moment(date).format("YYYY-MM-DD").toString()
-                  );
+                  props.handleDateChange(moment(date).format("YYYY-MM-DD"));
                 }}
               />
+
 
               <div>
                 <SelectGuestDropDown
@@ -174,6 +178,10 @@ const AddReservation = (props: IAddReservationProps) => {
                   onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                     props.handleAmountChange(parseInt(e.target.value))
                   }
+
+         
+          
+
                 >
                   <option value="">Antal</option>
                   <option value="2">2 personer</option>
@@ -250,7 +258,11 @@ const AddReservation = (props: IAddReservationProps) => {
                   type="text"
                   name="lastname"
                   maxLength={20}
-                  placeholder="Efernamn"
+
+
+                  placeholder='Efternamn'
+
+
                   value={input.lastname}
                   onChange={handleChange}
                 />
@@ -276,6 +288,7 @@ const AddReservation = (props: IAddReservationProps) => {
                 {error.phoneNumber && <small>{error.phoneNumber}</small>}
 
                 <ContactFormButtonWrapper>
+                  <Button onClick={goBackToCalendarFormButton}>Tillbaka</Button>
                   <Button
                     disabled={
                       error.firstname.length > 0 ||
@@ -287,7 +300,6 @@ const AddReservation = (props: IAddReservationProps) => {
                   >
                     Boka bord
                   </Button>
-                  <Button onClick={goBackToCalendarFormButton}>Tillbaka</Button>
                 </ContactFormButtonWrapper>
               </ContactFormInputsWrapper>
             </form>

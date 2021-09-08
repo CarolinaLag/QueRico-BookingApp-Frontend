@@ -1,6 +1,7 @@
 import moment from "moment";
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import Calendar from "react-calendar";
+import { IReservation } from "../../interface/interface";
 import {
   AdminEditContactForm,
   AdminEditSelectSection,
@@ -14,20 +15,6 @@ import {
 } from "../styles/contactForm";
 import { Button } from "../styles/global";
 
-interface IReservation {
-  _id: string;
-  amountOfGuests: number;
-  amountOfTables: number;
-  timeSlot: string;
-  date: string;
-  ContactInfo: {
-    firstname: string;
-    lastname: string;
-    email: string;
-    phoneNumber: number;
-  };
-}
-
 interface IReservationProps {
   reservation: IReservation;
   updateReservation(reservation: IReservation): void;
@@ -35,6 +22,7 @@ interface IReservationProps {
   showDetailsPage(): void;
   showEditPage(): void;
   showReservationListPage(): void;
+  bookingDate: string;
 }
 
 const EditForm = (props: IReservationProps) => {
@@ -50,9 +38,7 @@ const EditForm = (props: IReservationProps) => {
   });
 
   const handleDateChange = (date: string) => {
-    let tempReservation = editedObject;
-    tempReservation.date = date;
-    setEditedObject(tempReservation);
+    setEditedObject({ ...editedObject, date: date });
   };
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -174,12 +160,11 @@ const EditForm = (props: IReservationProps) => {
                 showWeekNumbers={true}
                 value={new Date(editedObject.date)}
                 onChange={(date: Date) => {
-                  handleDateChange(
-                    moment(date).format("YYYY-MM-DD").toString()
-                  );
+                  handleDateChange(moment(date).format("YYYY-MM-DD"));
                 }}
               />
               <div>
+
                 <AdminEditSelectSection>
                   <SelectGuestDropDown
                     name="amountOfGuests"
@@ -259,6 +244,7 @@ const EditForm = (props: IReservationProps) => {
               {error.phoneNumber && <small>{error.phoneNumber}</small>}
               <small>{props.reservationEditMessage}</small>
             </AdminEditContactForm>
+
             <ContactFormButtonWrapper>
               <Button type="button" onClick={() => goBackButton()}>
                 Tillbaka

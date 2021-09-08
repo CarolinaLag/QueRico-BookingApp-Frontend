@@ -2,20 +2,7 @@ import { AdminDetails } from "../styles/adminBookings";
 import { Button } from "../styles/global";
 import Modal from "react-modal";
 import { useState } from "react";
-
-interface IReservation {
-  _id: string;
-  amountOfGuests: number;
-  amountOfTables: number;
-  timeSlot: string;
-  date: string;
-  ContactInfo: {
-    firstname: string;
-    lastname: string;
-    email: string;
-    phoneNumber: number;
-  };
-}
+import { IReservation } from "../../interface/interface";
 
 interface IDetailsPageProps {
   reservation: IReservation;

@@ -1,19 +1,8 @@
+
 import { ReservationItemStyle } from "../styles/adminBookings";
 import { Button } from "../styles/global";
+import { IReservation } from "../../interface/interface";
 
-interface IReservation {
-  _id: string;
-  amountOfGuests: number;
-  amountOfTables: number;
-  timeSlot: string;
-  date: string;
-  ContactInfo: {
-    firstname: string;
-    lastname: string;
-    email: string;
-    phoneNumber: number;
-  };
-}
 
 interface IReservationProps {
   reservation: IReservation;

@@ -9,20 +9,7 @@ import {
 } from "../styles/adminBookings";
 import Calendar from "react-calendar";
 import moment from "moment";
-
-interface IReservation {
-  _id: string;
-  amountOfGuests: number;
-  amountOfTables: number;
-  timeSlot: string;
-  date: string;
-  ContactInfo: {
-    firstname: string;
-    lastname: string;
-    email: string;
-    phoneNumber: number;
-  };
-}
+import { IReservation } from "../../interface/interface";
 
 interface IReservationListProps {
   reservations: IReservation[];

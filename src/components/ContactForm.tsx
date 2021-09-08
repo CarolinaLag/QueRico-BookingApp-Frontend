@@ -1,7 +1,6 @@
 import { ChangeEvent, useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-
 import {
   ContactFormButtonWrapper,
   ContactFormContainer,
@@ -88,11 +87,7 @@ const ContactForm = (props: IContactFormProps) => {
     if (input.phoneNumber === "") {
       errorMessages.phoneNumber = "Telefonnummer saknas";
     } else {
-      if (
-        /^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/.test(
-          input.phoneNumber
-        )
-      ) {
+      if (!/^[0-9]*$/.test(input.phoneNumber)) {
         errorMessages.phoneNumber = "Telefonnummer har ogiltigt format";
       } else {
         if (input.phoneNumber.length >= 20) {
@@ -106,7 +101,6 @@ const ContactForm = (props: IContactFormProps) => {
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    //const { name, value } = e.target;
     const target = e.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
@@ -165,7 +159,7 @@ const ContactForm = (props: IContactFormProps) => {
               type="text"
               name="lastname"
               maxLength={20}
-              placeholder="Efernamn"
+              placeholder="Efternamn"
               value={input.lastname}
               onChange={handleChange}
             />
@@ -219,9 +213,9 @@ const ContactForm = (props: IContactFormProps) => {
               </p> */}
             </GdprWrapper>
             <ContactFormButtonWrapper>
-              <button type="button" onClick={() => props.addShowContactForm()}>
+              <Button type="button" onClick={() => props.addShowContactForm()}>
                 Tillbaka
-              </button>
+              </Button>
               <Button
                 disabled={
                   error.firstname.length > 0 ||
