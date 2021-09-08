@@ -19,9 +19,8 @@ export const TapasMenuWrapper = styled.div`
   align-items: center;
   font-size: 1.5em;
   padding: 2em;
-  ul {
-    list-style: none;
-    border: 1px solid black;
+  ol {
+    text-align: center;
   }
   li,
   small {

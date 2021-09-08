@@ -9,5 +9,9 @@ export const BookingConfirmationWrapper = styled.div`
   h1,
   p {
     padding: 20px;
+    text-align: center;
+  }
+  @media screen and (min-width: 1024px) {
+    padding: 10% 3% 20% 3%;
   }
 `;

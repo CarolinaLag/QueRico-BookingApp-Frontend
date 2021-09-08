@@ -1,5 +1,5 @@
-import { BookingConfirmationWrapper } from "./styles/bookingConfirmation";
-import { Header } from "./styles/global";
+import { BookingConfirmationWrapper } from "../styles/bookingConfirmation";
+import { Header } from "../styles/global";
 
 const BookingConfirmation = () => {
   return (

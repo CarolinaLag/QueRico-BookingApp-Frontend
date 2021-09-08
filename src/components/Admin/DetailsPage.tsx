@@ -52,6 +52,7 @@ const DetailsPage = (props: IDetailsPageProps) => {
             onAfterOpen={afterOpenModal}
             onRequestClose={closeModal}
             style={customStyles}
+            ariaHideApp={false}
             contentLabel={'Radera Modal'}
           >
             <h3 ref={(_subtitle) => (subtitle = _subtitle)}>

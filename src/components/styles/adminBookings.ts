@@ -88,12 +88,13 @@ export const ReservationListWrapper = styled.div`
 export const ReservationItemWrapper = styled.div`
   //display: flex;
   // justify-content: column;
-  flex: 1 1 30%;
+  flex: 1 1 50%;
   background: white;
   margin: 10px;
   padding: 10px;
   @media screen and (min-width: 1024px) {
     width: 170px;
+    flex: 1 1 30%;
   }
 `;
 
@@ -112,7 +113,8 @@ export const CalendarSection = styled.div`
 
 export const SelectGuestDropDown = styled.select`
   padding: 5px;
-  color: #eebc1d;
+  background-color: #eebc1d;
+  color: black;
   cursor: pointer;
   font-weight: bold;
   margin: 10px;

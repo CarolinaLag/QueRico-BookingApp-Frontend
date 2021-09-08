@@ -24,9 +24,8 @@ interface IReservationListProps {
 const Bookings = (props: IReservationListProps) => {
   let reservationItems = props.reservations.map((reservation: IReservation) => {
     return (
-      <ReservationItemWrapper>
+      <ReservationItemWrapper key={reservation._id}>
         <ReservationItem
-          key={reservation._id}
           reservation={reservation}
           showDetailsPage={props.showDetailsPage}
           setDetailedReservation={props.setDetailedReservation}

@@ -2,13 +2,14 @@ import { ChangeEvent, useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import {
+  BookingContactFormInfoWrapper,
   ContactFormButtonWrapper,
   ContactFormContainer,
   ContactFormInfoWrapper,
   ContactFormInputsWrapper,
   GdprWrapper,
-} from "./styles/contactForm";
-import { Button, Header } from "./styles/global";
+} from "../styles/contactForm";
+import { Button, Header } from "../styles/global";
 
 interface IContactFormProps {
   addContactInfo(
@@ -58,7 +59,7 @@ const ContactForm = (props: IContactFormProps) => {
     if (input.firstname === "") {
       errorMessages.firstname = "Förnamn saknas";
     } else {
-      if (input.firstname.length >= 20 || input.firstname.length <= 2) {
+      if (input.firstname.length > 20 || input.firstname.length < 2) {
         errorMessages.firstname =
           "Förnamn måste vara minst 2 och max 20 tecken";
       } else {
@@ -68,7 +69,7 @@ const ContactForm = (props: IContactFormProps) => {
     if (input.lastname === "") {
       errorMessages.lastname = "Efternamn saknas";
     } else {
-      if (input.lastname.length >= 20 || input.lastname.length <= 2) {
+      if (input.lastname.length > 20 || input.lastname.length < 2) {
         errorMessages.lastname =
           "Efternamn måste vara minst 2 och max 20 tecken";
       } else {
@@ -90,7 +91,7 @@ const ContactForm = (props: IContactFormProps) => {
       if (!/^[0-9]*$/.test(input.phoneNumber)) {
         errorMessages.phoneNumber = "Telefonnummer har ogiltigt format";
       } else {
-        if (input.phoneNumber.length >= 20) {
+        if (input.phoneNumber.length > 20) {
           errorMessages.phoneNumber = "Telefonummer måste vara 20 tecken";
         } else {
           errorMessages.phoneNumber = "";
@@ -136,45 +137,45 @@ const ContactForm = (props: IContactFormProps) => {
       <Header>
         <h1>Boka bord</h1>
       </Header>
-      <ContactFormInfoWrapper>
+      <BookingContactFormInfoWrapper>
         <h2>Kontaktinformation</h2>
-      </ContactFormInfoWrapper>
+      </BookingContactFormInfoWrapper>
       <ContactFormContainer>
         <form>
           <ContactFormInputsWrapper>
             <input
-              type='text'
-              name='firstname'
+              type="text"
+              name="firstname"
               required
               minLength={2}
               maxLength={20}
-              placeholder='Förnamn'
+              placeholder="Förnamn"
               value={input.firstname}
               onChange={handleChange}
             />
             {error.firstname && <small>{error.firstname}</small>}
             <input
-              type='text'
-              name='lastname'
+              type="text"
+              name="lastname"
               maxLength={20}
-              placeholder='Efternamn'
+              placeholder="Efternamn"
               value={input.lastname}
               onChange={handleChange}
             />
             {error.lastname && <small>{error.lastname}</small>}
             <input
-              type='email'
-              name='email'
+              type="email"
+              name="email"
               maxLength={40}
-              placeholder='querico@email.com'
+              placeholder="querico@email.com"
               value={input.email}
               onChange={handleChange}
             />
             {error.email && <small>{error.email}</small>}
             <input
-              type='text'
-              name='phoneNumber'
-              placeholder='0707245678'
+              type="text"
+              name="phoneNumber"
+              placeholder="0707245678"
               maxLength={20}
               //pattern="[0-9]{3}-[0-9]{3}[0-9]{4}"
               value={input.phoneNumber}
@@ -183,18 +184,18 @@ const ContactForm = (props: IContactFormProps) => {
             {error.phoneNumber && <small>{error.phoneNumber}</small>}
             <GdprWrapper>
               <input
-                type='checkbox'
+                type="checkbox"
                 checked={input.checkbox}
-                name='checkbox'
+                name="checkbox"
                 onChange={handleChange}
-                id='checkbox'
+                id="checkbox"
               />
-              <label htmlFor='checkbox'>
+              <label htmlFor="checkbox">
                 Jag godkänner Gdpr:s
                 <a
-                  href='https://www.imy.se/verksamhet/dataskydd/det-har-galler-enligt-gdpr/introduktion-till-gdpr/dataskyddsforordningen-i-fulltext/'
-                  target='_blank'
-                  rel='noreferrer'
+                  href="https://www.imy.se/verksamhet/dataskydd/det-har-galler-enligt-gdpr/introduktion-till-gdpr/dataskyddsforordningen-i-fulltext/"
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   villkor
                 </a>
@@ -211,7 +212,7 @@ const ContactForm = (props: IContactFormProps) => {
               </p> */}
             </GdprWrapper>
             <ContactFormButtonWrapper>
-              <Button type='button' onClick={() => props.addShowContactForm()}>
+              <Button type="button" onClick={() => props.addShowContactForm()}>
                 Tillbaka
               </Button>
               <Button
@@ -222,7 +223,7 @@ const ContactForm = (props: IContactFormProps) => {
                   error.phoneNumber.length > 0 ||
                   input.checkbox === false
                 }
-                data-testid='button'
+                data-testid="button"
                 onClick={handleClick}
               >
                 Boka bord

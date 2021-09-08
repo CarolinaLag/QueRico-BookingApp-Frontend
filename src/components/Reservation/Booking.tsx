@@ -1,7 +1,7 @@
 import axios from "axios";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { IAddReservation, IReservation } from "../interface/interface";
+import { IAddReservation, IReservation } from "../../interface/interface";
 import BookingConfirmation from "./BookingConfirmation";
 import CalendarForm from "./CalendarForm";
 import ContactForm from "./ContactForm";
