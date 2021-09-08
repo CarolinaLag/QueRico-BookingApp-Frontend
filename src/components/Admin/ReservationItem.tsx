@@ -1,4 +1,8 @@
+
+import { ReservationItemStyle } from "../styles/adminBookings";
+import { Button } from "../styles/global";
 import { IReservation } from "../../interface/interface";
+
 
 interface IReservationProps {
   reservation: IReservation;
@@ -10,19 +14,21 @@ interface IReservationProps {
 const ReservationItem = (props: IReservationProps) => {
   return (
     <>
-      <p>{props.reservation.ContactInfo.firstname}</p>
-      <p>{props.reservation.ContactInfo.lastname}</p>
-      <p>{props.reservation.ContactInfo.email}</p>
-      <p>{props.reservation.ContactInfo.phoneNumber}</p>
-      <button
-        onClick={() => {
-          props.showDetailsPage();
-          props.setDetailedReservation(props.reservation);
-          props.showReservationListPage();
-        }}
-      >
-        Detaljer
-      </button>
+      <ReservationItemStyle>
+        <p>{props.reservation.ContactInfo.firstname}</p>
+        <p>{props.reservation.ContactInfo.lastname}</p>
+        <p>{props.reservation.ContactInfo.email}</p>
+        <p>{props.reservation.ContactInfo.phoneNumber}</p>
+        <Button
+          onClick={() => {
+            props.showDetailsPage();
+            props.setDetailedReservation(props.reservation);
+            props.showReservationListPage();
+          }}
+        >
+          Detaljer
+        </Button>
+      </ReservationItemStyle>
     </>
   );
 };

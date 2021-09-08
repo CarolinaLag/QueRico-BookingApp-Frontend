@@ -12,6 +12,9 @@ import {
 import DetailsPage from "./DetailsPage";
 import { IAddReservation, IReservation } from "../../interface/interface";
 
+
+
+
 interface IReservationResponse {
   tablesAvailableAtFive: boolean;
   tablesAvailableAtSeven: boolean;

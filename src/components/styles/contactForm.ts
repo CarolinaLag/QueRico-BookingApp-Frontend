@@ -36,13 +36,36 @@ export const ContactFormButtonWrapper = styled.div`
   justify-content: space-evenly;
   align-items: center;
   padding: 10px;
+
+
+  button {
+    color: black;
+    border: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: #eebc1d;
+    width: 100px;
+    height: 40px;
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    :hover {
+      background: #f5d72e;
+    }
+  }
+
 `;
 
 export const ContactFormInfoWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  color: white;
+
   padding: 5%;
+
 `;
 
 export const GdprWrapper = styled.div`

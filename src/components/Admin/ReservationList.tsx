@@ -1,5 +1,12 @@
 import ReservationItem from "./ReservationItem";
-import { AdminBookingsWrapper } from "../styles/adminBookings";
+import {
+  AdminBookingsWrapper,
+  CalendarSection,
+  CalenderWrapper,
+  HeadingWrapper,
+  ReservationItemWrapper,
+  ReservationListWrapper,
+} from "../styles/adminBookings";
 import Calendar from "react-calendar";
 import moment from "moment";
 import { IReservation } from "../../interface/interface";
@@ -17,28 +24,36 @@ interface IReservationListProps {
 const Bookings = (props: IReservationListProps) => {
   let reservationItems = props.reservations.map((reservation: IReservation) => {
     return (
-      <ReservationItem
-        key={reservation._id}
-        reservation={reservation}
-        showDetailsPage={props.showDetailsPage}
-        setDetailedReservation={props.setDetailedReservation}
-        showReservationListPage={props.showReservationListPage}
-      />
+      <ReservationItemWrapper>
+        <ReservationItem
+          key={reservation._id}
+          reservation={reservation}
+          showDetailsPage={props.showDetailsPage}
+          setDetailedReservation={props.setDetailedReservation}
+          showReservationListPage={props.showReservationListPage}
+        />
+      </ReservationItemWrapper>
     );
   });
   return (
     <>
-      <AdminBookingsWrapper>
-        <h1>Admin Översikt Bokningar</h1>
-        <Calendar
-          minDate={moment().toDate()}
-          maxDate={moment().add(2, "months").toDate()}
-          showWeekNumbers={true}
-          value={new Date(props.selectedDate)}
-          onChange={props.handleCalendarChange}
-        />
-        {reservationItems}
-      </AdminBookingsWrapper>
+      <CalenderWrapper>
+        <AdminBookingsWrapper>
+          <HeadingWrapper>
+            <h1>Admin Översikt </h1>
+          </HeadingWrapper>
+          <CalendarSection>
+            <Calendar
+              minDate={moment().toDate()}
+              maxDate={moment().add(2, "months").toDate()}
+              showWeekNumbers={true}
+              value={new Date(props.selectedDate)}
+              onChange={props.handleCalendarChange}
+            />
+          </CalendarSection>
+          <ReservationListWrapper>{reservationItems}</ReservationListWrapper>
+        </AdminBookingsWrapper>
+      </CalenderWrapper>
     </>
   );
 };
