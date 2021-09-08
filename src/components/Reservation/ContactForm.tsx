@@ -2,6 +2,7 @@ import { ChangeEvent, useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import {
+  BookingContactFormInfoWrapper,
   ContactFormButtonWrapper,
   ContactFormContainer,
   ContactFormInfoWrapper,
@@ -58,7 +59,7 @@ const ContactForm = (props: IContactFormProps) => {
     if (input.firstname === "") {
       errorMessages.firstname = "Förnamn saknas";
     } else {
-      if (input.firstname.length >= 20 || input.firstname.length <= 2) {
+      if (input.firstname.length > 20 || input.firstname.length < 2) {
         errorMessages.firstname =
           "Förnamn måste vara minst 2 och max 20 tecken";
       } else {
@@ -68,7 +69,7 @@ const ContactForm = (props: IContactFormProps) => {
     if (input.lastname === "") {
       errorMessages.lastname = "Efternamn saknas";
     } else {
-      if (input.lastname.length >= 20 || input.lastname.length <= 2) {
+      if (input.lastname.length > 20 || input.lastname.length < 2) {
         errorMessages.lastname =
           "Efternamn måste vara minst 2 och max 20 tecken";
       } else {
@@ -90,7 +91,7 @@ const ContactForm = (props: IContactFormProps) => {
       if (!/^[0-9]*$/.test(input.phoneNumber)) {
         errorMessages.phoneNumber = "Telefonnummer har ogiltigt format";
       } else {
-        if (input.phoneNumber.length >= 20) {
+        if (input.phoneNumber.length > 20) {
           errorMessages.phoneNumber = "Telefonummer måste vara 20 tecken";
         } else {
           errorMessages.phoneNumber = "";
@@ -136,9 +137,9 @@ const ContactForm = (props: IContactFormProps) => {
       <Header>
         <h1>Boka bord</h1>
       </Header>
-      <ContactFormInfoWrapper>
+      <BookingContactFormInfoWrapper>
         <h2>Kontaktinformation</h2>
-      </ContactFormInfoWrapper>
+      </BookingContactFormInfoWrapper>
       <ContactFormContainer>
         <form>
           <ContactFormInputsWrapper>

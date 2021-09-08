@@ -5,9 +5,9 @@ export const ContactFormContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0px ​40px 40px 40px;
-  //   @media screen and (min-width: 1024px) {
-  //     width: 30%;
-  //   }
+  @media screen and (min-width: 1024px) {
+    padding: 2% 3% 10% 3%;
+  }
 `;
 
 export const ContactFormInputsWrapper = styled.div`
@@ -41,7 +41,6 @@ export const ContactFormButtonWrapper = styled.div`
     width: 28vw;
   }
 
-
   button {
     color: black;
     border: none;
@@ -62,7 +61,6 @@ export const ContactFormButtonWrapper = styled.div`
 
 export const EditButtonsWrapper = styled(ContactFormButtonWrapper)`
   width: auto;
-
 `;
 
 export const ContactFormInfoWrapper = styled.div`
@@ -71,6 +69,19 @@ export const ContactFormInfoWrapper = styled.div`
   align-items: center;
 
   color: white;
+
+  padding: 5%;
+  @media screen and (min-width: 1024px) {
+    padding: 2%;
+  }
+`;
+
+export const BookingContactFormInfoWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: black;
 
   padding: 5%;
   @media screen and (min-width: 1024px) {

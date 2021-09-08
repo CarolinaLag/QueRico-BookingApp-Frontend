@@ -113,7 +113,8 @@ export const CalendarSection = styled.div`
 
 export const SelectGuestDropDown = styled.select`
   padding: 5px;
-  color: #eebc1d;
+  background-color: #eebc1d;
+  color: black;
   cursor: pointer;
   font-weight: bold;
   margin: 10px;

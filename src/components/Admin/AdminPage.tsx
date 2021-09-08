@@ -160,8 +160,8 @@ const AdminPage = () => {
         setReservations(res.data);
         setSelectedDate(res.data[0].date);
       });
-    setShowContactForm(false);
-    setShowReservationList(true);
+    showContactFormPage();
+    showReservationListPage();
   };
 
   const handleCalendarChange = (date: Date) => {
