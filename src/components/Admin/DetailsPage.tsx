@@ -24,6 +24,7 @@ const DetailsPage = (props: IDetailsPageProps) => {
     },
   };
   let subtitle: any;
+  console.log(subtitle);
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => {
@@ -52,6 +53,7 @@ const DetailsPage = (props: IDetailsPageProps) => {
             onAfterOpen={afterOpenModal}
             onRequestClose={closeModal}
             style={customStyles}
+            ariaHideApp={false}
             contentLabel={"Radera Modal"}
           >
             <button onClick={closeModal}>Stäng</button>
