@@ -104,9 +104,8 @@ const CalendarForm = (props: ICalendarFormProps) => {
                 </Button>
               ) : null}
             </div>
+            <p>{props.message}</p>
           </form>
-
-          <p>{props.message}</p>
         </BookingCalendarWrapper>
       </AnimationOnScroll>
     </>
