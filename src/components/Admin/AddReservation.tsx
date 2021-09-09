@@ -1,9 +1,7 @@
 import moment from "moment";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import Calendar from "react-calendar";
-
 import { CalendarSection, SelectGuestDropDown } from "../styles/adminBookings";
-
 import { IAddReservation } from "../../interface/interface";
 
 import {
@@ -142,10 +140,6 @@ const AddReservation = (props: IAddReservationProps) => {
     });
   };
 
-  const goBackToReservationListButton = () => {
-    props.showReservationCalendarPage();
-    props.showReservationListPage();
-  };
   const goBackToCalendarFormButton = () => {
     props.showReservationCalendarPage();
     props.showContactFormPage();
@@ -155,7 +149,6 @@ const AddReservation = (props: IAddReservationProps) => {
     <>
       {props.showCalendarForm ? (
         <>
-          <Button onClick={goBackToReservationListButton}>Tillbaka</Button>
           <HeadingWrapper>
             <h1>Lägga till ny bokning </h1>
           </HeadingWrapper>
@@ -173,53 +166,53 @@ const AddReservation = (props: IAddReservationProps) => {
 
               <div>
                 <SelectGuestDropDown
-                  name='amount'
+                  name="amount"
                   onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                     props.handleAmountChange(parseInt(e.target.value))
                   }
                 >
-                  <option value=''>Antal</option>
-                  <option value='2'>2 personer</option>
-                  <option value='3'>3 personer</option>
-                  <option value='4'>4 personer</option>
-                  <option value='5'>5 personer</option>
-                  <option value='6'>6 personer</option>
-                  <option value='7'>7 personer</option>
-                  <option value='8'>8 personer</option>
-                  <option value='9'>9 personer</option>
-                  <option value='10'>10 personer</option>
-                  <option value='11'>11 personer</option>
-                  <option value='12'>12 personer</option>
-                  <option value='13'>13 personer</option>
-                  <option value='14'>14 personer</option>
-                  <option value='15'>15 personer</option>
-                  <option value='16'>16 personer</option>
-                  <option value='17'>17 personer</option>
-                  <option value='18'>18 personer</option>
-                  <option value='19'>19 personer</option>
-                  <option value='20'>20 personer</option>
+                  <option value="">Antal</option>
+                  <option value="2">2 personer</option>
+                  <option value="3">3 personer</option>
+                  <option value="4">4 personer</option>
+                  <option value="5">5 personer</option>
+                  <option value="6">6 personer</option>
+                  <option value="7">7 personer</option>
+                  <option value="8">8 personer</option>
+                  <option value="9">9 personer</option>
+                  <option value="10">10 personer</option>
+                  <option value="11">11 personer</option>
+                  <option value="12">12 personer</option>
+                  <option value="13">13 personer</option>
+                  <option value="14">14 personer</option>
+                  <option value="15">15 personer</option>
+                  <option value="16">16 personer</option>
+                  <option value="17">17 personer</option>
+                  <option value="18">18 personer</option>
+                  <option value="19">19 personer</option>
+                  <option value="20">20 personer</option>
                 </SelectGuestDropDown>
 
                 {props.showTimeSlotOne ? (
                   <Button
-                    name='timeslot'
-                    value='17:00'
+                    name="timeslot"
+                    value="17:00"
                     onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
                       props.handleTimeslotChange(e.currentTarget.value)
                     }
-                    type='button'
+                    type="button"
                   >
                     17:00
                   </Button>
                 ) : null}
                 {props.showTimeSlotTwo ? (
                   <Button
-                    name='timeslot'
-                    value='19:00'
+                    name="timeslot"
+                    value="19:00"
                     onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
                       props.handleTimeslotChange(e.currentTarget.value)
                     }
-                    type='button'
+                    type="button"
                   >
                     19:00
                   </Button>
@@ -239,40 +232,39 @@ const AddReservation = (props: IAddReservationProps) => {
             <form>
               <ContactFormInputsWrapper>
                 <input
-                  type='text'
-                  name='firstname'
+                  type="text"
+                  name="firstname"
                   required
                   minLength={2}
                   maxLength={20}
-                  placeholder='Förnamn'
+                  placeholder="Förnamn"
                   value={input.firstname}
                   onChange={handleChange}
                 />
                 {error.firstname && <small>{error.firstname}</small>}
                 <input
-                  type='text'
-                  name='lastname'
+                  type="text"
+                  name="lastname"
                   maxLength={20}
-                  placeholder='Efternamn'
+                  placeholder="Efternamn"
                   value={input.lastname}
                   onChange={handleChange}
                 />
                 {error.lastname && <small>{error.lastname}</small>}
                 <input
-                  type='email'
-                  name='email'
+                  type="email"
+                  name="email"
                   maxLength={40}
-                  placeholder='querico@email.com'
+                  placeholder="querico@email.com"
                   value={input.email}
                   onChange={handleChange}
                 />
                 {error.email && <small>{error.email}</small>}
                 <input
-                  type='text'
-                  name='phoneNumber'
-                  placeholder='0707245678'
+                  type="text"
+                  name="phoneNumber"
+                  placeholder="0707245678"
                   maxLength={20}
-                  //pattern="[0-9]{3}-[0-9]{3}[0-9]{4}"
                   value={input.phoneNumber}
                   onChange={handleChange}
                 />

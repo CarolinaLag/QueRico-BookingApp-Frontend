@@ -24,7 +24,6 @@ export const HeadingWrapper = styled.div`
   color: white;
 `;
 
-
 export const Header = styled.div`
   background: url(${HeaderBG}) no-repeat center center fixed;
   background-size: cover;
@@ -50,6 +49,7 @@ export const LinkStyle = styled.a`
   cursor: pointer;
   padding-top: 10px;
   padding-left: 22px;
+  padding-bottom: 10px;
   background-color: #eebc1d;
   text-decoration: none;
   margin: 0.25px;

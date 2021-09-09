@@ -1,5 +1,6 @@
+import { Link } from "react-router-dom";
 import { BookingConfirmationWrapper } from "../styles/bookingConfirmation";
-import { Header } from "../styles/global";
+import { Button, Header } from "../styles/global";
 
 const BookingConfirmation = () => {
   return (
@@ -10,6 +11,9 @@ const BookingConfirmation = () => {
       <BookingConfirmationWrapper>
         <h1>Tack för din bokning!</h1>
         <p>Bokningsbekräftelse via mejl skickas till dig inom kort.</p>
+        <Button>
+          <Link to={"/"}>Tillbaka</Link>
+        </Button>
       </BookingConfirmationWrapper>
     </>
   );
