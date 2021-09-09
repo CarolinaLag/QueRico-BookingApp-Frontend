@@ -6,7 +6,6 @@ export const AdminBookingsWrapper = styled.div`
   background-size: cover;
   min-height: 100vh;
   font-weight: bold;
-  margin-bottom: 20px;
   padding-bottom: 20px;
   p.errorMessage {
     margin-top: 20px;
@@ -25,6 +24,7 @@ export const HeadingWrapper = styled.div`
   display: flex;
   justify-content: center;
   color: white;
+  padding: 20px;
 `;
 
 export const AddAdminReservationButtonContainer = styled.div`
@@ -35,7 +35,6 @@ export const AddAdminReservationButtonContainer = styled.div`
 
 export const AddAdminReservationButton = styled.button`
   position: fixed;
-  //top: 80px;
   bottom: 0;
   width: 100%;
   z-index: 100;
@@ -47,7 +46,6 @@ export const AddAdminReservationButton = styled.button`
   padding: 5px;
   background-color: #eebc1d;
   margin: 0.25px;
-  //width: 150px;
   width: 100%;
   height: 40px;
   font-weight: bold;
@@ -95,6 +93,7 @@ export const ReservationItemWrapper = styled.div`
   background: white;
   margin: 10px;
   padding: 10px;
+  border-radius: 5px;
   @media screen and (min-width: 1024px) {
     width: 300px;
     flex: 1 1 30%;
@@ -112,6 +111,18 @@ export const CalendarSection = styled.div`
   p {
     margin-left: 10px;
   }
+  .react-calendar {
+    color: black;
+    border-radius: 5px;
+  }
+  .react-calendar__tile--active {
+    background-color: #eebc1d;
+    color: black;
+  }
+  .react-calendar__tile--active {
+    background-color: #eebc1d;
+    color: black;
+  }
 `;
 
 export const SelectGuestDropDown = styled.select`
@@ -121,6 +132,14 @@ export const SelectGuestDropDown = styled.select`
   cursor: pointer;
   font-weight: bold;
   margin: 10px;
+  border-radius: 5px;
+  border: none;
+  height: 40px;
+  font-family: "Roboto", sans-serif;
+  option {
+    font-family: "Roboto", sans-serif;
+  }
+  }
 `;
 
 export const AdminDetails = styled.div`
@@ -137,6 +156,17 @@ export const AdminEditContactForm = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  border-radius: 5px;
+  background-color: white;
+  input:first-of-type {
+    border-radius: 5px 5px 0px 0px;
+  }
+  input:last-of-type {
+    border-radius: 0px 0px 5px 5px;
+  }
+  input {
+    font-family: "Roboto", sans-serif;
+  }
 `;
 
 export const AdminEditSelectSection = styled.div`
@@ -152,4 +182,10 @@ export const ModalButtonWrapper = styled.div`
   align-items: center;
   padding: 10px;
   }
+`;
+
+export const CalendarInfoWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;

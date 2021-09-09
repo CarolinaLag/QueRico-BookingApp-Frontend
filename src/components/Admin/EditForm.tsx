@@ -150,7 +150,7 @@ const EditForm = (props: IReservationProps) => {
   return (
     <>
       <ContactFormInfoWrapper>
-        <h2>Bokningsredigering</h2>
+        <h1>Bokningsredigering</h1>
       </ContactFormInfoWrapper>
       <ContactFormContainer>
         <form>

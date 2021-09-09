@@ -192,6 +192,7 @@ const AdminPage = () => {
     setCalendarMessage("Välj antal gäster.");
     setShowTimeSlotOne(false);
     setShowTimeSlotTwo(false);
+    setToggleAddButton(false);
   };
 
   const showContactFormPage = () => {
@@ -242,16 +243,18 @@ const AdminPage = () => {
   return (
     <>
       <AddAdminReservationButtonContainer>
-        <AddAdminReservationButton
-          onClick={() => {
-            setErrorMessage("");
-            showReservationListPage();
-            showReservationCalendarPage();
-            setToggleAddButton(!toggleAddButton);
-          }}
-        >
-          {toggleAddButton ? "Lägg till bokning" : "Tillbaka"}
-        </AddAdminReservationButton>
+        {toggleAddButton ? (
+          <AddAdminReservationButton
+            onClick={() => {
+              setErrorMessage("");
+              showReservationListPage();
+              showReservationCalendarPage();
+              setToggleAddButton(!toggleAddButton);
+            }}
+          >
+            Lägg till bokning
+          </AddAdminReservationButton>
+        ) : null}
       </AddAdminReservationButtonContainer>
       <AdminBookingsWrapper>
         <AddReservation

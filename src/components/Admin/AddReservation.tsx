@@ -1,7 +1,11 @@
 import moment from "moment";
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import Calendar from "react-calendar";
-import { CalendarSection, SelectGuestDropDown } from "../styles/adminBookings";
+import {
+  CalendarInfoWrapper,
+  CalendarSection,
+  SelectGuestDropDown,
+} from "../styles/adminBookings";
 import { IAddReservation } from "../../interface/interface";
 
 import {
@@ -150,6 +154,14 @@ const AddReservation = (props: IAddReservationProps) => {
     props.resetReservation();
   };
 
+  const goBackToReservationListButton = (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    props.showReservationCalendarPage();
+    props.showReservationListPage();
+    props.resetReservation();
+  };
+
   return (
     <>
       {props.showCalendarForm ? (
@@ -225,7 +237,12 @@ const AddReservation = (props: IAddReservationProps) => {
                   </Button>
                 ) : null}
               </div>
-              <p>{props.message}</p>
+              <CalendarInfoWrapper>
+                <p>{props.message}</p>
+                <Button type='button' onClick={goBackToReservationListButton}>
+                  Tillbaka
+                </Button>
+              </CalendarInfoWrapper>
             </form>
           </CalendarSection>
         </>

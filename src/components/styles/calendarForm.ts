@@ -21,9 +21,13 @@ export const BookingCalendarWrapper = styled.div`
     background-color: #eebc1d;
     color: black;
   }
+  .react-calendar__tile--active {
+    background-color: #eebc1d;
+    color: black;
+  }
   select {
     border-radius: 5px;
-    border: 1px solid #eebc1d;
+    border: none;
     height: 40px;
   }
   p.errorMessage {
