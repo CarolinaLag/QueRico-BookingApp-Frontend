@@ -43,6 +43,11 @@ const Booking = () => {
   }, []);
 
   useEffect(() => {
+    if (reservationState.guests === 0) {
+      setCalendarMessage("Välj antal gäster.");
+      setShowTimeSlotOne(false);
+      setShowTimeSlotTwo(false);
+    }
     if (reservationState.guests > 0 && reservationState.timeslot === "") {
       axios
         .get<IReservationResponse>(
@@ -56,26 +61,21 @@ const Booking = () => {
             setCalendarMessage("Det finns tyvärr inga bord lediga bord.");
             setShowTimeSlotOne(false);
             setShowTimeSlotTwo(false);
-            return;
           }
 
           if (response.data.tablesAvailableAtFive === true) {
             setShowTimeSlotOne(true);
+            setCalendarMessage("Välj en tid.");
           } else {
             setShowTimeSlotOne(false);
           }
 
           if (response.data.tablesAvailableAtSeven === true) {
             setShowTimeSlotTwo(true);
+            setCalendarMessage("Välj en tid.");
           } else {
             setShowTimeSlotTwo(false);
           }
-
-          if (
-            response.data.tablesAvailableAtFive === true ||
-            response.data.tablesAvailableAtSeven === true
-          )
-            setCalendarMessage("Välj en tid.");
         });
     }
     if (reservationState.timeslot !== "") {
@@ -114,12 +114,21 @@ const Booking = () => {
     setReservationState({ ...reservationState, timeslot: timeslot });
   };
 
-  const addShowContactForm = () => {
+  const toggleCalendarForm = () => {
     setShowContactForm(false);
     setShowCalenderForm(true);
+    setReservationState({
+      date: moment().format("YYYY-MM-DD"),
+      timeslot: "",
+      guests: 0,
+      firstname: "",
+      lastname: "",
+      email: "",
+      phonenumber: 0,
+    });
   };
 
-  const addShowConfirmation = () => {
+  const toggleConfirmationPage = () => {
     setConfirmation(true);
     setShowContactForm(false);
   };
@@ -128,9 +137,9 @@ const Booking = () => {
     <>
       {showContactForm ? (
         <ContactForm
-          addShowContactForm={addShowContactForm}
+          toggleCalendarForm={toggleCalendarForm}
           addContactInfo={createContactBooking}
-          addShowConfirmation={addShowConfirmation}
+          toggleConfirmationPage={toggleConfirmationPage}
         />
       ) : null}
 

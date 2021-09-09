@@ -1,5 +1,5 @@
 import moment from "moment";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import Calendar from "react-calendar";
 
 import { CalendarSection, SelectGuestDropDown } from "../styles/adminBookings";
@@ -34,6 +34,7 @@ interface IAddReservationProps {
     email: string,
     phoneNumber: string
   ): void;
+  resetReservation(): void;
 }
 const AddReservation = (props: IAddReservationProps) => {
   const [input, setInput] = useState({
@@ -145,10 +146,15 @@ const AddReservation = (props: IAddReservationProps) => {
   const goBackToReservationListButton = () => {
     props.showReservationCalendarPage();
     props.showReservationListPage();
+    props.resetReservation();
   };
-  const goBackToCalendarFormButton = () => {
+  const goBackToCalendarFormButton = (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    e.preventDefault();
     props.showReservationCalendarPage();
     props.showContactFormPage();
+    props.resetReservation();
   };
 
   return (
@@ -177,8 +183,10 @@ const AddReservation = (props: IAddReservationProps) => {
                   onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                     props.handleAmountChange(parseInt(e.target.value))
                   }
+                  value={props.addReservation.guests}
                 >
-                  <option value=''>Antal</option>
+                  <option value='0'>Antal</option>
+                  <option value='1'>1 person</option>
                   <option value='2'>2 personer</option>
                   <option value='3'>3 personer</option>
                   <option value='4'>4 personer</option>
@@ -272,7 +280,6 @@ const AddReservation = (props: IAddReservationProps) => {
                   name='phoneNumber'
                   placeholder='0707245678'
                   maxLength={20}
-                  //pattern="[0-9]{3}-[0-9]{3}[0-9]{4}"
                   value={input.phoneNumber}
                   onChange={handleChange}
                 />

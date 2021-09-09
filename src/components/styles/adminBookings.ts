@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import AdminBG from '../../assets/plates.jpg';
+import styled from "styled-components";
+import AdminBG from "../../assets/plates.jpg";
 
 export const AdminBookingsWrapper = styled.div`
   background: url(${AdminBG}) no-repeat center center fixed;
@@ -47,7 +47,7 @@ export const AddAdminReservationButton = styled.button`
   height: 40px;
   font-weight: bold;
   font-size: 15px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   :hover {
     background: #f5d72e;
   }
@@ -65,7 +65,7 @@ export const BlackWhiteButton = styled.button`
   width: 100px;
   height: 40px;
   font-weight: bold;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   :hover {
     background: white;
     color: black;
@@ -82,6 +82,8 @@ export const ReservationListWrapper = styled.div`
   //width: 70%;
   @media screen and (min-width: 1024px) {
     width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 `;
 
@@ -93,7 +95,7 @@ export const ReservationItemWrapper = styled.div`
   margin: 10px;
   padding: 10px;
   @media screen and (min-width: 1024px) {
-    width: 170px;
+    width: 300px;
     flex: 1 1 30%;
   }
 `;

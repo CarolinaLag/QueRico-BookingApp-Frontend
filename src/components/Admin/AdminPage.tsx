@@ -74,7 +74,12 @@ const AdminPage = () => {
   }, []);
 
   useEffect(() => {
-    if (addReservation.guests > 0 && addReservation.timeslot === "") {
+    if (addReservation.guests === 0) {
+      setShowTimeSlotOne(false);
+      setShowTimeSlotTwo(false);
+      setCalendarMessage("Välj antal gäster.");
+    }
+    if (addReservation.guests && addReservation.timeslot === "") {
       axios
         .get<IReservationResponse>(
           `http://localhost:3001/checktables/${addReservation.date}/${addReservation.guests}`
@@ -87,31 +92,22 @@ const AdminPage = () => {
             setCalendarMessage("Det finns tyvärr inga bord lediga bord.");
             setShowTimeSlotOne(false);
             setShowTimeSlotTwo(false);
-            return;
-          } else {
-            setCalendarMessage("");
           }
 
           if (response.data.tablesAvailableAtFive === true) {
             setShowTimeSlotOne(true);
+            setCalendarMessage("Välj en tid.");
           } else {
             setShowTimeSlotOne(false);
           }
 
           if (response.data.tablesAvailableAtSeven === true) {
             setShowTimeSlotTwo(true);
+            setCalendarMessage("Välj en tid.");
           } else {
             setShowTimeSlotTwo(false);
           }
-
-          if (
-            response.data.tablesAvailableAtFive === true ||
-            response.data.tablesAvailableAtSeven === true
-          )
-            setCalendarMessage("Välj en tid.");
         });
-    }
-    if (addReservation.timeslot !== "") {
     }
   }, [addReservation]);
 
@@ -159,6 +155,7 @@ const AdminPage = () => {
       .then((res) => {
         setReservations(res.data);
         setSelectedDate(res.data[0].date);
+        resetReservation();
       });
     showContactFormPage();
     showReservationListPage();
@@ -178,6 +175,9 @@ const AdminPage = () => {
 
   const showReservationCalendarPage = () => {
     setShowCalendarForm(!showCalendarForm);
+    setCalendarMessage("Välj antal gäster.");
+    setShowTimeSlotOne(false);
+    setShowTimeSlotTwo(false);
   };
 
   const showContactFormPage = () => {
@@ -206,6 +206,18 @@ const AdminPage = () => {
 
     showContactFormPage();
     showReservationCalendarPage();
+  };
+
+  const resetReservation = () => {
+    setAddReservation({
+      date: moment().format("YYYY-MM-DD"),
+      guests: 0,
+      timeslot: "",
+      firstname: "",
+      lastname: "",
+      email: "",
+      phonenumber: 0,
+    });
   };
 
   return (
@@ -237,6 +249,7 @@ const AdminPage = () => {
           showContactFormPage={showContactFormPage}
           showContactForm={showContactForm}
           showCalendarForm={showCalendarForm}
+          resetReservation={resetReservation}
         />
 
         {showReservationList ? (
