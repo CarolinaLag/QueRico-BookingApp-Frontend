@@ -1,8 +1,8 @@
-import { AdminDetails, ModalButtonWrapper } from '../styles/adminBookings';
-import { Button } from '../styles/global';
-import Modal from 'react-modal';
-import { useState } from 'react';
-import { IReservation } from '../../interface/interface';
+import { AdminDetails, ModalButtonWrapper } from "../styles/adminBookings";
+import { Button } from "../styles/global";
+import Modal from "react-modal";
+import { useState } from "react";
+import { IReservation } from "../../interface/interface";
 
 interface IDetailsPageProps {
   reservation: IReservation;
@@ -15,12 +15,12 @@ interface IDetailsPageProps {
 const DetailsPage = (props: IDetailsPageProps) => {
   const customStyles = {
     content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
     },
   };
   let subtitle: HTMLHeadingElement | null;
@@ -32,7 +32,7 @@ const DetailsPage = (props: IDetailsPageProps) => {
   };
 
   const afterOpenModal = () => {
-    if (subtitle) subtitle.style.color = '#000';
+    if (subtitle) subtitle.style.color = "#000";
   };
 
   const closeModal = () => {
@@ -44,7 +44,7 @@ const DetailsPage = (props: IDetailsPageProps) => {
       <AdminDetails>
         <h2>Bokningsdetaljer</h2>
         <div>
-          <Button type="button" onClick={openModal}>
+          <Button type='button' onClick={openModal}>
             Radera
           </Button>
           <Modal
@@ -53,7 +53,7 @@ const DetailsPage = (props: IDetailsPageProps) => {
             onRequestClose={closeModal}
             style={customStyles}
             ariaHideApp={false}
-            contentLabel={'Radera Modal'}
+            contentLabel={"Radera Modal"}
           >
             <h3 ref={(_subtitle) => (subtitle = _subtitle)}>
               Är du säker på att du vill radera?
@@ -63,10 +63,8 @@ const DetailsPage = (props: IDetailsPageProps) => {
               <Button
                 onClick={() => {
                   props.deleteBooking(props.reservation._id);
-                  props.showDetailsPage();
-                  props.showReservationListPage();
                 }}
-                type="button"
+                type='button'
               >
                 Ja
               </Button>
@@ -82,7 +80,7 @@ const DetailsPage = (props: IDetailsPageProps) => {
             <strong>Email:</strong> {props.reservation.ContactInfo.email}
           </p>
           <p>
-            <strong>Telefon:</strong>{' '}
+            <strong>Telefon:</strong>{" "}
             {props.reservation.ContactInfo.phoneNumber}
           </p>
           <p>
@@ -98,7 +96,7 @@ const DetailsPage = (props: IDetailsPageProps) => {
             <strong>Tid:</strong> {props.reservation.timeSlot}
           </p>
           <Button
-            type="button"
+            type='button'
             onClick={() => {
               props.showDetailsPage();
               props.showReservationListPage();
@@ -107,7 +105,7 @@ const DetailsPage = (props: IDetailsPageProps) => {
             Tillbaka
           </Button>
           <Button
-            type="button"
+            type='button'
             onClick={() => {
               props.showDetailsPage();
               props.showEditPage();

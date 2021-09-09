@@ -120,9 +120,9 @@ const AdminPage = () => {
       .delete<IReservation[]>(`http://localhost:3001/deleteAdmin/${id}`)
       .then((res) => {
         setReservations(res.data);
+        showDetailsPage();
+        showReservationListPage();
       });
-    setShowEditForm(false);
-    setShowReservationList(true);
   };
 
   const updateReservation = (reservation: IReservation) => {
@@ -186,6 +186,7 @@ const AdminPage = () => {
 
   const showReservationListPage = () => {
     setShowReservationList(!showReservationList);
+    setToggleAddButton(!toggleAddButton);
   };
 
   const setDetailedReservation = (reservation: IReservation) => {
