@@ -22,6 +22,7 @@ interface ICalendarFormProps {
   message: string;
   bookingDate: string;
   reservation: IAddReservation;
+  errorMessage: string;
 }
 
 const CalendarForm = (props: ICalendarFormProps) => {
@@ -108,6 +109,7 @@ const CalendarForm = (props: ICalendarFormProps) => {
             </div>
             <p>{props.message}</p>
           </form>
+          <p className='errorMessage'>{props.errorMessage}</p>
         </BookingCalendarWrapper>
       </AnimationOnScroll>
     </>

@@ -38,8 +38,8 @@ const LandingPage = () => {
   return (
     <>
       <LandingPageWrapper>
-        <AnimationOnScroll animateIn="animate__fadeInLeftBig">
-          <h1>Bienvenido a !Que Rico!</h1>
+        <AnimationOnScroll animateIn='animate__fadeInLeftBig'>
+          <h1>Bienvenido a ¡Que Rico!</h1>
           <h2>Tapas på Kungsholmen</h2>
           <h4>Est. 2013</h4>
 
@@ -47,11 +47,11 @@ const LandingPage = () => {
             <RedButton>Boka bord</RedButton>
           </Link>
         </AnimationOnScroll>
-        <ArrowDownLink href="#imageSection">
-          <i className="fas fa-sort-down fa-lg"></i>
+        <ArrowDownLink href='#imageSection'>
+          <i className='fas fa-sort-down fa-lg'></i>
         </ArrowDownLink>
       </LandingPageWrapper>
-      <LandingPageImageSection id="imageSection">
+      <LandingPageImageSection id='imageSection'>
         <AnimationOnScroll
           animateIn={
             toggleAnimation
@@ -60,15 +60,13 @@ const LandingPage = () => {
           }
         >
           <LandingPageTextMenu>
-            <h3>
-              Ta en titt på vår <Link to={"/meny"}>Meny</Link>
-            </h3>
+            <h3>Res till värmen...</h3>
           </LandingPageTextMenu>
           <ImageDrinkDiv>
-            <SpainImage src={SpainStairsSrc} alt="Image of Spain stairs" />
+            <SpainImage src={SpainStairsSrc} alt='Image of Spain stairs' />
             <OrangeDrinkImage
               src={OrangeDrinkSrc}
-              alt="Image of Drinks with oranges"
+              alt='Image of Drinks with oranges'
             />
           </ImageDrinkDiv>
         </AnimationOnScroll>
@@ -81,17 +79,14 @@ const LandingPage = () => {
           }
         >
           <LandinPageTextReservation>
-            <h3>
-              Är du sugen på hemmagjord Tapas? Klicka
-              <Link to={"/booking"}> här </Link>för att boka bord
-            </h3>
+            <h3>...genom att äta Tapas hos oss på ¡Que Rico!</h3>
           </LandinPageTextReservation>
           <ImageTapasDiv>
             <MeatballsImage
               src={MeatballsSrc}
-              alt="Image of Plate of Meatballs"
+              alt='Image of Plate of Meatballs'
             />
-            <TapasImage src={TapasSrc} alt="Image of Tapas" />
+            <TapasImage src={TapasSrc} alt='Image of Tapas' />
           </ImageTapasDiv>
         </AnimationOnScroll>
       </LandingPageImageSection>

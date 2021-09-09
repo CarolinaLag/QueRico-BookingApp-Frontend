@@ -18,7 +18,6 @@ interface IContactFormProps {
     phoneNumber: string
   ): void;
   toggleCalendarForm(): void;
-  toggleConfirmationPage(): void;
 }
 
 const ContactForm = (props: IContactFormProps) => {
@@ -128,7 +127,6 @@ const ContactForm = (props: IContactFormProps) => {
       phoneNumber: "",
       checkbox: false,
     });
-    props.toggleConfirmationPage();
   };
 
   return (

@@ -22,6 +22,11 @@ interface IEditResponse {
   reservations: IReservation[];
 }
 
+interface INewReservationResponse {
+  reservations: IReservation[];
+  reservationIsPossible: boolean;
+}
+
 const AdminPage = () => {
   const [showReservationList, setShowReservationList] = useState(true);
   const [showReservationDetails, setShowReservationDetails] = useState(false);
@@ -50,6 +55,7 @@ const AdminPage = () => {
   );
   const [calendarMessage, setCalendarMessage] = useState("Välj antal gäster.");
   const [reservationEditMessage, setReservationEditMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     axios
@@ -151,22 +157,30 @@ const AdminPage = () => {
     setAddReservation(newAdminBooking);
 
     axios
-      .post<IReservation[]>("http://localhost:3001/create", addReservation)
+      .post<INewReservationResponse>(
+        "http://localhost:3001/create",
+        addReservation
+      )
       .then((res) => {
-        setReservations(res.data);
-        setSelectedDate(res.data[0].date);
+        if (res.data.reservationIsPossible === false)
+          setErrorMessage("Tyvärr gick inte din bokning igenom. Försök igen.");
+
+        setReservations(res.data.reservations);
         resetReservation();
+        showContactFormPage();
+        showReservationListPage();
+        setSelectedDate(res.data.reservations[0].date);
       });
-    showContactFormPage();
-    showReservationListPage();
   };
 
   const handleCalendarChange = (date: Date) => {
     setSelectedDate(moment(date).format("YYYY-MM-DD").toString());
+    setErrorMessage("");
   };
 
   const showDetailsPage = () => {
     setShowReservationDetails(!showReservationDetails);
+    setErrorMessage("");
   };
 
   const showEditPage = () => {
@@ -221,11 +235,16 @@ const AdminPage = () => {
     });
   };
 
+  const resetReservationEditMessage = () => {
+    setReservationEditMessage("");
+  };
+
   return (
     <>
       <AddAdminReservationButtonContainer>
         <AddAdminReservationButton
           onClick={() => {
+            setErrorMessage("");
             showReservationListPage();
             showReservationCalendarPage();
             setToggleAddButton(!toggleAddButton);
@@ -262,6 +281,7 @@ const AdminPage = () => {
             selectedDate={selectedDate}
             setDetailedReservation={setDetailedReservation}
             showReservationListPage={showReservationListPage}
+            errorMessage={errorMessage}
           ></ReservationList>
         ) : null}
 
@@ -284,6 +304,7 @@ const AdminPage = () => {
             showDetailsPage={showDetailsPage}
             showReservationListPage={showReservationListPage}
             bookingDate={bookingDate}
+            resetReservationEditMessage={resetReservationEditMessage}
           />
         ) : null}
       </AdminBookingsWrapper>

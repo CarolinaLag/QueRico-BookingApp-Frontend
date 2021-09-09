@@ -11,6 +11,11 @@ interface IReservationResponse {
   tablesAvailableAtSeven: boolean;
 }
 
+interface INewReservationResponse {
+  reservations: IReservation[];
+  reservationIsPossible: boolean;
+}
+
 const Booking = () => {
   const [reservationState, setReservationState] = useState<IAddReservation>({
     date: moment().format("YYYY-MM-DD"),
@@ -27,7 +32,8 @@ const Booking = () => {
   const [showContactForm, setShowContactForm] = useState(false);
   const [showCalenderForm, setShowCalenderForm] = useState(true);
   const [showConfirmation, setConfirmation] = useState(false);
-  const [calendarMessage, setCalendarMessage] = useState("Välj antal gäster.");
+  const [message, setMessage] = useState("Välj antal gäster.");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const currentTime = moment().hours();
@@ -44,7 +50,7 @@ const Booking = () => {
 
   useEffect(() => {
     if (reservationState.guests === 0) {
-      setCalendarMessage("Välj antal gäster.");
+      setMessage("Välj antal gäster.");
       setShowTimeSlotOne(false);
       setShowTimeSlotTwo(false);
     }
@@ -58,21 +64,21 @@ const Booking = () => {
             response.data.tablesAvailableAtFive === false &&
             response.data.tablesAvailableAtSeven === false
           ) {
-            setCalendarMessage("Det finns tyvärr inga bord lediga bord.");
+            setMessage("Det finns tyvärr inga bord lediga bord.");
             setShowTimeSlotOne(false);
             setShowTimeSlotTwo(false);
           }
 
           if (response.data.tablesAvailableAtFive === true) {
             setShowTimeSlotOne(true);
-            setCalendarMessage("Välj en tid.");
+            setMessage("Välj en tid.");
           } else {
             setShowTimeSlotOne(false);
           }
 
           if (response.data.tablesAvailableAtSeven === true) {
             setShowTimeSlotTwo(true);
-            setCalendarMessage("Välj en tid.");
+            setMessage("Välj en tid.");
           } else {
             setShowTimeSlotTwo(false);
           }
@@ -99,7 +105,20 @@ const Booking = () => {
       email: email,
       phonenumber: parseInt(phoneNumber),
     };
-    axios.post<IReservation[]>("http://localhost:3001/create", contactBooking);
+    axios
+      .post<INewReservationResponse>(
+        "http://localhost:3001/create",
+        contactBooking
+      )
+      .then((response) => {
+        if (response.data.reservationIsPossible === true) {
+          setConfirmation(true);
+          setShowContactForm(false);
+        } else {
+          toggleCalendarForm();
+          setErrorMessage("Tyvärr gick inte din bokning igenom. Försök igen.");
+        }
+      });
   };
 
   const handleDateChange = (date: string) => {
@@ -128,18 +147,12 @@ const Booking = () => {
     });
   };
 
-  const toggleConfirmationPage = () => {
-    setConfirmation(true);
-    setShowContactForm(false);
-  };
-
   return (
     <>
       {showContactForm ? (
         <ContactForm
           toggleCalendarForm={toggleCalendarForm}
           addContactInfo={createContactBooking}
-          toggleConfirmationPage={toggleConfirmationPage}
         />
       ) : null}
 
@@ -150,7 +163,8 @@ const Booking = () => {
           handleTimeslotChange={handleTimeslotChange}
           showTimeSlotOne={showTimeSlotOne}
           showTimeSlotTwo={showTimeSlotTwo}
-          message={calendarMessage}
+          message={message}
+          errorMessage={errorMessage}
           bookingDate={bookingDate}
           reservation={reservationState}
         />
