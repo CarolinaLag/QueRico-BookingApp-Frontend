@@ -18,16 +18,12 @@ export const LandingPageWrapper = styled.div`
 
 export const ArrowDownLink = styled.a`
   position: absolute;
-  //bottom: 0;
-  //margin-bottom: 10px;
   margin-top: 650px;
   font-size: 20px;
   color: white;
 
   @media screen and (min-width: 1024px) {
     position: absolute;
-    //bottom: 0;
-    //margin-bottom: 10px;
     margin-top: 670px;
     font-size: 30px;
   }
@@ -39,10 +35,6 @@ export const LandingPageImageSection = styled.section`
   flex-direction: column;
   justify-content: center;
   padding-bottom: 20px;
-  @media screen and (min-width: 1024px) {
-    //display: flex;
-    //flex-direction: column;
-  }
 `;
 
 export const ImageDrinkDiv = styled.div`

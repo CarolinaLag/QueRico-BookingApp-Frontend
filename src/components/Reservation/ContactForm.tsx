@@ -5,7 +5,6 @@ import {
   BookingContactFormInfoWrapper,
   ContactFormButtonWrapper,
   ContactFormContainer,
-  ContactFormInfoWrapper,
   ContactFormInputsWrapper,
   GdprWrapper,
 } from "../styles/contactForm";
