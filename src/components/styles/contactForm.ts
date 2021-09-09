@@ -23,10 +23,34 @@ export const ContactFormInputsWrapper = styled.div`
     background-color: #fcfcfc;
     border: none;
     padding: 20px;
+    font-family: "Roboto", sans-serif;
+  }
+
+  input:first-of-type {
+    border-radius: 5px 5px 0px 0px;
+  }
+  input:last-of-type {
+    border-radius: 0px 0px 5px 5px;
   }
 
   small {
     color: red;
+  }
+  .react-calendar {
+    border-radius: 5px;
+  }
+  .react-calendar__tile--active {
+    background-color: #eebc1d;
+    color: black;
+  }
+  .react-calendar__tile--active {
+    background-color: #eebc1d;
+    color: black;
+  }
+  select {
+    border-radius: 5px;
+    border: none;
+    height: 40px;
   }
 `;
 

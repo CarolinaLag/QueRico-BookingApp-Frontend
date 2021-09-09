@@ -1,5 +1,9 @@
-import { AdminDetails, ModalButtonWrapper } from "../styles/adminBookings";
-import { Button } from "../styles/global";
+import {
+  AdminDetails,
+  HeadingWrapper,
+  ModalButtonWrapper,
+} from "../styles/adminBookings";
+import { Button, DetailsWrapper } from "../styles/global";
 import Modal from "react-modal";
 import { useState } from "react";
 import { IReservation } from "../../interface/interface";
@@ -42,7 +46,9 @@ const DetailsPage = (props: IDetailsPageProps) => {
   return (
     <>
       <AdminDetails>
-        <h2>Bokningsdetaljer</h2>
+        <HeadingWrapper>
+          <h1>Bokningsdetaljer</h1>
+        </HeadingWrapper>
         <div>
           <Button type='button' onClick={openModal}>
             Radera
@@ -70,31 +76,35 @@ const DetailsPage = (props: IDetailsPageProps) => {
               </Button>
             </ModalButtonWrapper>
           </Modal>
-          <p>
-            <strong>Förnamn:</strong> {props.reservation.ContactInfo.firstname}
-          </p>
-          <p>
-            <strong>Efternamn:</strong> {props.reservation.ContactInfo.lastname}
-          </p>
-          <p>
-            <strong>Email:</strong> {props.reservation.ContactInfo.email}
-          </p>
-          <p>
-            <strong>Telefon:</strong>{" "}
-            {props.reservation.ContactInfo.phoneNumber}
-          </p>
-          <p>
-            <strong>Antal gäster:</strong> {props.reservation.amountOfGuests}
-          </p>
-          <p>
-            <strong>Antal bord:</strong> {props.reservation.amountOfTables}
-          </p>
-          <p>
-            <strong>Datum:</strong> {props.reservation.date}
-          </p>
-          <p>
-            <strong>Tid:</strong> {props.reservation.timeSlot}
-          </p>
+          <DetailsWrapper>
+            <p>
+              <strong>Förnamn:</strong>{" "}
+              {props.reservation.ContactInfo.firstname}
+            </p>
+            <p>
+              <strong>Efternamn:</strong>{" "}
+              {props.reservation.ContactInfo.lastname}
+            </p>
+            <p>
+              <strong>Email:</strong> {props.reservation.ContactInfo.email}
+            </p>
+            <p>
+              <strong>Telefon:</strong>{" "}
+              {props.reservation.ContactInfo.phoneNumber}
+            </p>
+            <p>
+              <strong>Antal gäster:</strong> {props.reservation.amountOfGuests}
+            </p>
+            <p>
+              <strong>Antal bord:</strong> {props.reservation.amountOfTables}
+            </p>
+            <p>
+              <strong>Datum:</strong> {props.reservation.date}
+            </p>
+            <p>
+              <strong>Tid:</strong> {props.reservation.timeSlot}
+            </p>
+          </DetailsWrapper>
           <Button
             type='button'
             onClick={() => {

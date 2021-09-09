@@ -22,6 +22,7 @@ export const HeadingWrapper = styled.div`
   justify-content: center;
   align-items: center;
   color: white;
+  padding: 20px;
 `;
 
 export const Header = styled.div`
@@ -100,4 +101,8 @@ export const Button = styled.button`
     font-weight: bold;
     cursor: auto;
   }
+`;
+
+export const DetailsWrapper = styled.div`
+  margin: 20px;
 `;

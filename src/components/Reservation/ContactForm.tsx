@@ -187,7 +187,7 @@ const ContactForm = (props: IContactFormProps) => {
                 id='checkbox'
               />
               <label htmlFor='checkbox'>
-                Jag godkänner Gdpr:s
+                Jag godkänner Gdpr:s&nbsp;
                 <a
                   href='https://www.imy.se/verksamhet/dataskydd/det-har-galler-enligt-gdpr/introduktion-till-gdpr/dataskyddsforordningen-i-fulltext/'
                   target='_blank'
@@ -198,7 +198,13 @@ const ContactForm = (props: IContactFormProps) => {
               </label>
             </GdprWrapper>
             <ContactFormButtonWrapper>
-              <Button type='button' onClick={props.toggleCalendarForm}>
+              <Button
+                type='button'
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                  e.preventDefault();
+                  props.toggleCalendarForm();
+                }}
+              >
                 Tillbaka
               </Button>
               <Button
