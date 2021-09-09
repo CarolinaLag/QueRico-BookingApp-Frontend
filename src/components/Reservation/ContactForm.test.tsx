@@ -1,12 +1,12 @@
-import { getByText, render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import ContactForm from "./ContactForm";
 
 test("on initial render, the book reservation button is disabled", () => {
   const { getByTestId } = render(
     <ContactForm
-      addShowContactForm={jest.fn}
+      toggleCalendarForm={jest.fn}
       addContactInfo={jest.fn}
-      addShowConfirmation={jest.fn}
+      toggleConfirmationPage={jest.fn}
     />
   );
 

@@ -57,8 +57,10 @@ const CalendarForm = (props: ICalendarFormProps) => {
                 onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                   props.handleAmountChange(parseInt(e.target.value))
                 }
+                value={props.reservation.guests}
               >
-                <option value=''>Antal</option>
+                <option value='0'>Antal</option>
+                <option value='1'>1 person</option>
                 <option value='2'>2 personer</option>
                 <option value='3'>3 personer</option>
                 <option value='4'>4 personer</option>

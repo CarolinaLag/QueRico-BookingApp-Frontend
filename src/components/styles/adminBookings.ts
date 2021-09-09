@@ -30,6 +30,7 @@ export const AddAdminReservationButtonContainer = styled.div`
 
 export const AddAdminReservationButton = styled.button`
   position: fixed;
+  //top: 80px;
   bottom: 0;
   width: 100%;
   z-index: 100;
@@ -41,6 +42,7 @@ export const AddAdminReservationButton = styled.button`
   padding: 5px;
   background-color: #eebc1d;
   margin: 0.25px;
+  //width: 150px;
   width: 100%;
   height: 40px;
   font-weight: bold;
@@ -78,6 +80,8 @@ export const ReservationListWrapper = styled.div`
   justify-content: center;
   @media screen and (min-width: 1024px) {
     width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 `;
 
@@ -87,7 +91,7 @@ export const ReservationItemWrapper = styled.div`
   margin: 10px;
   padding: 10px;
   @media screen and (min-width: 1024px) {
-    width: 170px;
+    width: 300px;
     flex: 1 1 30%;
   }
 `;

@@ -14,6 +14,18 @@ export const BookingCalendarWrapper = styled.div`
   @media screen and (min-width: 1024px) {
     padding: 2% 3% 10% 3%;
   }
+  .react-calendar {
+    border-radius: 5px;
+  }
+  .react-calendar__tile--active {
+    background-color: #eebc1d;
+    color: black;
+  }
+  select {
+    border-radius: 5px;
+    border: 1px solid #eebc1d;
+    height: 40px;
+  }
 `;
 
 export const BookingCalendarSection = styled.div`
