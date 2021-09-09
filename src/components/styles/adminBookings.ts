@@ -77,9 +77,7 @@ export const ReservationListWrapper = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  //justify-content: space-between;
   justify-content: center;
-  //width: 70%;
   @media screen and (min-width: 1024px) {
     width: 100%;
     display: grid;
@@ -88,8 +86,6 @@ export const ReservationListWrapper = styled.div`
 `;
 
 export const ReservationItemWrapper = styled.div`
-  //display: flex;
-  // justify-content: column;
   flex: 1 1 50%;
   background: white;
   margin: 10px;

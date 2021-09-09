@@ -1,9 +1,7 @@
 import moment from "moment";
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import Calendar from "react-calendar";
-
 import { CalendarSection, SelectGuestDropDown } from "../styles/adminBookings";
-
 import { IAddReservation } from "../../interface/interface";
 
 import {
@@ -143,11 +141,6 @@ const AddReservation = (props: IAddReservationProps) => {
     });
   };
 
-  const goBackToReservationListButton = () => {
-    props.showReservationCalendarPage();
-    props.showReservationListPage();
-    props.resetReservation();
-  };
   const goBackToCalendarFormButton = (
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -161,7 +154,6 @@ const AddReservation = (props: IAddReservationProps) => {
     <>
       {props.showCalendarForm ? (
         <>
-          <Button onClick={goBackToReservationListButton}>Tillbaka</Button>
           <HeadingWrapper>
             <h1>Lägga till ny bokning </h1>
           </HeadingWrapper>

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { Header } from "./styles/global";
+import { Button, Header } from "./styles/global";
+import { NotFoundPageWrapper } from "./styles/pageNotFound";
 
 const PageNotFound = () => {
   return (
@@ -7,8 +8,12 @@ const PageNotFound = () => {
       <Header>
         <h1>Något gick fel</h1>
       </Header>
-      <p>Oj, något gick fel</p>
-      <Link to={"/"}>Tillbaka</Link>
+      <NotFoundPageWrapper>
+        <p>Oj, något gick fel</p>
+        <Button>
+          <Link to={"/"}>Tillbaka</Link>
+        </Button>
+      </NotFoundPageWrapper>
     </>
   );
 };
