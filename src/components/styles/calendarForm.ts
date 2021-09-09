@@ -26,6 +26,11 @@ export const BookingCalendarWrapper = styled.div`
     border: 1px solid #eebc1d;
     height: 40px;
   }
+  p.errorMessage {
+    margin-top: 20px;
+    color: red;
+    text-align: center;
+  }
 `;
 
 export const BookingCalendarSection = styled.div`

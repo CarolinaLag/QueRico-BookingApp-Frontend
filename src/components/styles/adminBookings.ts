@@ -8,6 +8,11 @@ export const AdminBookingsWrapper = styled.div`
   font-weight: bold;
   margin-bottom: 20px;
   padding-bottom: 20px;
+  p.errorMessage {
+    margin-top: 20px;
+    color: red;
+    text-align: center;
+  }
 `;
 
 export const CalenderWrapper = styled.div`

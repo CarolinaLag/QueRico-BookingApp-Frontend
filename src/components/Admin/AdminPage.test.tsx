@@ -15,7 +15,7 @@ const mockData: IReservation[] = [
     ContactInfo: {
       firstname: "Carlos",
       lastname: "Rodriguez",
-      email: "carlos.rodriguez@email.com",
+      email: "rodriguez@email.com",
       phoneNumber: parseInt("0707383858"),
     },
   },

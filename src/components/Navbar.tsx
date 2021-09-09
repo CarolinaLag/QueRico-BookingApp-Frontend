@@ -5,17 +5,17 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <Nav>
-      <Logo>!Que Rico!</Logo>
+      <Logo>¡Que Rico!</Logo>
       <Hamburger onClick={() => setIsOpen(!isOpen)}>
         <span />
         <span />
         <span />
       </Hamburger>
       <Menu isOpen={isOpen}>
-        <MenuLink href="/">Hem</MenuLink>
-        <MenuLink href="/meny">Meny</MenuLink>
-        <MenuLink href="/booking">Boka bord</MenuLink>
-        <MenuLink href="/kontakt">Kontakta oss</MenuLink>
+        <MenuLink href='/'>Hem</MenuLink>
+        <MenuLink href='/meny'>Meny</MenuLink>
+        <MenuLink href='/booking'>Boka bord</MenuLink>
+        <MenuLink href='/kontakt'>Kontakta oss</MenuLink>
       </Menu>
     </Nav>
   );

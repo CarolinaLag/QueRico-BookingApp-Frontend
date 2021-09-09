@@ -50,5 +50,3 @@ test("render button for 5PM but not for 7PM when the response from backend sends
     expect(button).toBeInTheDocument();
   });
 });
-
-test("Component contactform should render when pressing a timeslot", () => {});

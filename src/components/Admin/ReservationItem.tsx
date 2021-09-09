@@ -15,10 +15,11 @@ const ReservationItem = (props: IReservationProps) => {
       <ReservationItemStyle>
         <p>{props.reservation.ContactInfo.firstname}</p>
         <p>{props.reservation.ContactInfo.lastname}</p>
+        <p>Kl: {props.reservation.timeSlot}</p>
         <p>{props.reservation.ContactInfo.email}</p>
         <p>{props.reservation.ContactInfo.phoneNumber}</p>
         <Button
-          data-testid="detailButton"
+          data-testid='detailButton'
           onClick={() => {
             props.showDetailsPage();
             props.setDetailedReservation(props.reservation);

@@ -19,6 +19,7 @@ interface IReservationListProps {
   setDetailedReservation(reservation: IReservation): void;
   showReservationListPage(): void;
   selectedDate: string;
+  errorMessage: string;
 }
 
 const Bookings = (props: IReservationListProps) => {
@@ -50,6 +51,7 @@ const Bookings = (props: IReservationListProps) => {
               onChange={props.handleCalendarChange}
             />
           </CalendarSection>
+          <p className='errorMessage'>{props.errorMessage}</p>
           <ReservationListWrapper>{reservationItems}</ReservationListWrapper>
         </AdminBookingsWrapper>
       </CalenderWrapper>
