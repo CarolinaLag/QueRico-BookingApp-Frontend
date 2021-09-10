@@ -13,7 +13,7 @@ Examples of functionality of the Restaurant is:
 - Reservations is reflected in MongoDB.
 
 <img width="221" alt="Picture of Decorative products" src="https://user-images.githubusercontent.com/69104443/132841309-dd564c6d-4c75-48a8-a8f7-ff78859baeca.jpg" />
-<img width="321" alt="Picture of Decorative products" src="https://user-images.githubusercontent.com/69104443/132842432-5b3bdefe-eed5-402c-8e13-938a815b25c4.jpg" />
+<img width="221" alt="Picture of Decorative products" src="https://user-images.githubusercontent.com/69104443/132842432-5b3bdefe-eed5-402c-8e13-938a815b25c4.jpg" />
 <img width="521" alt="Picture of Decorative products" src="https://user-images.githubusercontent.com/69104443/132842702-08170680-3811-4434-933c-8e325d288ee0.jpg" />
 
 
