@@ -1,20 +1,20 @@
-import moment from "moment";
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
-import Calendar from "react-calendar";
+import moment from 'moment';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import Calendar from 'react-calendar';
 import {
   CalendarInfoWrapper,
   CalendarSection,
   SelectGuestDropDown,
-} from "../styles/adminBookings";
-import { IAddReservation } from "../../interface/interface";
+} from '../styles/adminBookings';
+import { IAddReservation } from '../../interface/interface';
 
 import {
   ContactFormButtonWrapper,
   ContactFormContainer,
   ContactFormInfoWrapper,
   ContactFormInputsWrapper,
-} from "../styles/contactForm";
-import { Button, HeadingWrapper } from "../styles/global";
+} from '../styles/contactForm';
+import { Button, HeadingWrapper } from '../styles/global';
 
 interface IAddReservationProps {
   showReservationListPage(): void;
@@ -40,23 +40,24 @@ interface IAddReservationProps {
 }
 const AddReservation = (props: IAddReservationProps) => {
   const [input, setInput] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    phoneNumber: "",
+    firstname: '',
+    lastname: '',
+    email: '',
+    phoneNumber: '',
     checkbox: false,
   });
 
   const [error, setError] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    phoneNumber: "",
+    firstname: '',
+    lastname: '',
+    email: '',
+    phoneNumber: '',
   });
 
   const firstUpdate = useRef(true);
 
   useEffect(() => {
+    //Validera inte vid första rendering, annars ändra till false så att validation funktionen körs
     if (firstUpdate.current) {
       firstUpdate.current = false;
       return;
@@ -67,50 +68,50 @@ const AddReservation = (props: IAddReservationProps) => {
 
   const validation = () => {
     let errorMessages = {
-      firstname: "",
-      lastname: "",
-      email: "",
-      phoneNumber: "",
+      firstname: '',
+      lastname: '',
+      email: '',
+      phoneNumber: '',
     };
-    if (input.firstname === "") {
-      errorMessages.firstname = "Förnamn saknas";
+    if (input.firstname === '') {
+      errorMessages.firstname = 'Förnamn saknas';
     } else {
       if (input.firstname.length > 20 || input.firstname.length < 2) {
         errorMessages.firstname =
-          "Förnamn måste vara minst 2 och max 20 tecken";
+          'Förnamn måste vara minst 2 och max 20 tecken';
       } else {
-        errorMessages.firstname = "";
+        errorMessages.firstname = '';
       }
     }
-    if (input.lastname === "") {
-      errorMessages.lastname = "Efternamn saknas";
+    if (input.lastname === '') {
+      errorMessages.lastname = 'Efternamn saknas';
     } else {
       if (input.lastname.length > 20 || input.lastname.length < 2) {
         errorMessages.lastname =
-          "Efternamn måste vara minst 2 och max 20 tecken";
+          'Efternamn måste vara minst 2 och max 20 tecken';
       } else {
-        errorMessages.lastname = "";
+        errorMessages.lastname = '';
       }
     }
-    if (input.email === "") {
-      errorMessages.email = "Email saknas";
+    if (input.email === '') {
+      errorMessages.email = 'Email saknas';
     } else {
       if (!/\S+@\S+\.\S+/.test(input.email)) {
-        errorMessages.email = "Email har ogiltigt format";
+        errorMessages.email = 'Email har ogiltigt format';
       } else {
-        errorMessages.email = "";
+        errorMessages.email = '';
       }
     }
-    if (input.phoneNumber === "") {
-      errorMessages.phoneNumber = "Telefonnummer saknas";
+    if (input.phoneNumber === '') {
+      errorMessages.phoneNumber = 'Telefonnummer saknas';
     } else {
       if (!/^[0-9]*$/.test(input.phoneNumber)) {
-        errorMessages.phoneNumber = "Telefonnummer har ogiltigt format";
+        errorMessages.phoneNumber = 'Telefonnummer har ogiltigt format';
       } else {
         if (input.phoneNumber.length > 20) {
-          errorMessages.phoneNumber = "Telefonummer måste vara 20 tecken";
+          errorMessages.phoneNumber = 'Telefonummer måste vara 20 tecken';
         } else {
-          errorMessages.phoneNumber = "";
+          errorMessages.phoneNumber = '';
         }
       }
     }
@@ -137,10 +138,10 @@ const AddReservation = (props: IAddReservationProps) => {
       input.phoneNumber
     );
     setInput({
-      firstname: "",
-      lastname: "",
-      email: "",
-      phoneNumber: "",
+      firstname: '',
+      lastname: '',
+      email: '',
+      phoneNumber: '',
       checkbox: false,
     });
   };
@@ -173,65 +174,65 @@ const AddReservation = (props: IAddReservationProps) => {
             <form>
               <Calendar
                 minDate={new Date(props.bookingDate)}
-                maxDate={moment().add(2, "months").toDate()}
+                maxDate={moment().add(2, 'months').toDate()}
                 showWeekNumbers={true}
                 value={new Date(props.addReservation.date)}
                 onChange={(date: Date) => {
-                  props.handleDateChange(moment(date).format("YYYY-MM-DD"));
+                  props.handleDateChange(moment(date).format('YYYY-MM-DD'));
                 }}
               />
 
               <div>
                 <SelectGuestDropDown
-                  name='amount'
+                  name="amount"
                   onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                     props.handleAmountChange(parseInt(e.target.value))
                   }
                   value={props.addReservation.guests}
                 >
-                  <option value='0'>Antal</option>
-                  <option value='1'>1 person</option>
-                  <option value='2'>2 personer</option>
-                  <option value='3'>3 personer</option>
-                  <option value='4'>4 personer</option>
-                  <option value='5'>5 personer</option>
-                  <option value='6'>6 personer</option>
-                  <option value='7'>7 personer</option>
-                  <option value='8'>8 personer</option>
-                  <option value='9'>9 personer</option>
-                  <option value='10'>10 personer</option>
-                  <option value='11'>11 personer</option>
-                  <option value='12'>12 personer</option>
-                  <option value='13'>13 personer</option>
-                  <option value='14'>14 personer</option>
-                  <option value='15'>15 personer</option>
-                  <option value='16'>16 personer</option>
-                  <option value='17'>17 personer</option>
-                  <option value='18'>18 personer</option>
-                  <option value='19'>19 personer</option>
-                  <option value='20'>20 personer</option>
+                  <option value="0">Antal</option>
+                  <option value="1">1 person</option>
+                  <option value="2">2 personer</option>
+                  <option value="3">3 personer</option>
+                  <option value="4">4 personer</option>
+                  <option value="5">5 personer</option>
+                  <option value="6">6 personer</option>
+                  <option value="7">7 personer</option>
+                  <option value="8">8 personer</option>
+                  <option value="9">9 personer</option>
+                  <option value="10">10 personer</option>
+                  <option value="11">11 personer</option>
+                  <option value="12">12 personer</option>
+                  <option value="13">13 personer</option>
+                  <option value="14">14 personer</option>
+                  <option value="15">15 personer</option>
+                  <option value="16">16 personer</option>
+                  <option value="17">17 personer</option>
+                  <option value="18">18 personer</option>
+                  <option value="19">19 personer</option>
+                  <option value="20">20 personer</option>
                 </SelectGuestDropDown>
 
                 {props.showTimeSlotOne ? (
                   <Button
-                    name='timeslot'
-                    value='17:00'
+                    name="timeslot"
+                    value="17:00"
                     onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
                       props.handleTimeslotChange(e.currentTarget.value)
                     }
-                    type='button'
+                    type="button"
                   >
                     17:00
                   </Button>
                 ) : null}
                 {props.showTimeSlotTwo ? (
                   <Button
-                    name='timeslot'
-                    value='19:00'
+                    name="timeslot"
+                    value="19:00"
                     onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
                       props.handleTimeslotChange(e.currentTarget.value)
                     }
-                    type='button'
+                    type="button"
                   >
                     19:00
                   </Button>
@@ -239,7 +240,7 @@ const AddReservation = (props: IAddReservationProps) => {
               </div>
               <CalendarInfoWrapper>
                 <p>{props.message}</p>
-                <Button type='button' onClick={goBackToReservationListButton}>
+                <Button type="button" onClick={goBackToReservationListButton}>
                   Tillbaka
                 </Button>
               </CalendarInfoWrapper>
@@ -256,38 +257,38 @@ const AddReservation = (props: IAddReservationProps) => {
             <form>
               <ContactFormInputsWrapper>
                 <input
-                  type='text'
-                  name='firstname'
+                  type="text"
+                  name="firstname"
                   required
                   minLength={2}
                   maxLength={20}
-                  placeholder='Förnamn'
+                  placeholder="Förnamn"
                   value={input.firstname}
                   onChange={handleChange}
                 />
                 {error.firstname && <small>{error.firstname}</small>}
                 <input
-                  type='text'
-                  name='lastname'
+                  type="text"
+                  name="lastname"
                   maxLength={20}
-                  placeholder='Efternamn'
+                  placeholder="Efternamn"
                   value={input.lastname}
                   onChange={handleChange}
                 />
                 {error.lastname && <small>{error.lastname}</small>}
                 <input
-                  type='email'
-                  name='email'
+                  type="email"
+                  name="email"
                   maxLength={40}
-                  placeholder='querico@email.com'
+                  placeholder="querico@email.com"
                   value={input.email}
                   onChange={handleChange}
                 />
                 {error.email && <small>{error.email}</small>}
                 <input
-                  type='text'
-                  name='phoneNumber'
-                  placeholder='0707245678'
+                  type="text"
+                  name="phoneNumber"
+                  placeholder="0707245678"
                   maxLength={20}
                   value={input.phoneNumber}
                   onChange={handleChange}
