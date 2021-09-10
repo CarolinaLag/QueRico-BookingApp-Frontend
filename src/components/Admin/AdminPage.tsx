@@ -136,6 +136,7 @@ const AdminPage = () => {
           setReservationEditMessage("");
           showEditPage();
           showReservationListPage();
+          setSelectedDate(response.data.reservations[0].date);
         } else {
           setReservationEditMessage("Det finns inga bord lediga.");
         }
