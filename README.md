@@ -8,7 +8,7 @@ Examples of functionality of the Restaurant is:
 
 - Book a table and possibility to choose by date, amount of guests and time. 
 - Mail are sent to the customer when reservations are done, cancelled or edited. 
-- Only admin roles can create, edit and delete reservations.
+- Only admin route can create, edit and delete reservations.
 - Sort the reservations by date for admin view.
 - Reservations is reflected in MongoDB.
 
