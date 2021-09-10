@@ -1,3 +1,39 @@
+# Que rico restaurant booking App
+
+_A restaurant booking app with its own API using Nodejs and Express & React with TypeScript in client side_
+
+---
+
+## Dependencies
+
+- mongoose
+- express
+- dotenv
+- nodemailer
+- animate.css
+- axios
+- moment
+- react animation on scroll
+- react loader spinner
+- react calendar
+- react modal
+- styled components
+- react router dom
+
+## Usage .env
+
+Create a .env file in the root directory of your project. Then add environment-specific variables on new lines in the form of `NAME=VALUE`. Replace {value} with your own data. For example:
+
+```
+MONGODB_URI= {value}
+PORT= {value}
+ADMIN_EMAIL= {value}
+PASS = {value}
+
+```
+
+**This app use the database MongoDB, to be able to setup your own database, please go to MongoDB Atlas to create an account.**
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
