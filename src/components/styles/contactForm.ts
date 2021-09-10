@@ -4,16 +4,17 @@ export const ContactFormContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 40px;
-  //   @media screen and (min-width: 1024px) {
-  //     width: 30%;
-  //   }
+  margin: 0px ​40px 40px 40px;
+  @media screen and (min-width: 1024px) {
+    padding: 2% 3% 10% 3%;
+  }
 `;
 
 export const ContactFormInputsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 
   input {
     width: 300px;
@@ -22,29 +23,55 @@ export const ContactFormInputsWrapper = styled.div`
     background-color: #fcfcfc;
     border: none;
     padding: 20px;
+    font-family: "Roboto", sans-serif;
+  }
+
+  input:first-of-type {
+    border-radius: 5px 5px 0px 0px;
+  }
+  input:last-of-type {
+    border-radius: 0px 0px 5px 5px;
   }
 
   small {
     color: red;
   }
+  .react-calendar {
+    border-radius: 5px;
+  }
+  .react-calendar__tile--active {
+    background-color: #eebc1d;
+    color: black;
+  }
+  .react-calendar__tile--active {
+    background-color: #eebc1d;
+    color: black;
+  }
+  select {
+    border-radius: 5px;
+    border: none;
+    height: 40px;
+  }
 `;
 
 export const ContactFormButtonWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  width: 100vw;
+  justify-content: space-evenly;
   align-items: center;
   padding: 10px;
 
-  a {
+  @media screen and (min-width: 1024px) {
+    width: 28vw;
+  }
+
+  button {
     color: black;
     border: none;
     border-radius: 5px;
     border: none;
     cursor: pointer;
-    padding-left: 25px;
-    padding-top: 12px;
     background-color: #eebc1d;
-    margin: 0.25px;
     width: 100px;
     height: 40px;
     text-decoration: none;
@@ -56,13 +83,46 @@ export const ContactFormButtonWrapper = styled.div`
   }
 `;
 
+export const EditButtonsWrapper = styled(ContactFormButtonWrapper)`
+  width: auto;
+`;
+
 export const ContactFormInfoWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  color: white;
+
+  padding: 5%;
+  @media screen and (min-width: 1024px) {
+    padding: 2%;
+  }
+`;
+
+export const BookingContactFormInfoWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: black;
+
+  padding: 5%;
+  @media screen and (min-width: 1024px) {
+    padding: 2%;
+  }
 `;
 
 export const GdprWrapper = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 85%;
+  padding: 3% 0%;
+  input {
+    width: auto;
+  }
+  @media screen and (min-width: 1024px) {
+    width: 80%;
+  }
 `;

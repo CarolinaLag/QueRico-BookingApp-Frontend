@@ -1,25 +1,23 @@
-import { Link } from "react-router-dom";
-import { NavbarWrapper } from "./styles/navbar";
+import React, { useState } from "react";
+import { Hamburger, Logo, Menu, MenuLink, Nav } from "./styles/navbar";
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <>
-      <NavbarWrapper>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/booking">Book a table</Link>
-            </li>
-            <li>
-              <Link to="/bookings">Bookings</Link>
-            </li>
-          </ul>
-        </nav>
-      </NavbarWrapper>
-    </>
+    <Nav>
+      <Logo>¡Que Rico!</Logo>
+      <Hamburger onClick={() => setIsOpen(!isOpen)}>
+        <span />
+        <span />
+        <span />
+      </Hamburger>
+      <Menu isOpen={isOpen}>
+        <MenuLink href='/'>Hem</MenuLink>
+        <MenuLink href='/meny'>Meny</MenuLink>
+        <MenuLink href='/booking'>Boka bord</MenuLink>
+        <MenuLink href='/kontakt'>Kontakta oss</MenuLink>
+      </Menu>
+    </Nav>
   );
 };
 
