@@ -1,9 +1,9 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { BookingConfirmationWrapper } from '../styles/bookingConfirmation';
-import { Header, LinkStyle } from '../styles/global';
-import Loader from 'react-loader-spinner';
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { BookingConfirmationWrapper } from "../styles/bookingConfirmation";
+import { Header, LinkStyle } from "../styles/global";
+import Loader from "react-loader-spinner";
 
 interface IParams {
   id: string;
@@ -14,13 +14,15 @@ const CancelReservation = () => {
 
   const [cancelReservationResponse, setCancelReservationResponse] = useState({
     loading: false,
-    message: '',
+    message: "",
   });
 
   useEffect(() => {
-    axios.delete<string>(`http://localhost:3001/delete/${id}`).then((res) => {
-      setCancelReservationResponse({ loading: true, message: res.data });
-    });
+    axios
+      .delete<string>(`https://que-rico-app.herokuapp.com/delete/${id}`)
+      .then((res) => {
+        setCancelReservationResponse({ loading: true, message: res.data });
+      });
   }, [id]);
 
   return (
@@ -32,10 +34,10 @@ const CancelReservation = () => {
         {cancelReservationResponse.loading ? (
           <h2>{cancelReservationResponse.message}</h2>
         ) : (
-          <Loader type={'Circles'} color="#eebc1d" height={50} width={50} />
+          <Loader type={"Circles"} color="#eebc1d" height={50} width={50} />
         )}
         {cancelReservationResponse.loading ? (
-          <LinkStyle style={{ marginTop: '20px' }} href="/">
+          <LinkStyle style={{ marginTop: "20px" }} href="/">
             Tillbaka
           </LinkStyle>
         ) : null}
