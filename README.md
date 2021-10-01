@@ -6,6 +6,12 @@ _Server side repository: [https://github.com/CarolinaLag/QueRico-BookingApp-Back
 
 ---
 
+***
+## Live 
+=> https://que-rico-client-app.herokuapp.com/
+
+***
+
 Examples of functionality of the Restaurant is:
 
 - Book a table and possibility to choose by date, amount of guests and time. 
