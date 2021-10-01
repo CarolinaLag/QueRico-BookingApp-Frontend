@@ -6,7 +6,6 @@ _Server side repository: [https://github.com/CarolinaLag/QueRico-BookingApp-Back
 
 ---
 
-***
 ## Live 
 => https://que-rico-client-app.herokuapp.com/
 
